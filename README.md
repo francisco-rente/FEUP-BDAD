@@ -2,7 +2,7 @@
 
 ## Members
 - António Ribeiro (up201906761@fe.up.pt)
-- Gabriel Martins (up2019@fe.up.pt)
+- Gabriel Martins (up201906072@fe.up.pt)
 - Tomás Vicente (up201904609@fe.up.pt)
 
 
