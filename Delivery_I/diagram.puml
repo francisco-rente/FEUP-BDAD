@@ -121,7 +121,7 @@ class Data {
 
 'Diferentes pessoas'
 Pessoa <|---- Trabalhador
-Pessoa <|--- Voluntario
+Pessoa <|----- Voluntario
 Pessoa <|---- Necessitado
 
 'Diferentes trabalhadores'
@@ -143,6 +143,9 @@ Produto <|---- ProdutoHigiene
 Produto <|---- ProdutoVestuario
 
 'Diferentes funções'
+Voluntario "*" ---- "0..1" Armazem
+Voluntario "*" ----- "0..1" Abrigo
+Orientador "1" ----- "*" Apoio
 Orientador "1" - "*" Voluntario
 (Orientador, Voluntario) ... Formação
 
@@ -152,6 +155,7 @@ DoacaoMaterial "*" ---- "1..*" Produto
 DoacaoMonetaria <|--- DoacaoMonetariaRecorrente
 
 'Receber'
+Apoio "*" - "1" Necessitado
 ApoioMaterial "*" ---- "1..*" Produto
 
 'Alojamento'
