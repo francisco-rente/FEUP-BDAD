@@ -29,9 +29,7 @@ class Administrador {
     numeroEscritorio : Int
 }
 
-class Rececionista {
-    extensaoTelefonica : Int
-}
+class Orientador {}
 
 class Necessitado {}
 
@@ -123,12 +121,12 @@ class Data {
 
 'Diferentes pessoas'
 Pessoa <|---- Trabalhador
-Pessoa <|--- Voluntário
+Pessoa <|--- Voluntario
 Pessoa <|---- Necessitado
 
 'Diferentes trabalhadores'
 Trabalhador <|---- Administrador
-Trabalhador <|---- Rececionista
+Trabalhador <|---- Orientador
 
 'Diferentes doações'
 Doacao <|---- DoacaoMaterial
@@ -143,6 +141,10 @@ Apoio <|----- ApoioAlojamento
 Produto <|---- ProdutoAlimentar
 Produto <|---- ProdutoHigiene
 Produto <|---- ProdutoVestuario
+
+'Diferentes funções'
+Orientador "1" - "*" Voluntario
+(Orientador, Voluntario) ... Formação
 
 'Doar'
 Doacao "*" --- "1" Pessoa
