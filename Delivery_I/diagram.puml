@@ -143,6 +143,7 @@ Produto <|---- ProdutoHigiene
 Produto <|---- ProdutoVestuario
 
 'Diferentes funções'
+Administrador "1" - "*" ContaBancaria
 Voluntario "*" ---- "0..1" Armazem
 Voluntario "*" ----- "0..1" Abrigo
 Orientador "1" ----- "*" Apoio
