@@ -2,7 +2,7 @@
 skinparam linetype ortho
 skinparam monochrome true
 hide circle
-skinparam Shadowing False\
+skinparam Shadowing False
 skinparam nodesep 100
 skinparam ranksep 100
 skinparam DefaultFontSize 20
@@ -76,7 +76,7 @@ class ProdutoVestuario {
 class Armazem {
     morada : Morada
     capacidadeTotal : Int
-    \capacidadeRestante : int
+    /capacidadeRestante : int
 }
 
 class Abrigo {
