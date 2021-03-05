@@ -32,17 +32,14 @@
 - Volunteers also related to supports?
 - Multiplicity in Needy-Support. Same support for multiple people?
 
-## WTF?
-### Why are we asking this?
-- Maximum capacity in shelter.
 
-### What does this even mean? 
-- Donation.data in validation checking, can it be used? 
-- Needy attributes 
-- Support requests
-- Medical Staff
-- Help priority status as needy attribute 
-- Support request, needy and support- triple???
+### What does this even mean? Redux
+- Can the variable attribute Donation.data be used when checking the expiration date of a product (constraint)? (already mentioned)
+- Should the Needy class have any attributes? If so, which ones?
+- Should there be a class named Support Requests that interconnects the Needy and Support classes? (already mentioned)
+- If we do add the class mentioned above, what type of relation would be most adequate? Triple, association? (already mentioned)
 
 ## Possible additions
-- Advisor has to approve a given project (association? Attribute??)
+- Advisor has to approve a given project (association? Attribute??);
+- Medical Staff, that allows the creation of a new Support (Health) that may include HealthProducts, Phycology Services etc;
+- Variable attribute "priority" that somehow mimics the different levels of priority a person should have on an imaginary "support queue" (each person is assigned one according to their needs);
