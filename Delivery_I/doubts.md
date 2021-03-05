@@ -13,3 +13,6 @@
 - Number of people a advisor can guide < 10 at the same time, define it as constraint??
 - What should the name of relations describe (are the classes' names self explanatory)
 - Post-its explaining the subtexts of the classes
+
+# Possible additions
+- Advisor has to approve a given project (association? Attribute??)
