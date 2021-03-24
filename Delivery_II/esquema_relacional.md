@@ -14,21 +14,17 @@
 
 
 ## Classes de herança
-
 ### Staff
-
 
 - [Pessoa(<u>pessoa_id</u>,primeiroNome, ultimoNome, NIF, dataNascimento, numeroTelefone, morada, codigoZona->Localidade)]
 
 - Necessitado(<u>pessoa_id</u>->Pessoa.pessoa_id, rendimento)
-
 - Voluntario(<u>pessoa_id</u>->Pessoa.pessoa_id)
 
 
 - Trabalhador(<u>pessoa_id</u>->Pessoa.pessoa_id,  horarioInicio, horarioFim, /horasDiarias)
     - mudar para OO possivelmente
 - Orientador(<u>pessoa_id</u>->Trabalhador.pessoa_id)
-
 - Administrador(<u>pessoa_id</u>->Trabalhador.pessoa_id, numeroEscritorio)
 
 
@@ -58,9 +54,7 @@
 - TipoAlimentar(<u>tipo</u>)
 - TipoDoProdutoAlimentar(<u>produto_id</u>->ProdutoAlimentar.produto_id, tipo->TipoAlimentar)
 
-
 ## Classes individuais
-
 - Localidade(<u>codigoZona</u>, nome)
 - Pais(<u>codigoPais</u>, nome)
 - PedidoApoio(<u>pedidoApoio_id</u>, justificacao, tipo, prioridade, pessoa_id->Administrador.pessoa_id)
@@ -68,10 +62,7 @@
 - LocalidadeEmPais(<u>codigoZona</u>->Localidade, codigoPais->Pais)
 - AbrigoLocalizaSe(<u>codigoZona</u>->Localidade, abrigo_id->Abrigo)
 
-
-
 ## Outras Relacoes
-
 - PessoaContribuiDoacao(<u>doacao_id</u>->Doacao, pessoa_id->Pessoa)
 - DoacaoMaterialContemProduto(<u>doacao_id</u>->Doacao, <u>produto_id</u>->Produto)
 - ProdutoIncluiApoioMaterial(<u>apoio_id</u>->Apoio, <u>produto_id</u>->Produto)
