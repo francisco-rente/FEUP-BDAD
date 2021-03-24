@@ -18,61 +18,61 @@
 ### Staff
 
 
-- [Pessoa(<ins>pessoa_id</ins>,primeiroNome, ultimoNome, NIF, dataNascimento, numeroTelefone, morada, codigoZona->Localidade)]
+- [Pessoa(<u>pessoa_id</u>,primeiroNome, ultimoNome, NIF, dataNascimento, numeroTelefone, morada, codigoZona->Localidade)]
 
-- Necessitado(<ins>pessoa_id</ins>->Pessoa.pessoa_id, rendimento)
+- Necessitado(<u>pessoa_id</u>->Pessoa.pessoa_id, rendimento)
 
-- Voluntario(<ins>pessoa_id</ins>->Pessoa.pessoa_id)
+- Voluntario(<u>pessoa_id</u>->Pessoa.pessoa_id)
 <br>
 
-- Trabalhador(<ins>pessoa_id</ins>->Pessoa.pessoa_id,  horarioInicio, horarioFim, /horasDiarias)
+- Trabalhador(<u>pessoa_id</u>->Pessoa.pessoa_id,  horarioInicio, horarioFim, /horasDiarias)
 - mudar para OO possivelmente
-- Orientador(<ins>pessoa_id</ins>->Trabalhador.pessoa_id)
+- Orientador(<u>pessoa_id</u>->Trabalhador.pessoa_id)
 
-- Administrador(<ins>pessoa_id</ins>->Trabalhador.pessoa_id, numeroEscritorio)
+- Administrador(<u>pessoa_id</u>->Trabalhador.pessoa_id, numeroEscritorio)
 
 
 ### Ações
 
-- [Doacao(<ins>id_doacao</ins>, data)]
-- DoacaoMaterial(<ins>id_doacao</ins>->Doacao.id_doacao)
-- DoacaoMonetaria(<ins>id_doacao</ins>->Doacao.id_doacao, valor, frequencia)
+- [Doacao(<u>id_doacao</u>, data)]
+- DoacaoMaterial(<u>id_doacao</u>->Doacao.id_doacao)
+- DoacaoMonetaria(<u>id_doacao</u>->Doacao.id_doacao, valor, frequencia)
 <br>
-- [Apoio(<ins>apoio_id</ins>, dataInicio, dataFim, pedidoApoio_id->PedidoApoio, pessoa_id->Orientador.pessoa_id)]
+- [Apoio(<u>apoio_id</u>, dataInicio, dataFim, pedidoApoio_id->PedidoApoio, pessoa_id->Orientador.pessoa_id)]
 - colocar UNIQUE
-- ApoioMonetario(<ins>apoio_id</ins>->Apoio.apoio_id, valor)
-- ApoioAlojamento(<ins>apoio_id</ins>->Apoio.apoio_id,abrigo_id->Abrigo)
+- ApoioMonetario(<u>apoio_id</u>->Apoio.apoio_id, valor)
+- ApoioAlojamento(<u>apoio_id</u>->Apoio.apoio_id,abrigo_id->Abrigo)
 - colocar NOTNULL
-- ApoioMaterial(<ins>apoio_id</ins>->Apoio.apoio_id)
+- ApoioMaterial(<u>apoio_id</u>->Apoio.apoio_id)
 
 
 ### Produtos
 
-- Produto(<ins>produto_id</ins>, nome, codigo, dimensao)
-- ProdutoHigiene(<ins>produto_id</ins>->Produto.produto_id, genero)
-- ProdutoVestuário(<ins>produto_id</ins>->Produto.produto_id, tamanho)
-- ProdutoAlimentar(<ins>produto_id</ins>->Produto.produto_id, dataValidade)
+- Produto(<u>produto_id</u>, nome, codigo, dimensao)
+- ProdutoHigiene(<u>produto_id</u>->Produto.produto_id, genero)
+- ProdutoVestuário(<u>produto_id</u>->Produto.produto_id, tamanho)
+- ProdutoAlimentar(<u>produto_id</u>->Produto.produto_id, dataValidade)
 <br>
-- TipoAlimentar(<ins>tipo</ins>)
-- TipoDoProdutoAlimentar(<ins>produto_id</ins>->ProdutoAlimentar.produto_id, tipo->TipoAlimentar)
+- TipoAlimentar(<u>tipo</u>)
+- TipoDoProdutoAlimentar(<u>produto_id</u>->ProdutoAlimentar.produto_id, tipo->TipoAlimentar)
 
 
 ## Classes individuais
 
-- Localidade(<ins>codigoZona</ins>, nome)
-- Pais(<ins>codigoPais</ins>, nome)
-- PedidoApoio(<ins>pedidoApoio_id</ins>, justificacao, tipo, prioridade, pessoa_id->Administrador.pessoa_id)
-- Abrigo(<ins>abrigo_id</ins>, morada, numeroCamas, /numeroCamasRestantes)
-- LocalidadeEmPais(<ins>codigoZona</ins>->Localidade, codigoPais->Pais)
-- AbrigoLocalizaSe(<ins>codigoZona</ins>->Localidade, abrigo_id->Abrigo)
+- Localidade(<u>codigoZona</u>, nome)
+- Pais(<u>codigoPais</u>, nome)
+- PedidoApoio(<u>pedidoApoio_id</u>, justificacao, tipo, prioridade, pessoa_id->Administrador.pessoa_id)
+- Abrigo(<u>abrigo_id</u>, morada, numeroCamas, /numeroCamasRestantes)
+- LocalidadeEmPais(<u>codigoZona</u>->Localidade, codigoPais->Pais)
+- AbrigoLocalizaSe(<u>codigoZona</u>->Localidade, abrigo_id->Abrigo)
 
 
 
 ## Outras Relacoes
 
-- PessoaContribuiDoacao(<ins>doacao_id</ins>->Doacao, pessoa_id->Pessoa)
-- DoacaoMaterialContemProduto(<ins>doacao_id</ins>->Doacao, <ins>produto_id</ins>->Produto)
-- ProdutoIncluiApoioMaterial(<ins>apoio_id</ins>->Apoio, <ins>produto_id</ins>->Produto)
+- PessoaContribuiDoacao(<u>doacao_id</u>->Doacao, pessoa_id->Pessoa)
+- DoacaoMaterialContemProduto(<u>doacao_id</u>->Doacao, <u>produto_id</u>->Produto)
+- ProdutoIncluiApoioMaterial(<u>apoio_id</u>->Apoio, <u>produto_id</u>->Produto)
 <br>
-- VoluntarioAjudaAbrigo(<ins>voluntario_id</ins>->Voluntario, abrigo_id->Abrigo)
-- VoluntarioParticipaApoio(<ins>voluntario_id</ins>->Voluntario, <ins>apoio_id</ins>->Apoio)
+- VoluntarioAjudaAbrigo(<u>voluntario_id</u>->Voluntario, abrigo_id->Abrigo)
+- VoluntarioParticipaApoio(<u>voluntario_id</u>->Voluntario, <u>apoio_id</u>->Apoio)
