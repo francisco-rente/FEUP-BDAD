@@ -1,78 +1,78 @@
 # Modelo relacional ONG
 
 ## Dúvidas
-<ul>
-<li>Verificar se constraints (NOT NULL) precisam de estar presentes;</li>
-<li>Tipo de produto->enum??</li>
-<li>Usar código do produto como primária para todos os produtos?</li>
-<li>Nomes mais descritivos nas relações?</li>
-<li>Como representar os cálculos derivados?</li>
-<li>Que informação incluir na avaliação de um pedido por um dado admin?</li>
-<li>De que forma se representa Trabalhador? OO ou prossegue-se o E/R anterior na hierarquia</li>
-<li>Vale a pena ter tantas relações para Voluntário?</li>
-<li>Problema da cascata com E/R</li>
-</ul>
+
+- Verificar se constraints (NOT NULL) precisam de estar presentes;
+- Tipo de produto->enum??
+- Usar código do produto como primária para todos os produtos?
+- Nomes mais descritivos nas relações?
+- Como representar os cálculos derivados?
+- Que informação incluir na avaliação de um pedido por um dado admin?
+- De que forma se representa Trabalhador? OO ou prossegue-se o E/R anterior na hierarquia
+- Vale a pena ter tantas relações para Voluntário?
+- Problema da cascata com E/R
+
 
 ## Classes de herança
 
 ### Staff
 
-<ul>
-<li>[Pessoa(<ins>pessoa_id</ins>,primeiroNome, ultimoNome, NIF, dataNascimento, numeroTelefone, morada, codigoZona->Localidade)]</li>
 
-<li>Necessitado(<ins>pessoa_id</ins>->Pessoa.pessoa_id, rendimento)</li>
+- [Pessoa(<ins>pessoa_id</ins>,primeiroNome, ultimoNome, NIF, dataNascimento, numeroTelefone, morada, codigoZona->Localidade)]
 
-<li>Voluntario(<ins>pessoa_id</ins>->Pessoa.pessoa_id)</li>
+- Necessitado(<ins>pessoa_id</ins>->Pessoa.pessoa_id, rendimento)
+
+- Voluntario(<ins>pessoa_id</ins>->Pessoa.pessoa_id)
 <br>
 
-<li>Trabalhador(<ins>pessoa_id</ins>->Pessoa.pessoa_id,  horarioInicio, horarioFim, /horasDiarias)</li>
-<ul><li>mudar para OO possivelmente</li></ul>
-<li>Orientador(<ins>pessoa_id</ins>->Trabalhador.pessoa_id)</li>
+- Trabalhador(<ins>pessoa_id</ins>->Pessoa.pessoa_id,  horarioInicio, horarioFim, /horasDiarias)
+- mudar para OO possivelmente
+- Orientador(<ins>pessoa_id</ins>->Trabalhador.pessoa_id)
 
-<li>Administrador(<ins>pessoa_id</ins>->Trabalhador.pessoa_id, numeroEscritorio)</li>
-</ul>
+- Administrador(<ins>pessoa_id</ins>->Trabalhador.pessoa_id, numeroEscritorio)
+
 
 ### Ações
-<ul>
-<li>[Doacao(<ins>id_doacao</ins>, data)]</li>
-<li>DoacaoMaterial(<ins>id_doacao</ins>->Doacao.id_doacao)</li>
-<li>DoacaoMonetaria(<ins>id_doacao</ins>->Doacao.id_doacao, valor, frequencia)</li>
+
+- [Doacao(<ins>id_doacao</ins>, data)]
+- DoacaoMaterial(<ins>id_doacao</ins>->Doacao.id_doacao)
+- DoacaoMonetaria(<ins>id_doacao</ins>->Doacao.id_doacao, valor, frequencia)
 <br>
-<li>[Apoio(<ins>apoio_id</ins>, dataInicio, dataFim, pedidoApoio_id->PedidoApoio, pessoa_id->Orientador.pessoa_id)]</li>
-<ul><li>colocar UNIQUE</li></ul>
-<li>ApoioMonetario(<ins>apoio_id</ins>->Apoio.apoio_id, valor)</li>
-<li>ApoioAlojamento(<ins>apoio_id</ins>->Apoio.apoio_id,abrigo_id->Abrigo)</li>
-<ul><li>colocar NOTNULL</li></ul>
-<li>ApoioMaterial(<ins>apoio_id</ins>->Apoio.apoio_id)</li>
-</ul>
+- [Apoio(<ins>apoio_id</ins>, dataInicio, dataFim, pedidoApoio_id->PedidoApoio, pessoa_id->Orientador.pessoa_id)]
+- colocar UNIQUE
+- ApoioMonetario(<ins>apoio_id</ins>->Apoio.apoio_id, valor)
+- ApoioAlojamento(<ins>apoio_id</ins>->Apoio.apoio_id,abrigo_id->Abrigo)
+- colocar NOTNULL
+- ApoioMaterial(<ins>apoio_id</ins>->Apoio.apoio_id)
+
 
 ### Produtos
-<ul>
-<li>Produto(<ins>produto_id</ins>, nome, codigo, dimensao)</li>
-<li>ProdutoHigiene(<ins>produto_id</ins>->Produto.produto_id, genero)</li>
-<li>ProdutoVestuário(<ins>produto_id</ins>->Produto.produto_id, tamanho)</li>
-<li>ProdutoAlimentar(<ins>produto_id</ins>->Produto.produto_id, dataValidade)</li>
+
+- Produto(<ins>produto_id</ins>, nome, codigo, dimensao)
+- ProdutoHigiene(<ins>produto_id</ins>->Produto.produto_id, genero)
+- ProdutoVestuário(<ins>produto_id</ins>->Produto.produto_id, tamanho)
+- ProdutoAlimentar(<ins>produto_id</ins>->Produto.produto_id, dataValidade)
 <br>
-<li>TipoAlimentar(<ins>tipo</ins>)</li>
-<li>TipoDoProdutoAlimentar(<ins>produto_id</ins>->ProdutoAlimentar.produto_id, tipo->TipoAlimentar)</li>
-</ul>
+- TipoAlimentar(<ins>tipo</ins>)
+- TipoDoProdutoAlimentar(<ins>produto_id</ins>->ProdutoAlimentar.produto_id, tipo->TipoAlimentar)
+
 
 ## Classes individuais
-<ul>
-<li>Localidade(<ins>codigoZona</ins>, nome)</li>
-<li>Pais(<ins>codigoPais</ins>, nome)</li>
-<li>PedidoApoio(<ins>pedidoApoio_id</ins>, justificacao, tipo, prioridade, pessoa_id->Administrador.pessoa_id)</li>
-<li>Abrigo(<ins>abrigo_id</ins>, morada, numeroCamas, /numeroCamasRestantes)</li>
-<li>LocalidadeEmPais(<ins>codigoZona</ins>->Localidade, codigoPais->Pais)</li>
-<li>AbrigoLocalizaSe(<ins>codigoZona</ins>->Localidade, abrigo_id->Abrigo)</li>
-</ul>
+
+- Localidade(<ins>codigoZona</ins>, nome)
+- Pais(<ins>codigoPais</ins>, nome)
+- PedidoApoio(<ins>pedidoApoio_id</ins>, justificacao, tipo, prioridade, pessoa_id->Administrador.pessoa_id)
+- Abrigo(<ins>abrigo_id</ins>, morada, numeroCamas, /numeroCamasRestantes)
+- LocalidadeEmPais(<ins>codigoZona</ins>->Localidade, codigoPais->Pais)
+- AbrigoLocalizaSe(<ins>codigoZona</ins>->Localidade, abrigo_id->Abrigo)
+
 
 
 ## Outras Relacoes
-<ul>
-<li>PessoaContribuiDoacao(<ins>doacao_id</ins>->Doacao, pessoa_id->Pessoa)</li>
-<li>DoacaoMaterialContemProduto(<ins>doacao_id</ins>->Doacao, <ins>produto_id</ins>->Produto)</li>
-<li>ProdutoIncluiApoioMaterial(<ins>apoio_id</ins>->Apoio, <ins>produto_id</ins>->Produto)</li>
+
+- PessoaContribuiDoacao(<ins>doacao_id</ins>->Doacao, pessoa_id->Pessoa)
+- DoacaoMaterialContemProduto(<ins>doacao_id</ins>->Doacao, <ins>produto_id</ins>->Produto)
+- ProdutoIncluiApoioMaterial(<ins>apoio_id</ins>->Apoio, <ins>produto_id</ins>->Produto)
 <br>
-<li>VoluntarioAjudaAbrigo(<ins>voluntario_id</ins>->Voluntario, abrigo_id->Abrigo)</li>
-<li>VoluntarioParticipaApoio(<ins>voluntario_id</ins>->Voluntario, <ins>apoio_id</ins>->Apoio)</li>
+- VoluntarioAjudaAbrigo(<ins>voluntario_id</ins>->Voluntario, abrigo_id->Abrigo)
+- VoluntarioParticipaApoio(<ins>voluntario_id</ins>->Voluntario, <ins>apoio_id</ins>->Apoio)
