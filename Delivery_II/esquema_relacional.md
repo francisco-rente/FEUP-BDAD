@@ -9,11 +9,11 @@
 - De que forma se representa Trabalhador? OO ou prossegue-se o E/R anterior na hierarquia
 - Vale a pena ter tantas relações para Voluntário?
 - Problema da cascata com E/R? CHECK
-- Apoio/PedidoApoio (unidirecional) de que forma conseguimos perceber que pedidos aprovados tiveram uma dada justificação
-(agora temos pedido aprovado através de apoio)?
-- MESMO PROBLEMA: que voluntário apoia um dado abrigo.
+- Admin/PedidoApoio (unidirecional) de que forma conseguimos perceber que pedidos aprovados tiveram uma dada justificação
+(agora temos pedido aprovado através de apoio)? CHECK
+- MESMO PROBLEMA: que voluntário apoia um dado abrigo. CHECK
 - FD e formas normais.
-- FD de entre tabelas derivadas (herdadas) EX: NIF->horarioTrabalhador?
+- FD de entre tabelas derivadas (herdadas) EX: NIF->horarioTrabalhador? NAO 
 - Chave Foreign pode ser NULL.
 
 ## Possíveis dependências funcionais
@@ -22,6 +22,8 @@
 - codigoProduto -> nome, dimensao
 - codigoProduto -> ?DataValidade, genero, tamanho?
 - Possivelmente trocar codigoProduto --> ProdutoId, de forma a codigo de produto levar a violações
+
+
 ## Classes de herança
 ### Staff
 
@@ -44,11 +46,13 @@
 
 
 ### Produtos
-
-- Produto(<u>id</u>, nome, codigo, dimensao)
-- ProdutoHigiene(<u>id</u>->Produto.id, genero)
-- ProdutoVestuário(<u>id</u>->Produto.id, tamanho)
-- ProdutoAlimentar(<u>id</u>->Produto.id, dataValidade)
+- E/R
+  - Produto(<u>id</u>, nome, codigo, dimensao)
+  - ProdutoHigiene(<u>id</u>->Produto.id, genero)
+  - ProdutoVestuário(<u>id</u>->Produto.id, tamanho)
+  - ProdutoAlimentar(<u>id</u>->Produto.id, dataValidade)
+- NULLS
+  - Produto(<u>id</u>, nome, codigo, dimensao, genero, tamanho, dataValidade)
 - TipoAlimentar(<u>tipo</u>)
 - TipoDoProdutoAlimentar(<u>id</u>->ProdutoAlimentar.id, tipo->TipoAlimentar)
 
@@ -57,7 +61,7 @@
 - Pais(<u>codigoPais</u>, nome)
 - PedidoApoio(<u>id</u>, justificacao, tipo, prioridade, id->Administrador.id)
 - Abrigo(<u>id</u>, morada, numeroCamas)
-- LocalidadeEmPais(<u>codigoZona</u>->Localidade, codigoPais->Pais)
+<!---- LocalidadeEmPais(<u>codigoZona</u>->Localidade, codigoPais->Pais)-->
 - AbrigoLocalizaSe(<u>codigoZona</u>->Localidade, abrigo_id->Abrigo)
 
 ## Outras Relacoes
