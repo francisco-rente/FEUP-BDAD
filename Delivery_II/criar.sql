@@ -1,6 +1,32 @@
 ---derivados 
+DROP TABLE IF EXISTS Pessoa 
+DROP TABLE IF EXISTS Necessitado 
+DROP TABLE IF EXISTS Voluntario 
+DROP TABLE IF EXISTS Orientador 
+DROP TABLE IF EXISTS Administrador 
+DROP TABLE IF EXISTS DoacaoMaterial 
+DROP TABLE IF EXISTS DoacaoMonetaria 
+DROP TABLE IF EXISTS Apoio 
+DROP TABLE IF EXISTS ApoioMonetario 
+DROP TABLE IF EXISTS ApoioAlojamento 
+DROP TABLE IF EXISTS ApoioMaterial 
+DROP TABLE IF EXISTS Produto 
+DROP TABLE IF EXISTS ProdutoHigiene 
+DROP TABLE IF EXISTS ProdutoVestuário 
+DROP TABLE IF EXISTS ProdutoAlimentar 
+DROP TABLE IF EXISTS TipoAlimentar 
+DROP TABLE IF EXISTS Localidade 
+DROP TABLE IF EXISTS Pais 
+DROP TABLE IF EXISTS PedidoApoio 
+DROP TABLE IF EXISTS Abrigo 
+DROP TABLE IF EXISTS LocalizacaoAbrigo 
+DROP TABLE IF EXISTS DoacaoMaterialContemProduto 
+DROP TABLE IF EXISTS ApoioMaterialIncluiProduto 
+DROP TABLE IF EXISTS VoluntarioParticipaApoio 
+DROP TABLE IF EXISTS PessoaContribuiDoacaoMaterial 
 
-CREATE TABLE Person(
+
+CREATE TABLE Pessoa(
     id INTEGER PRIMARY KEY,
     primeiroNome VARCHAR(64) NOT NULL, 
     ultimoNome VARCHAR(64), 
@@ -13,21 +39,24 @@ CREATE TABLE Person(
 
 CREATE TABLE Necessitado(
     id INTEGER REFERENCES Pessoa(id),
-    rendimento INTEGER,
-    CONSTRAINT rendimento_positivo CHECK(rendimento > 0),
+    rendimento REAL,
+    CONSTRAINT rendimento_positivo CHECK(rendimento >= 0),
+    CONSTRAINT rendimento_nao_aceitavel CHECK(rendimento < 665),
+    PRIMARY KEY (id),
+    --- perguntar se a limitacao e feita agora ou com triggers
 );
 
 CREATE TABLE Voluntario(
     id INTEGER REFERENCES Pessoa(id),
     abrigo INTEGER REFERENCES Abrigo(id),
-    CONSTRAINT pk_key PRIMARY KEY (id),
+    PRIMARY KEY (id),
 );
 
 CREATE TABLE Orientador(
     id INTEGER REFERENCES Pessoa(id),
     horarioInicio INTEGER, 
     horarioFim INTEGER,
-    CONSTRAINT pk_key PRIMARY KEY (id),
+    PRIMARY KEY (id),
     CONSTRAINT horasDiariasObrigatorias CHECK(horarioInicio < horarioFim),
 );
 
@@ -36,7 +65,7 @@ CREATE TABLE Administrador(
     horarioInicio DATE, 
     horarioFim DATE,
     numeroEscritorio INTEGER,
-    CONSTRAINT pk_key PRIMARY KEY (id),
+    PRIMARY KEY (id),
     CONSTRAINT horasDiariasObrigatorias CHECK(horarioInicio < horarioFim),
     --- horas derivadas 
 );
@@ -70,20 +99,20 @@ CREATE TABLE Apoio(
 CREATE TABLE ApoioMonetario(
     id INTEGER REFERENCES Apoio(id),
     valor INTEGER,
-    CONSTRAINT pk_key PRIMARY KEY (id),
+    PRIMARY KEY (id),
     CONSTRAINT valorPositivo CHECK(valor > 0),
-    ---valor deve ser suportado por fundos doacoes -a apoios
+    ---valor deve ser suportado por fundos doacoes - apoios-->triggers
 );
 
 CREATE TABLE ApoioAlojamento(
     id INTEGER REFERENCES Apoio(id),
     abrigo INTEGER REFERENCES Abrigo(id),
-    CONSTRAINT pk_key PRIMARY KEY (id),
+    PRIMARY KEY (id),
 );
 
 CREATE TABLE ApoioMaterial(
     id INTEGER REFERENCES Apoio(id),
-    CONSTRAINT pk_key PRIMARY KEY (id),
+    PRIMARY KEY (id),
 );
 
 CREATE TABLE Produto(
@@ -96,18 +125,22 @@ CREATE TABLE Produto(
 CREATE TABLE ProdutoHigiene(
     id REFERENCES Produto(id),
     genero VARCHAR(64),
+    PRIMARY KEY (id),
 );
 
 CREATE TABLE ProdutoVestuário(
     id REFERENCES Produto(id),
     tamanho VARCHAR(2),
+    PRIMARY KEY (id),
     ---ver se tamanho corresponde a uma das opcoes
+    CONSTRAINT tamanhoExistente CHECK(tamanho == 'XS' or tamanho == 'S' or tamanho == 'M' or tamanho == 'XL' or tamanho == 'XXL'),
 );
 
 CREATE TABLE ProdutoAlimentar(
     id REFERENCES Produto(id),
     dataValidade DATE,
-    CONSTRAINT pk_key PRIMARY KEY (id),
+    tipo VARCHAR(64) REFERENCES TipoAlimentar.tipo,
+    PRIMARY KEY (id),
     --- implementada na relacao CONSTRAINT validadeMinima CHECK(dataValidade >= )
 );
 
@@ -115,11 +148,6 @@ CREATE TABLE TipoAlimentar(
     tipo VARCHAR(64) PRIMARY KEY,
 );
 
-CREATE TABLE TipoDoProdutoAlimentar(
-    produto REFERENCES ProdutoAlimentar, 
-    tipo REFERENCES TipoAlimentar,
-    CONSTRAINT pk_key PRIMARY KEY (produto),
-);
 
 CREATE TABLE Localidade(
     codigoZona INTEGER PRIMARY KEY, 
@@ -158,25 +186,25 @@ CREATE TABLE LocalizacaoAbrigo(
 CREATE TABLE DoacaoMaterialContemProduto(
     doacao INTEGER REFERENCES DoacaoMaterial(id), 
     produto INTEGER REFERENCES Produto(id),
-    CONSTRAINT pk_key PRIMARY KEY (doacao, produto),
-    --- CONSTRAINT validadeMinima CHECK(produto.dataValidade >= doacao.dataDoacao + 1 mes )
+    PRIMARY KEY (doacao, produto),
+    --- triggers CONSTRAINT validadeMinima CHECK(produto.dataValidade >= doacao.dataDoacao + 1 mes )
 );
 
 CREATE TABLE ApoioMaterialIncluiProduto(
     produto INTEGER REFERENCES Produto(id), 
     apoio INTEGER REFERENCES Apoio(id),
-    CONSTRAINT pk_key PRIMARY KEY (produto, apoio),
+    PRIMARY KEY (produto, apoio),
 );
 
 CREATE TABLE VoluntarioParticipaApoio(
     voluntario INTEGER REFERENCES Voluntario(id), 
     apoio INTEGER REFERENCES Apoio(id),
-    CONSTRAINT pk_key PRIMARY KEY (voluntario, apoio),
+    PRIMARY KEY (voluntario, apoio),
 );
 
 CREATE TABLE PessoaContribuiDoacaoMaterial(
     doacaoMaterial INTEGER REFERENCES DoacaoMaterial(id),
     pessoa INTEGER REFERENCES Pessoa(id),
-    CONSTRAINT pk_key PRIMARY KEY (doacaoMaterial),
+    PRIMARY KEY (doacaoMaterial),
 );
 
