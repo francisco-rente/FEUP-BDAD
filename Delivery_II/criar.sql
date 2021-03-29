@@ -1,4 +1,4 @@
----derivados 
+---drop every table that could previously exist
 DROP TABLE IF EXISTS Pessoa 
 DROP TABLE IF EXISTS Necessitado 
 DROP TABLE IF EXISTS Voluntario 
@@ -26,6 +26,7 @@ DROP TABLE IF EXISTS VoluntarioParticipaApoio
 DROP TABLE IF EXISTS PessoaContribuiDoacaoMaterial 
 
 
+--define tables
 CREATE TABLE Pessoa(
     id INTEGER PRIMARY KEY,
     primeiroNome VARCHAR(64) NOT NULL, 
@@ -62,8 +63,8 @@ CREATE TABLE Orientador(
 
 CREATE TABLE Administrador(
     id INTEGER REFERENCES Pessoa(id),
-    horarioInicio DATE, 
-    horarioFim DATE,
+    horarioInicio INTEGER, 
+    horarioFim INTEGER,
     numeroEscritorio INTEGER,
     PRIMARY KEY (id),
     CONSTRAINT horasDiariasObrigatorias CHECK(horarioInicio < horarioFim),
@@ -94,7 +95,6 @@ CREATE TABLE Apoio(
     orientador INTEGER REFERENCES Orientador(id),
     CONSTRAINT dataCoerente CHECK(dataInicio < dataFim),
 );
-
 
 CREATE TABLE ApoioMonetario(
     id INTEGER REFERENCES Apoio(id),
@@ -141,7 +141,6 @@ CREATE TABLE ProdutoAlimentar(
     dataValidade DATE,
     tipo VARCHAR(64) REFERENCES TipoAlimentar.tipo,
     PRIMARY KEY (id),
-    --- implementada na relacao CONSTRAINT validadeMinima CHECK(dataValidade >= )
 );
 
 CREATE TABLE TipoAlimentar(
@@ -162,7 +161,7 @@ CREATE TABLE Pais(
 
 CREATE TABLE PedidoApoio(
     id INTEGER PRIMARY KEY, 
-    justificaco TEXT,
+    justificacao TEXT,
     tipo VARCHAR(64),
     prioridade INTEGER,
     administrador INTEGER REFERENCES Administrador(id),
@@ -173,21 +172,15 @@ CREATE TABLE Abrigo(
     id INTEGER PRIMARY KEY,
     morada VARCHAR(255),
     numeroCamas INTEGER,
+    codigoZona INTEGER REFERENCES Localidade(codigoZona),
     CONSTRAINT numeroCamasPositivo CHECK(numeroCamas > 0),
-    ---numero de camas restantes 
-    ---CONSTRAINT numeroCamasRestantesCoerente CHECK(numeroCamas >= numeroCamasRestantes)
 );
 
-CREATE TABLE LocalizacaoAbrigo(
-    codigoZona INTEGER PRIMARY KEY, 
-    abrigo INTEGER Abrigo(id),
-);
 
 CREATE TABLE DoacaoMaterialContemProduto(
     doacao INTEGER REFERENCES DoacaoMaterial(id), 
     produto INTEGER REFERENCES Produto(id),
     PRIMARY KEY (doacao, produto),
-    --- triggers CONSTRAINT validadeMinima CHECK(produto.dataValidade >= doacao.dataDoacao + 1 mes )
 );
 
 CREATE TABLE ApoioMaterialIncluiProduto(
@@ -208,3 +201,9 @@ CREATE TABLE PessoaContribuiDoacaoMaterial(
     PRIMARY KEY (doacaoMaterial),
 );
 
+
+--considerations
+--atributos derivados: numeroDeCamasRestantes, horas de trabalho 
+--triggers:
+-- triggers CONSTRAINT validadeMinima CHECK(produto.dataValidade >= doacao.dataDoacao + 1 mes ) at DoacaoMaterialContemProduto
+---triggers CONSTRAINT numeroCamasRestantesCoerente CHECK(numeroCamas >= numeroCamasRestantes) at Abrigo 
