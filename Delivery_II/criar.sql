@@ -12,7 +12,7 @@ DROP TABLE IF EXISTS ApoioAlojamento
 DROP TABLE IF EXISTS ApoioMaterial 
 DROP TABLE IF EXISTS Produto 
 DROP TABLE IF EXISTS ProdutoHigiene 
-DROP TABLE IF EXISTS ProdutoVestuário 
+DROP TABLE IF EXISTS ProdutoVestuario 
 DROP TABLE IF EXISTS ProdutoAlimentar 
 DROP TABLE IF EXISTS TipoAlimentar 
 DROP TABLE IF EXISTS Localidade 
@@ -128,7 +128,7 @@ CREATE TABLE ProdutoHigiene(
     PRIMARY KEY (id),
 );
 
-CREATE TABLE ProdutoVestuário(
+CREATE TABLE ProdutoVestuario(
     id REFERENCES Produto(id),
     tamanho VARCHAR(2),
     PRIMARY KEY (id),
