@@ -72,9 +72,10 @@ CREATE TABLE Voluntario
 --{id}->{horarioInicio, horarioFim}
 CREATE TABLE Orientador
 (
-    id            INTEGER REFERENCES Pessoa (id),
-    horarioInicio INTEGER NOT NULL,
-    horarioFim    INTEGER NOT NULL,
+    id              INTEGER REFERENCES Pessoa (id),
+    horarioInicio   INTEGER NOT NULL,
+    horarioFim      INTEGER NOT NULL,
+    tempoDeTrabalho INTEGER AS (horarioFim - horarioInicio),
     PRIMARY KEY (id),
     CONSTRAINT horasDiariasCoerentes CHECK (horarioInicio < horarioFim)
 );
@@ -87,6 +88,7 @@ CREATE TABLE Administrador
     horarioInicio    INTEGER  NOT NULL,
     horarioFim       INTEGER  NOT NULL,
     numeroEscritorio INTEGER,
+    tempoDeTrabalho  INTEGER AS (horarioFim - horarioInicio),
     PRIMARY KEY (id),
     CONSTRAINT horasDiariasObrigatorias CHECK (horarioInicio < horarioFim)
     --- horas derivadas 
@@ -96,7 +98,7 @@ CREATE TABLE Administrador
 --{id}->{idPessoa, data}
 CREATE TABLE DoacaoMaterial
 (
-    id         INTEGER PRIMARY KEY,
+    id         INTEGER,
     idPessoa   INTEGER REFERENCES Pessoa (id),
     data       DATE    NOT NULL,
     PRIMARY KEY (id)
