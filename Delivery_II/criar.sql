@@ -36,7 +36,7 @@ CREATE TABLE Pessoa
     dataNascimento DATE        NOT NULL,
     numeroTelefone INTEGER,
     morada         VARCHAR(255),
-    codigoZona     INTEGER REFERENCES Localidade (codigoZona),
+    codigoZona     INTEGER REFERENCES Localidade (codigoZona)
 );
 
 CREATE TABLE Necessitado
@@ -45,7 +45,7 @@ CREATE TABLE Necessitado
     rendimento REAL,
     CONSTRAINT rendimento_positivo CHECK (rendimento >= 0),
     CONSTRAINT rendimento_nao_aceitavel CHECK (rendimento < 665),
-    PRIMARY KEY (id),
+    PRIMARY KEY (id)
     --- perguntar se a limitacao e feita agora ou com triggers
 );
 
@@ -53,7 +53,7 @@ CREATE TABLE Voluntario
 (
     id     INTEGER REFERENCES Pessoa (id),
     abrigo INTEGER REFERENCES Abrigo (id),
-    PRIMARY KEY (id),
+    PRIMARY KEY (id)
 );
 
 CREATE TABLE Orientador
@@ -62,7 +62,7 @@ CREATE TABLE Orientador
     horarioInicio INTEGER,
     horarioFim    INTEGER,
     PRIMARY KEY (id),
-    CONSTRAINT horasDiariasObrigatorias CHECK (horarioInicio < horarioFim),
+    CONSTRAINT horasDiariasObrigatorias CHECK (horarioInicio < horarioFim)
 );
 
 CREATE TABLE Administrador
@@ -72,7 +72,7 @@ CREATE TABLE Administrador
     horarioFim       INTEGER,
     numeroEscritorio INTEGER,
     PRIMARY KEY (id),
-    CONSTRAINT horasDiariasObrigatorias CHECK (horarioInicio < horarioFim),
+    CONSTRAINT horasDiariasObrigatorias CHECK (horarioInicio < horarioFim)
     --- horas derivadas 
 );
 
@@ -80,7 +80,7 @@ CREATE TABLE DoacaoMaterial
 (
     id         INTEGER PRIMARY KEY,
     idPessoa   INTEGER REFERENCES Pessoa (id),
-    dataDoacao DATE,
+    dataDoacao DATE
 );
 
 CREATE TABLE DoacaoMonetaria
@@ -91,7 +91,7 @@ CREATE TABLE DoacaoMonetaria
     valor      INTEGER,
     frequencia INTEGER,
     CONSTRAINT limiteMonetario CHECK (0 < valor and valor <= 500),
-    CONSTRAINT frequenciaPositiva CHECK (frequencia >= 0),
+    CONSTRAINT frequenciaPositiva CHECK (frequencia >= 0)
 );
 
 CREATE TABLE Apoio
@@ -101,7 +101,7 @@ CREATE TABLE Apoio
     dataFim     DATE,
     pedidoApoio INTEGER REFERENCES PedidoApoio (id),
     orientador  INTEGER REFERENCES Orientador (id),
-    CONSTRAINT dataCoerente CHECK (dataInicio < dataFim),
+    CONSTRAINT dataCoerente CHECK (dataInicio < dataFim)
 );
 
 CREATE TABLE ApoioMonetario
@@ -109,7 +109,7 @@ CREATE TABLE ApoioMonetario
     id    INTEGER REFERENCES Apoio (id),
     valor INTEGER,
     PRIMARY KEY (id),
-    CONSTRAINT valorPositivo CHECK (valor > 0),
+    CONSTRAINT valorPositivo CHECK (valor > 0)
     ---valor deve ser suportado por fundos doacoes - apoios-->triggers
 );
 
@@ -117,13 +117,13 @@ CREATE TABLE ApoioAlojamento
 (
     id     INTEGER REFERENCES Apoio (id),
     abrigo INTEGER REFERENCES Abrigo (id),
-    PRIMARY KEY (id),
+    PRIMARY KEY (id)
 );
 
 CREATE TABLE ApoioMaterial
 (
     id INTEGER REFERENCES Apoio (id),
-    PRIMARY KEY (id),
+    PRIMARY KEY (id)
 );
 
 CREATE TABLE Produto
@@ -131,14 +131,14 @@ CREATE TABLE Produto
     id       INTEGER PRIMARY KEY,
     nome     VARCHAR(64),
     codigo   INTEGER UNIQUE,
-    dimensao INTEGER,
+    dimensao INTEGER
 );
 
 CREATE TABLE ProdutoHigiene
 (
     id REFERENCES Produto (id),
     genero VARCHAR(64),
-    PRIMARY KEY (id),
+    PRIMARY KEY (id)
 );
 
 CREATE TABLE ProdutoVestuario
@@ -148,7 +148,7 @@ CREATE TABLE ProdutoVestuario
     PRIMARY KEY (id),
     ---ver se tamanho corresponde a uma das opcoes
     CONSTRAINT tamanhoExistente CHECK (tamanho == 'XS' or tamanho == 'S' or tamanho == 'M' or tamanho == 'XL' or
-                                       tamanho == 'XXL'),
+                                       tamanho == 'XXL')
 );
 
 CREATE TABLE ProdutoAlimentar
@@ -156,12 +156,12 @@ CREATE TABLE ProdutoAlimentar
     id REFERENCES Produto (id),
     dataValidade DATE,
     tipo         VARCHAR(64) REFERENCES TipoAlimentar.tipo,
-    PRIMARY KEY (id),
+    PRIMARY KEY (id)
 );
 
 CREATE TABLE TipoAlimentar
 (
-    tipo VARCHAR(64) PRIMARY KEY,
+    tipo VARCHAR(64) PRIMARY KEY
 );
 
 
@@ -169,13 +169,13 @@ CREATE TABLE Localidade
 (
     codigoZona INTEGER PRIMARY KEY,
     codigoPais INTEGER REFERENCES Pais (codigoPais),
-    nome       VARCHAR(64),
+    nome       VARCHAR(64)
 );
 
 CREATE TABLE Pais
 (
     codigoPais INTEGER PRIMARY KEY,
-    nome       VARCHAR(64),
+    nome       VARCHAR(64)
 );
 
 CREATE TABLE PedidoApoio
@@ -185,7 +185,7 @@ CREATE TABLE PedidoApoio
     tipo          VARCHAR(64),
     prioridade    INTEGER,
     administrador INTEGER REFERENCES Administrador (id),
-    CONSTRAINT limitesPrioridade CHECK ( prioridade >= 0 and prioridade <= 10),
+    CONSTRAINT limitesPrioridade CHECK ( prioridade >= 0 and prioridade <= 10)
 );
 
 CREATE TABLE Abrigo
@@ -194,7 +194,7 @@ CREATE TABLE Abrigo
     morada      VARCHAR(255),
     numeroCamas INTEGER,
     codigoZona  INTEGER REFERENCES Localidade (codigoZona),
-    CONSTRAINT numeroCamasPositivo CHECK (numeroCamas > 0),
+    CONSTRAINT numeroCamasPositivo CHECK (numeroCamas > 0)
 );
 
 
@@ -202,28 +202,28 @@ CREATE TABLE DoacaoMaterialContemProduto
 (
     doacao  INTEGER REFERENCES DoacaoMaterial (id),
     produto INTEGER REFERENCES Produto (id),
-    PRIMARY KEY (doacao, produto),
+    PRIMARY KEY (doacao, produto)
 );
 
 CREATE TABLE ApoioMaterialIncluiProduto
 (
     produto INTEGER REFERENCES Produto (id),
     apoio   INTEGER REFERENCES Apoio (id),
-    PRIMARY KEY (produto, apoio),
+    PRIMARY KEY (produto, apoio)
 );
 
 CREATE TABLE VoluntarioParticipaApoio
 (
     voluntario INTEGER REFERENCES Voluntario (id),
     apoio      INTEGER REFERENCES Apoio (id),
-    PRIMARY KEY (voluntario, apoio),
+    PRIMARY KEY (voluntario, apoio)
 );
 
 CREATE TABLE PessoaContribuiDoacaoMaterial
 (
     doacaoMaterial INTEGER REFERENCES DoacaoMaterial (id),
     pessoa         INTEGER REFERENCES Pessoa (id),
-    PRIMARY KEY (doacaoMaterial),
+    PRIMARY KEY (doacaoMaterial)
 );
 
 
