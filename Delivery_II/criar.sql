@@ -155,7 +155,7 @@ CREATE TABLE ProdutoAlimentar
 (
     id REFERENCES Produto (id),
     dataValidade DATE,
-    tipo         VARCHAR(64) REFERENCES TipoAlimentar.tipo,
+    tipo         VARCHAR(64) REFERENCES TipoAlimentar (tipo),
     PRIMARY KEY (id)
 );
 
