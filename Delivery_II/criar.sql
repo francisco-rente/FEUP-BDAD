@@ -69,28 +69,32 @@ CREATE TABLE Voluntario
 );
 
 --FD:
---{id}->{horarioInicio, horarioFim}
+--{id}->{horaInicio, horaFim}
 CREATE TABLE Orientador
 (
     id              INTEGER REFERENCES Pessoa (id),
-    horarioInicio   INTEGER NOT NULL,
-    horarioFim      INTEGER NOT NULL,
-    tempoDeTrabalho INTEGER AS (horarioFim - horarioInicio),
+    horaInicio   INTEGER NOT NULL,
+    horaFim      INTEGER NOT NULL,
+    tempoDeTrabalho INTEGER AS (horaFim - horaInicio),
     PRIMARY KEY (id),
-    CONSTRAINT horasDiariasCoerentes CHECK (horarioInicio < horarioFim)
+    CONSTRAINT horasDiariasCoerentes CHECK (horaInicio < horaFim),
+    CONSTRAINT horasValidasInicio CHECK (0 <= horaInicio and horaInicio < 24),
+    CONSTRAINT horasValidasFim CHECK (0 <= horaFim and horaFim < 24)
 );
 
 --FD:
---{id}->{horarioInicio, horarioFim, numeroEscritorio}
+--{id}->{horaInicio, horaFim, numeroEscritorio}
 CREATE TABLE Administrador
 (
     id               INTEGER  REFERENCES Pessoa (id),
-    horarioInicio    INTEGER  NOT NULL,
-    horarioFim       INTEGER  NOT NULL,
+    horaInicio    INTEGER  NOT NULL,
+    horaFim       INTEGER  NOT NULL,
     numeroEscritorio INTEGER,
-    tempoDeTrabalho  INTEGER AS (horarioFim - horarioInicio),
+    tempoDeTrabalho  INTEGER AS (horaFim - horaInicio),
     PRIMARY KEY (id),
-    CONSTRAINT horasDiariasObrigatorias CHECK (horarioInicio < horarioFim)
+    CONSTRAINT horasDiariasObrigatorias CHECK (horaInicio < horaFim),
+    CONSTRAINT horasValidasInicio CHECK (0 <= horaInicio and horaInicio < 24),
+    CONSTRAINT horasValidasFim CHECK (0 <= horaFim and horaFim < 24)
     --- horas derivadas 
 );
 
@@ -99,7 +103,7 @@ CREATE TABLE Administrador
 CREATE TABLE DoacaoMaterial
 (
     id         INTEGER,
-    idPessoa   INTEGER REFERENCES Pessoa (id),
+    pessoa   INTEGER REFERENCES Pessoa (id),
     data       DATE    NOT NULL,
     PRIMARY KEY (id)
 );
@@ -177,7 +181,7 @@ CREATE TABLE Produto
 CREATE TABLE ProdutoHigiene
 (
     id REFERENCES Produto (id),
-    genero VARCHAR(8),
+    genero VARCHAR(10),
     PRIMARY KEY (id)
 );
 
@@ -276,9 +280,9 @@ CREATE TABLE DoacaoMaterialContemProduto
 
 CREATE TABLE ApoioMaterialIncluiProduto
 (
-    produto INTEGER REFERENCES Produto (id),
     apoio   INTEGER REFERENCES Apoio (id),
-    PRIMARY KEY (produto, apoio)
+    produto INTEGER REFERENCES Produto (id),
+    PRIMARY KEY (apoio, produto)
 );
 
 CREATE TABLE VoluntarioParticipaApoio
@@ -288,12 +292,12 @@ CREATE TABLE VoluntarioParticipaApoio
     PRIMARY KEY (voluntario, apoio)
 );
 
-CREATE TABLE PessoaContribuiDoacaoMaterial
+/* CREATE TABLE PessoaContribuiDoacaoMaterial
 (
     doacaoMaterial INTEGER REFERENCES DoacaoMaterial (id),
     pessoa         INTEGER REFERENCES Pessoa (id),
     PRIMARY KEY (doacaoMaterial)
-);
+); */
 
 
 --considerations
