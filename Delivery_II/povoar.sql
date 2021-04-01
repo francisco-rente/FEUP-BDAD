@@ -1,5 +1,7 @@
 PRAGMA foreign_keys = ON;
-INSERT INTO 'Pessoa' (
+
+INSERT INTO
+    'Pessoa' (
         'id',
         'primeiroNome',
         'ultimoNome',
@@ -9,7 +11,8 @@ INSERT INTO 'Pessoa' (
         'morada',
         'codigoZona'
     )
-VALUES (
+VALUES
+    (
         1,
         "Lucy",
         "Powers",
@@ -409,8 +412,11 @@ VALUES (
         "Ap #722-7219 Elit. Street",
         "59450903"
     );
-INSERT INTO 'Necessitado' ('id', 'rendimento')
-VALUES (2, 403),
+
+INSERT INTO
+    'Necessitado' ('id', 'rendimento')
+VALUES
+    (2, 403),
     (3, 56),
     (4, 367),
     (5, 339),
@@ -428,26 +434,38 @@ VALUES (2, 403),
     (27, 103),
     (28, 707),
     (29, 257);
-INSERT INTO 'Voluntario' ('id', 'abrigo')
-VALUES (30, 2),
+
+INSERT INTO
+    'Voluntario' ('id', 'abrigo')
+VALUES
+    (30, 2),
     (1, 3),
     (23, 1),
     (24, NULL);
-INSERT INTO 'Orientador' ('id', 'horaInicio', 'horaFim')
-VALUES (19, 14, 18),
+
+INSERT INTO
+    'Orientador' ('id', 'horaInicio', 'horaFim')
+VALUES
+    (19, 14, 18),
     (20, 8, 12),
     (10, 10, 14),
     (11, 18, 20);
-INSERT INTO 'Administrador' (
+
+INSERT INTO
+    'Administrador' (
         'id',
         'horaInicio',
         'horaFim',
         'numeroEscritorio'
     )
-VALUES (12, 14, 18, 1),
+VALUES
+    (12, 14, 18, 1),
     (6, 10, 14, 2);
-INSERT INTO 'Abrigo' ('id', 'morada', 'numeroCamas', 'codigoZona')
-VALUES (
+
+INSERT INTO
+    'Abrigo' ('id', 'morada', 'numeroCamas', 'codigoZona')
+VALUES
+    (
         1,
         "P.O. Box 656, 6892 Aliquet St.",
         20,
@@ -465,18 +483,26 @@ VALUES (
         15,
         "18009249"
     );
-INSERT INTO 'Localidade' ('codigoZona', 'codigoPais', 'nome')
-VALUES ("80712126", 12, "Porto"),
+
+INSERT INTO
+    'Localidade' ('codigoZona', 'codigoPais', 'nome')
+VALUES
+    ("80712126", 12, "Porto"),
     ("98803632", 12, "Braga"),
     ("18009249", 12, "Viseu"),
     ("59450903", 14, "Madrid"),
     ("84405270", 14, "Valencia");
 
-INSERT INTO 'Pais' ('codigoPais', 'nome')
-VALUES (12, "Portugal"),
+INSERT INTO
+    'Pais' ('codigoPais', 'nome')
+VALUES
+    (12, "Portugal"),
     (14, "Espanha");
-INSERT INTO `DoacaoMonetaria` (`id`, `pessoa`, `data`, `valor`, `frequencia`)
-VALUES (1, 37, "05/06/2021", 489, 4),
+
+INSERT INTO
+    'DoacaoMonetaria' ('id', 'pessoa', 'data', 'valor', 'frequencia')
+VALUES
+    (1, 37, "05/06/2021", 489, 4),
     (2, 37, "05/12/2020", 162, 20),
     (3, 39, "09/07/2021", 4, 11),
     (4, 31, "15/11/2021", 318, 6),
@@ -497,8 +523,10 @@ VALUES (1, 37, "05/06/2021", 489, 4),
     (19, 32, "17/01/2022", 20, 13),
     (20, 33, "22/01/2021", 390, 21);
 
-INSERT INTO `DoacaoMaterial` (`id`, `pessoa`, `data`)
-VALUES (1, 39, "04/07/2020"),
+INSERT INTO
+    'DoacaoMaterial' ('id', 'pessoa', 'data')
+VALUES
+    (1, 39, "04/07/2020"),
     (2, 40, "06/07/2020"),
     (3, 32, "14/10/2021"),
     (4, 36, "07/08/2021"),
@@ -514,14 +542,16 @@ VALUES (1, 39, "04/07/2020"),
     (14, 31, "05/09/2020"),
     (15, 40, "29/11/2021");
 
-INSERT INTO `PedidoApoio` (
-        `id`,
-        `justificacao`,
-        `tipo`,
-        `prioridade`,
-        `avaliador`
+INSERT INTO
+    'PedidoApoio' (
+        'id',
+        'justificacao',
+        'tipo',
+        'prioridade',
+        'avaliador'
     )
-VALUES (
+VALUES
+    (
         1,
         "violenciadomestica",
         "alojamento",
@@ -592,8 +622,10 @@ VALUES (
         12
     );
 
-INSERT INTO `Produto` (`id`, `nome`, `codigo`, `dimensao`)
-VALUES (1, "massa", 6123, 2),
+INSERT INTO
+    'Produto' ('id', 'nome', 'codigo', 'dimensao')
+VALUES
+    (1, "massa", 6123, 2),
     (2, "feijao enlatado", 1681, 1),
     (3, "atum enlatado", 1879, 10),
     (4, "cereais", 2269, 2),
@@ -608,18 +640,22 @@ VALUES (1, "massa", 6123, 2),
     (13, "sweats", 1043, 7),
     (14, "meias", 4781, 9),
     (15, "casacos", 8086, 2),
-    (16, "azeite",1845,4);
+    (16, "azeite", 1845, 4);
 
-INSERT INTO `ProdutoAlimentar` (`id`, `dataValidade`, `tipo`)
-VALUES (1, "massa", "29/11/2021", 1),
-    (2, "feijao enlatado", "17/01/2022", 4),
-    (3, "atum enlatado", "17/01/2022", 2),
-    (4, "cereais", "29/11/2021", 3),
-    (5, "arroz", "29/11/2021", 1),
-    (16,"azeite","29/11/2021",5);
+INSERT INTO
+    'ProdutoAlimentar' ('id', 'dataValidade', 'tipo')
+VALUES
+    (1, "29/11/2021", 1),
+    (2, "17/01/2022", 4),
+    (3, "17/01/2022", 2),
+    (4, "29/11/2021", 3),
+    (5, "29/11/2021", 1),
+    (16, "29/11/2021", 5);
 
-INSERT INTO `TipoAlimentar` (`id`, `tipo`)
-VALUES (1, "hidratos"),
+INSERT INTO
+    'TipoAlimentar' ('id', 'tipo')
+VALUES
+    (1, "hidratos"),
     (2, "enlatados carne e peixe"),
     (3, "cereais"),
     (4, "enlatados leguminosas"),
@@ -627,51 +663,67 @@ VALUES (1, "hidratos"),
     (6, "especiarias"),
     (7, "doces");
 
-INSERT INTO `ProdutoHigiene` (`id`, `genero`)
-VALUES (6, "unisexo"),
+INSERT INTO
+    'ProdutoHigiene' ('id', 'genero')
+VALUES
+    (6, "unisexo"),
     (7, "unisexo"),
     (8, "feminino"),
     (9, "unisexo"),
     (10, "feminino");
 
-INSERT INTO `ProdutoVestuario` (`id`, `tamanho`)
-VALUES(11, "M"),
+INSERT INTO
+    'ProdutoVestuario' ('id', 'tamanho')
+VALUES
+    (11, "M"),
     (12, "L"),
     (13, "XL"),
     (14, "S"),
     (15, "XS");
-    
-INSERT INTO `Apoio` (
-        `id`,
-        `dataInicio`,
-        `dataFim`,
-        `PedidoApoio`,
-        `Orientador`
+
+INSERT INTO
+    'Apoio' (
+        'id',
+        'dataInicio',
+        'dataFim',
+        'PedidoApoio',
+        'Orientador'
     )
-VALUES (1, "03/08/2020", "26/01/2023", 1, 19),
-(2, "05/07/2020", "28/09/2022", 2, 10),
-(3, "06/01/2021", "12/08/2022", 3, 20),
-(4, "05/04/2021", "05/11/2022", 4, 11),
-(5, "12/07/2021", "08/05/2022", 6, 11),
-(6, "13/10/2021", "16/08/2022", 7, 10),
-(7, "25/11/2020", "11/04/2022", 8, 10),
-(8, "10/07/2021", "05/11/2022", 10, 19);
+VALUES
+    (1, "03/08/2020", "26/01/2023", 1, 19),
+    (2, "05/07/2020", "28/09/2022", 2, 10),
+    (3, "06/01/2021", "12/08/2022", 3, 20),
+    (4, "05/04/2021", "05/11/2022", 4, 11),
+    (5, "12/07/2021", "08/05/2022", 6, 11),
+    (6, "13/10/2021", "16/08/2022", 7, 10),
+    (7, "25/11/2020", "11/04/2022", 8, 10),
+    (8, "10/07/2021", "05/11/2022", 10, 19);
 
-INSERT INTO `ApoioMonetario` ( `id`,'valor')
-VALUES (4,600),
-(6,700);
+INSERT INTO
+    'ApoioMonetario' ('id', 'valor')
+VALUES
+    (4, 600),
+    (6, 700);
 
-INSERT INTO `ApoioAlojamento` ( `id`,'abrigo')
-VALUES(1,2),
-(2,3),
-(3,1);
+INSERT INTO
+    'ApoioAlojamento' ('id', 'abrigo')
+VALUES
+    (1, 2),
+    (2, 3),
+    (3, 1);
 
-INSERT INTO `ApoioMaterial` ( `id`,'abrigo')
-VALUES (7),(8),(10);
+INSERT INTO
+    'ApoioMaterial' ('id', 'abrigo')
+VALUES
+    (7),
+    (8),
+    (10);
 
-INSERT INTO 'DoacaoMaterialContemProduto'('doacao','produto')
-VALUES (1, 2),
-    (1,16),
+INSERT INTO
+    'DoacaoMaterialContemProduto'('doacao', 'produto')
+VALUES
+    (1, 2),
+    (1, 16),
     (2, 13),
     (3, 8),
     (4, 6),
@@ -687,22 +739,24 @@ VALUES (1, 2),
     (14, 12),
     (15, 7);
 
-INSERT INTO 'ApoioMaterialIncluiProduto'('apoio','produto')
-VALUES (6, 15),
-    (6,3),
-    (6,1),
-    (7,4),
+INSERT INTO
+    'ApoioMaterialIncluiProduto'('apoio', 'produto')
+VALUES
+    (6, 15),
+    (6, 3),
+    (6, 1),
+    (7, 4),
     (8, 11),
     (8, 15);
 
-
-
-INSERT INTO 'VoluntarioParticipaApoio'('voluntario','apoio')
-VALUES (30, 1),
-    (30,5),
-    (1,3),
-    (1,6),
-    (23,2),
-    (24,4),
-    (24,7),
-    (24,7);
+INSERT INTO
+    'VoluntarioParticipaApoio'('voluntario', 'apoio')
+VALUES
+    (30, 1),
+    (30, 5),
+    (1, 3),
+    (1, 6),
+    (23, 2),
+    (24, 4),
+    (24, 7),
+    (24, 7);
