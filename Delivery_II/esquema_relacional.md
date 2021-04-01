@@ -30,18 +30,16 @@
 - [Pessoa(<u>id</u>,primeiroNome, ultimoNome, NIF, dataNascimento, numeroTelefone, morada, codigoZona->Localidade)]
 - Necessitado(<u>id</u>->Pessoa.id, rendimento)
 - Voluntario(<u>id</u>->Pessoa.id, id->Abrigo.id)
-- Orientador(<u>id</u>->Pessoa.id,  horarioInicio, horarioFim)
-- Administrador(<u>id</u>->Pessoa.id,  horarioInicio, horarioFim, numeroEscritorio)
+- Orientador(<u>id</u>->Pessoa.id,  horaInicio , horaFim )
+- Administrador(<u>id</u>->Pessoa.id,  horaInicio , horaFim , numeroEscritorio)
 
 
 ### Ações
-- DoacaoMaterial(<u>id</u>, id->Pessoa->id, data)
-- DoacaoMonetaria(<u>id</u>, id->Pessoa->id, data, valor, frequencia)
-- [Apoio(<u>apoio_id</u>, dataInicio, dataFim, id->PedidoApoio.id, id->Orientador.id)]
-    - colocar UNIQUE
+- DoacaoMaterial(<u>id</u>, pessoa->Pessoa->id, data)
+- DoacaoMonetaria(<u>id</u>, pessoa->Pessoa->id, data, valor, frequencia)
+- [Apoio(<u>id</u>, dataInicio, dataFim, pedidoApoio->PedidoApoio.id, orientador->Orientador.id)]
 - ApoioMonetario(<u>id</u>->Apoio.id, valor)
-- ApoioAlojamento(<u>id</u>->Apoio.id,id->Abrigo.id)
-    - colocar NOTNULL
+- ApoioAlojamento(<u>id</u>->Apoio.id,abrigo->Abrigo.id)
 - ApoioMaterial(<u>id</u>->Apoio.id)
 
 
@@ -50,25 +48,19 @@
   - Produto(<u>id</u>, nome, codigo, dimensao)
   - ProdutoHigiene(<u>id</u>->Produto.id, genero)
   - ProdutoVestuário(<u>id</u>->Produto.id, tamanho)
-  - ProdutoAlimentar(<u>id</u>->Produto.id, dataValidade)
-- NULLS
-  - Produto(<u>id</u>, nome, codigo, dimensao, genero, tamanho, dataValidade)
-- TipoAlimentar(<u>tipo</u>)
-- TipoDoProdutoAlimentar(<u>id</u>->ProdutoAlimentar.id, tipo->TipoAlimentar)
+  - ProdutoAlimentar(<u>id</u>->Produto.id, dataValidade, tipo->TipoAlimentar.id)
+- TipoAlimentar(<u>id</u>, tipo)
 
 ## Classes individuais
-- Localidade(<u>codigoZona</u>, nome)
+- Localidade(<u>codigoZona</u>, codigoPais->Pais.codigoPais, nome)
 - Pais(<u>codigoPais</u>, nome)
-- PedidoApoio(<u>id</u>, justificacao, tipo, prioridade, id->Administrador.id, id->Necessitado.id)
-- Abrigo(<u>id</u>, morada, numeroCamas)
-<!---- LocalidadeEmPais(<u>codigoZona</u>->Localidade, codigoPais->Pais)-->
-- AbrigoLocalizaSe(<u>codigoZona</u>->Localidade, abrigo_id->Abrigo)
+- PedidoApoio(<u>id</u>, justificacao, tipo, prioridade, avaliador->Administrador.id, pedinte->Necessitado.id)
+- Abrigo(<u>id</u>, morada, numeroCamas, codigoZona->Localidade.codigoZona)
+
 
 ## Outras Relacoes
-- DoacaoMaterialContemProduto(<u>id</u>->DoacaoMaterial.id, <u>produto_id</u>->Produto)
-- ProdutoIncluiApoioMaterial(<u>id</u>->Apoio.id, <u>id</u>->Produto.id)
-- VoluntarioParticipaApoio(<u>id</u>->Voluntario.id, <u>id</u>->Apoio.id)
-<!--- PessoaContribuiDoacaoMonetaria(<u>id</u>->DoacaoMonetaria.id, pessoa_id->Pessoa)
-- PessoaContribuiDoacaoMaterial(<u>id</u>->DoacaoMaterial.id, pessoa_id->Pessoa)-->
-<!--- VoluntarioAjudaAbrigo(<u>voluntario_id</u>->Voluntario, abrigo_id->Abrigo)-->
+- DoacaoMaterialContemProduto(<u>doacao</u>->DoacaoMaterial.id, <u>produto</u>->Produto.id)
+- ProdutoIncluiApoioMaterial(<u>apoio</u>->Apoio.id, <u>produto</u>->Produto.id)
+- VoluntarioParticipaApoio(<u>voluntario </u>->Voluntario.id, <u>apoio</u>->Apoio.id)
+
 
