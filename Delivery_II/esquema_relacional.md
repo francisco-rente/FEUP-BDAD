@@ -59,7 +59,7 @@
 ## Classes individuais
 - Localidade(<u>codigoZona</u>, nome)
 - Pais(<u>codigoPais</u>, nome)
-- PedidoApoio(<u>id</u>, justificacao, tipo, prioridade, id->Administrador.id)
+- PedidoApoio(<u>id</u>, justificacao, tipo, prioridade, id->Administrador.id, id->Necessitado.id)
 - Abrigo(<u>id</u>, morada, numeroCamas)
 <!---- LocalidadeEmPais(<u>codigoZona</u>->Localidade, codigoPais->Pais)-->
 - AbrigoLocalizaSe(<u>codigoZona</u>->Localidade, abrigo_id->Abrigo)

@@ -1,6 +1,21 @@
 PRAGMA foreign_keys = ON;
 
 INSERT INTO
+    'Pais' ('codigoPais', 'nome')
+VALUES
+    (12, "Portugal"),
+    (14, "Espanha");
+
+INSERT INTO
+    'Localidade' ('codigoZona', 'codigoPais', 'nome')
+VALUES
+    (80712126, 12, "Porto"),
+    (98803632, 12, "Braga"),
+    (18009249, 12, "Viseu"),
+    (59450903, 14, "Madrid"),
+    (84405270, 14, "Valencia");
+
+INSERT INTO
     'Pessoa' (
         'id',
         'primeiroNome',
@@ -20,7 +35,7 @@ VALUES
         "10/12/1988",
         "962698077",
         "2039028 Non, Street",
-        "80712126"
+        80712126
     ),
     (
         2,
@@ -30,7 +45,7 @@ VALUES
         "30/09/1980",
         "964472809",
         "5451 Id St.",
-        "98803632"
+        98803632
     ),
     (
         3,
@@ -40,7 +55,7 @@ VALUES
         "05/01/1951",
         "926444783",
         "Ap #2372644 Lorem. St.",
-        "18009249"
+        18009249
     ),
     (
         4,
@@ -49,8 +64,8 @@ VALUES
         "057347794",
         "06/02/1972",
         "931047619",
-        "1793 Metus. Road",
-        "84405270"
+        NULL,
+        84405270
     ),
     (
         5,
@@ -59,8 +74,8 @@ VALUES
         "216393783",
         "01/11/1983",
         "913512298",
-        "Ap #4871326 Tempor Rd.",
-        "59450903"
+        NULL,
+        59450903
     ),
     (
         6,
@@ -70,7 +85,7 @@ VALUES
         "17/09/2020",
         "911513512",
         "P.O. Box 749, 9030 Mattis Rd.",
-        "80712126"
+        80712126
     ),
     (
         7,
@@ -79,8 +94,8 @@ VALUES
         "741848946",
         "27/06/2002",
         "927553624",
-        "Ap #181745 Porta Av.",
-        "98803632"
+        NULL,
+        98803632
     ),
     (
         8,
@@ -90,7 +105,7 @@ VALUES
         "04/11/1948",
         "938292190",
         "P.O. Box 232, 8946 Arcu Road",
-        "18009249"
+        18009249
     ),
     (
         9,
@@ -100,7 +115,7 @@ VALUES
         "19/09/1981",
         "960940665",
         "7125 Fusce Rd.",
-        "80712126"
+        80712126
     ),
     (
         10,
@@ -110,7 +125,7 @@ VALUES
         "15/03/1975",
         "921145580",
         "6916288 Vulputate, Rd.",
-        "98803632"
+        98803632
     ),
     (
         11,
@@ -120,7 +135,7 @@ VALUES
         "17/01/2014",
         "912213595",
         "Ap #1776313 Euismod Ave",
-        "18009249"
+        18009249
     ),
     (
         12,
@@ -130,7 +145,7 @@ VALUES
         "27/03/2015",
         "926001603",
         "Ap #2976425 Nunc St.",
-        "80712126"
+        80712126
     ),
     (
         13,
@@ -140,7 +155,7 @@ VALUES
         "10/11/2012",
         "962854869",
         "3286911 Ac Avenue",
-        "98803632"
+        98803632
     ),
     (
         14,
@@ -150,7 +165,7 @@ VALUES
         "04/02/2022",
         "928775499",
         "Ap #9621515 Eleifend Street",
-        "18009249"
+        18009249
     ),
     (
         15,
@@ -160,7 +175,7 @@ VALUES
         "09/09/1988",
         "933658304",
         "7545 Donec St.",
-        "80712126"
+        80712126
     ),
     (
         16,
@@ -170,7 +185,7 @@ VALUES
         "29/06/2013",
         "911116871",
         "Ap #4159924 Amet St.",
-        "98803632"
+        98803632
     ),
     (
         17,
@@ -180,7 +195,7 @@ VALUES
         "08/01/1954",
         "913145802",
         "5305327 Sed Rd.",
-        "18009249"
+        18009249
     ),
     (
         18,
@@ -190,7 +205,7 @@ VALUES
         "23/02/1957",
         "913343930",
         "9381760 Quisque St.",
-        "84405270"
+        84405270
     ),
     (
         19,
@@ -200,7 +215,7 @@ VALUES
         "27/09/1979",
         "938982382",
         "P.O. Box 315, 9951 Ipsum. Road",
-        "59450903"
+        59450903
     ),
     (
         20,
@@ -210,7 +225,7 @@ VALUES
         "01/01/1998",
         "917123601",
         "Ap #6452031 Feugiat St.",
-        "80712126"
+        80712126
     ),
     (
         21,
@@ -220,7 +235,7 @@ VALUES
         "29/03/2006",
         "919885629",
         "P.O. Box 221, 2564 Hymenaeos. Rd.",
-        "98803632"
+        98803632
     ),
     (
         22,
@@ -230,7 +245,7 @@ VALUES
         "19/11/1981",
         "917120219",
         "3362127 Dui, Rd.",
-        "18009249"
+        18009249
     ),
     (
         23,
@@ -240,7 +255,7 @@ VALUES
         "17/06/1984",
         "918231528",
         "366181 Praesent Rd.",
-        "84405270"
+        84405270
     ),
     (
         24,
@@ -250,7 +265,7 @@ VALUES
         "25/09/2012",
         "938243873",
         "Ap #5923344 Ornare, St.",
-        "84405270"
+        84405270
     ),
     (
         25,
@@ -260,7 +275,7 @@ VALUES
         "16/06/1959",
         "968296009",
         "P.O. Box 101, 4993 Ac Street",
-        "59450903"
+        59450903
     ),
     (
         26,
@@ -268,9 +283,9 @@ VALUES
         "Rogers",
         "779842636",
         "25/06/1986",
-        "917312532",
+        NULL,
         "Ap #2739201 Aliquet St.",
-        "59450903"
+        59450903
     ),
     (
         27,
@@ -280,7 +295,7 @@ VALUES
         "19/01/2012",
         "920946150",
         "P.O. Box 656, 6892 Aliquet St.",
-        "80712126"
+        80712126
     ),
     (
         28,
@@ -290,7 +305,7 @@ VALUES
         "01/11/1957",
         "920412277",
         "1979 Mauris Street",
-        "98803632"
+        98803632
     ),
     (
         29,
@@ -298,9 +313,9 @@ VALUES
         "Reese",
         "766979560",
         "24/02/1974",
-        "920587829",
+        NULL,
         "1079 Egestas Street",
-        "18009249"
+        18009249
     ),
     (
         30,
@@ -310,107 +325,107 @@ VALUES
         "14/01/2016",
         "932735783",
         "2197745 Sed St.",
-        "84405270"
+        84405270
     ),
     (
         31,
         "Uma",
         "Mckinney",
-        "D831E7C5-0C2C-3A08-1D17-BAAC79B240F9",
+        "779859636",
         "11/09/1970",
         "914433253",
         "9432 Placerat Av.",
-        "84405270"
+        84405270
     ),
     (
         32,
         "Pearl",
         "Meadows",
-        "243B1481-870A-09F1-304A-8519C788DE86",
+        "267959451",
         "07/08/1976",
         "931589092",
         "P.O. Box 132, 2588 Euismod Rd.",
-        "84405270"
+        84405270
     ),
     (
         33,
         "Janna",
         "Santos",
-        "07E14978-73E2-793B-90EA-AE281ACD7F82",
+        "167389451",
         "18/03/1968",
         "928493957",
         "459 Risus Road",
-        "84405270"
+        84405270
     ),
     (
         34,
         "Angelica",
         "Wall",
-        "BEF93F4B-1845-6381-2A3C-0EA2BDD1E50A",
+        "163282451",
         "04/03/1998",
         "960881154",
         "3514 Faucibus St.",
-        "84405270"
+        84405270
     ),
     (
         35,
         "Cassandra",
         "Sexton",
-        "8B269587-5847-D49A-8E35-91DD9C81FCB2",
+        "178289451",
         "24/02/2014",
         "964134676",
         "Ap #860-6325 Volutpat Av.",
-        "84405270"
+        84405270
     ),
     (
         36,
         "Quemby",
         "Edwards",
-        "17270DCE-11CD-FFA2-A5C3-8F763C3BCA16",
+        "967289451",
         "19/04/1992",
         "912634932",
         "P.O. Box 954, 3513 Ornare Rd.",
-        "59450903"
+        59450903
     ),
     (
         37,
         "Beverly",
         "Maxwell",
-        "0C3081DA-2702-DD08-87AC-34F8FB73FD56",
+        "667289451",
         "11/05/1992",
         "921625606",
         "7458 Nec, St.",
-        "59450903"
+        59450903
     ),
     (
         38,
         "Elizabeth",
         "Raymond",
-        "AA2C1AEE-99FF-E227-092B-F898D2020E12",
+        "913134672",
         "28/02/1982",
         "921692689",
         "7156 Libero Street",
-        "59450903"
+        59450903
     ),
     (
         39,
         "Duncan",
         "Porter",
-        "B6AF385C-796A-1691-5A4D-88EC35840D6E",
+        "167333451",
         "19/01/1962",
         "911149362",
         "P.O. Box 183, 5684 Ut Ave",
-        "59450903"
+        59450903
     ),
     (
         40,
         "Sybil",
         "Kelley",
-        "A5B9D0A0-2A0C-62B7-C54E-C381D2E32ECA",
+        "779255666",
         "05/02/1993",
         "911364574",
         "Ap #722-7219 Elit. Street",
-        "59450903"
+        59450903
     );
 
 INSERT INTO
@@ -424,16 +439,38 @@ VALUES
     (8, 764),
     (9, 43),
     (13, 402),
-    (14, 820),
+    (14, 700),
     (17, 495),
     (18, 272),
-    (21, 844),
+    (21, 700),
     (22, 45),
     (25, 191),
     (26, 73),
     (27, 103),
     (28, 707),
     (29, 257);
+
+INSERT INTO
+    'Abrigo' ('id', 'morada', 'numeroCamas', 'codigoZona')
+VALUES
+    (
+        1,
+        "P.O. Box 656, 6892 Aliquet St.",
+        20,
+        80712126
+    ),
+    (
+        2,
+        "1979 Mauris Street",
+        15,
+        98803632
+    ),
+    (
+        3,
+        "1079 Egestas Street",
+        15,
+        18009249
+    );
 
 INSERT INTO
     'Voluntario' ('id', 'abrigo')
@@ -461,43 +498,6 @@ INSERT INTO
 VALUES
     (12, 14, 18, 1),
     (6, 10, 14, 2);
-
-INSERT INTO
-    'Abrigo' ('id', 'morada', 'numeroCamas', 'codigoZona')
-VALUES
-    (
-        1,
-        "P.O. Box 656, 6892 Aliquet St.",
-        20,
-        "80712126"
-    ),
-    (
-        2,
-        "1979 Mauris Street",
-        15,
-        "98803632"
-    ),
-    (
-        3,
-        "1079 Egestas Street",
-        15,
-        "18009249"
-    );
-
-INSERT INTO
-    'Localidade' ('codigoZona', 'codigoPais', 'nome')
-VALUES
-    ("80712126", 12, "Porto"),
-    ("98803632", 12, "Braga"),
-    ("18009249", 12, "Viseu"),
-    ("59450903", 14, "Madrid"),
-    ("84405270", 14, "Valencia");
-
-INSERT INTO
-    'Pais' ('codigoPais', 'nome')
-VALUES
-    (12, "Portugal"),
-    (14, "Espanha");
 
 INSERT INTO
     'DoacaoMonetaria' ('id', 'pessoa', 'data', 'valor', 'frequencia')
@@ -548,78 +548,89 @@ INSERT INTO
         'justificacao',
         'tipo',
         'prioridade',
-        'avaliador'
+        'avaliador',
+        'pedinte'
     )
 VALUES
     (
         1,
-        "violenciadomestica",
-        "alojamento",
+        "Violência doméstica",
+        "Alojamento",
         9,
-        6
+        6,
+        7
     ),
     (
         2,
-        "pedofilia",
-        "alojamento",
+        "Terramoto",
+        "Alojamento procura-se",
         10,
-        6
+        6,
+        3
     ),
     (
         3,
-        "semabrigo",
-        "alojamento",
+        "Sem abrigo",
+        "Alojamento",
         10,
-        12
+        12,
+        4
     ),
     (
         4,
-        "orfao",
-        "monetario",
+        "Orfão",
+        "Monetário",
         4,
-        12
+        12,
+        2
     ),
     (
         5,
-        "doença",
-        "monetario",
+        "Doença",
+        "Monetário",
         3,
-        12
+        12,
+        21
     ),
     (
         6,
-        "desintoxicaçao",
-        "monetario",
+        "Desintoxicação",
+        "Monetário",
         9,
-        6
+        6,
+        5
     ),
     (
         7,
-        "fome",
-        "material",
+        "Pedofilia",
+        "Material",
         5,
-        6
+        6,
+        26
     ),
     (
         8,
-        "fome",
-        "material",
+        "Fome",
+        "Material",
         7,
-        6
+        6,
+        29
     ),
     (
         9,
-        "fome",
-        "material",
+        "Fome",
+        "Material",
         3,
-        12
+        12,
+        17
     ),
     (
         10,
-        "faltavestuario",
-        "material",
+        "Falta vestuario para cobrir-me durante o Inverno. Ai que frio!",
+        "Material",
         6,
-        12
+        12,
+        9
     );
 
 INSERT INTO
@@ -643,16 +654,6 @@ VALUES
     (16, "azeite", 1845, 4);
 
 INSERT INTO
-    'ProdutoAlimentar' ('id', 'dataValidade', 'tipo')
-VALUES
-    (1, "29/11/2021", 1),
-    (2, "17/01/2022", 4),
-    (3, "17/01/2022", 2),
-    (4, "29/11/2021", 3),
-    (5, "29/11/2021", 1),
-    (16, "29/11/2021", 5);
-
-INSERT INTO
     'TipoAlimentar' ('id', 'tipo')
 VALUES
     (1, "hidratos"),
@@ -662,6 +663,16 @@ VALUES
     (5, "oleos"),
     (6, "especiarias"),
     (7, "doces");
+
+INSERT INTO
+    'ProdutoAlimentar' ('id', 'dataValidade', 'tipo')
+VALUES
+    (1, "29/11/2021", 1),
+    (2, "17/01/2022", 4),
+    (3, "17/01/2022", 2),
+    (4, "29/11/2021", 3),
+    (5, "29/11/2021", 1),
+    (16, "29/11/2021", 5);
 
 INSERT INTO
     'ProdutoHigiene' ('id', 'genero')
@@ -713,11 +724,11 @@ VALUES
     (3, 1);
 
 INSERT INTO
-    'ApoioMaterial' ('id', 'abrigo')
+    'ApoioMaterial' ('id')
 VALUES
+    (6),
     (7),
-    (8),
-    (10);
+    (8);
 
 INSERT INTO
     'DoacaoMaterialContemProduto'('doacao', 'produto')
@@ -759,4 +770,4 @@ VALUES
     (23, 2),
     (24, 4),
     (24, 7),
-    (24, 7);
+    (24, 8);
