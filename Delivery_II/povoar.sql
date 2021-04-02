@@ -533,7 +533,7 @@ VALUES
     (5, 35, '31/05/2021'),
     (6, 39, '16/03/2021'),
     (7, 40, '22/04/2020'),
-    (8, 33, '31/05/2021'),
+    (NULL, 33, '31/05/2021'),
     (9, 37, '03/09/2020'),
     (10, 34, '23/02/2021'),
     (11, 37, '21/12/2021'),
@@ -563,7 +563,7 @@ VALUES
     (
         2,
         'Terramoto',
-        'Alojamento procura-se',
+        'Alojamento',
         10,
         6,
         3
@@ -634,24 +634,24 @@ VALUES
     );
 
 INSERT INTO
-    'Produto' ('id', 'nome', 'codigo', 'dimensao')
+    'Produto' ('id', 'nome', 'codigo')
 VALUES
-    (1, 'massa', 6123, 2),
-    (2, 'feijao enlatado', 1681, 1),
-    (3, 'atum enlatado', 1879, 10),
-    (4, 'cereais', 2269, 2),
-    (5, 'arroz', 9987, 8),
-    (6, 'shampoo', 5618, 1),
-    (7, 'escova de dentes', 2086, 6),
-    (8, 'pensos higienicos', 7777, 6),
-    (9, 'pasta de dentes', 1187, 10),
-    (10, 'pensos higienicos', 7777, 4),
-    (11, 't-shirts', 2096, 10),
-    (12, 'jeans', 4086, 5),
-    (13, 'sweats', 1043, 7),
-    (14, 'meias', 4781, 9),
-    (15, 'casacos', 8086, 2),
-    (16, 'azeite', 1845, 4);
+    (1, 'massa', 6123),
+    (2, 'feijao enlatado', 1681),
+    (3, 'atum enlatado', 1879),
+    (4, 'cereais', 2269),
+    (5, 'arroz', 9987),
+    (6, 'shampoo', 5618),
+    (7, 'escova de dentes', 2086),
+    (8, 'pensos higienicos', 7777),
+    (9, 'pasta de dentes', 1187),
+    (10, 'pensos higienicos', 7777),
+    (11, 't-shirts', 2096),
+    (12, 'jeans', 4086),
+    (13, 'sweats', 1043),
+    (14, 'meias', 4781),
+    (15, 'casacos', 8086),
+    (16, 'azeite', 1845);
 
 INSERT INTO
     'TipoAlimentar' ('id', 'tipo')

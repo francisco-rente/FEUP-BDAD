@@ -127,7 +127,7 @@ CREATE TABLE Administrador (
 --{id}->{idPessoa, data}
 CREATE TABLE DoacaoMaterial (
     id INTEGER,
-    pessoa INTEGER REFERENCES Pessoa (id) NOT NULL,
+    pessoa INTEGER REFERENCES Pessoa (id),
     data DATE NOT NULL,
     PRIMARY KEY (id)
 );
@@ -136,7 +136,7 @@ CREATE TABLE DoacaoMaterial (
 --{id}->{pessoa, data, valor, frequencia}
 CREATE TABLE DoacaoMonetaria (
     id INTEGER,
-    pessoa INTEGER REFERENCES Pessoa (id) NOT NULL,
+    pessoa INTEGER REFERENCES Pessoa (id),
     data DATE NOT NULL,
     valor REAL NOT NULL,
     frequencia INTEGER DEFAULT (0) NOT NULL,
@@ -145,7 +145,7 @@ CREATE TABLE DoacaoMonetaria (
         0 < valor
         and valor <= 500
     ),
-    CONSTRAINT frequenciaPositiva CHECK (frequencia >= 0)
+    CONSTRAINT frequenciaValida CHECK (frequencia >= 0)
 );
 
 --FD:
@@ -189,7 +189,7 @@ CREATE TABLE Produto (
     id INTEGER,
     nome VARCHAR(64) NOT NULL,
     codigo INTEGER NOT NULL,
-    dimensao INTEGER NOT NULL,
+    ---dimensao INTEGER NOT NULL,
     PRIMARY KEY (id)
 );
 
@@ -197,7 +197,7 @@ CREATE TABLE Produto (
 --{id}->{genero}
 CREATE TABLE ProdutoHigiene (
     id REFERENCES Produto (id),
-    genero VARCHAR(10) NOT NULL,
+    genero VARCHAR(10) DEFAULT ('unisexo') NOT NULL,
     PRIMARY KEY (id)
 );
 
@@ -270,6 +270,10 @@ CREATE TABLE PedidoApoio (
     CONSTRAINT limitesPrioridade CHECK (
         prioridade >= 0
         and prioridade <= 10
+    ) CONSTRAINT tipoValido CHECK (
+        tipo LIKE 'Alojamento'
+        or tipo LIKE 'Material'
+        or tipo LIKE 'Monetário'
     )
 );
 
