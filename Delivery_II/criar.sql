@@ -139,7 +139,7 @@ CREATE TABLE DoacaoMonetaria (
     pessoa INTEGER REFERENCES Pessoa (id) NOT NULL,
     data DATE NOT NULL,
     valor REAL NOT NULL,
-    frequencia INTEGER NOT NULL,
+    frequencia INTEGER DEFAULT (0) NOT NULL,
     PRIMARY KEY (id),
     CONSTRAINT limiteMonetario CHECK (
         0 < valor
@@ -172,7 +172,7 @@ CREATE TABLE ApoioMonetario (
 --FD:
 --{id}->{abrigo}
 CREATE TABLE ApoioAlojamento (
-    id INTEGER REFERENCES Apoio (id) NOT NULL,
+    id INTEGER REFERENCES Apoio (id),
     abrigo INTEGER REFERENCES Abrigo (id) NOT NULL,
     PRIMARY KEY (id)
 );
@@ -229,6 +229,7 @@ CREATE TABLE ProdutoAlimentar (
 
 --FD:
 --{id}->{tipo}
+--{tipo}->{id}
 CREATE TABLE TipoAlimentar (
     id INTEGER,
     tipo VARCHAR(64) NOT NULL,
@@ -238,7 +239,7 @@ CREATE TABLE TipoAlimentar (
 --FD:
 --{codigoZona}->{nome, codigoPais}
 CREATE TABLE Localidade (
-    codigoZona INTEGER NOT NULL,
+    codigoZona INTEGER,
     codigoPais INTEGER REFERENCES Pais (codigo) NOT NULL,
     nome VARCHAR(64) NOT NULL,
     PRIMARY KEY (codigoZona)
