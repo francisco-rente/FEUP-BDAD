@@ -149,13 +149,13 @@ CREATE TABLE DoacaoMonetaria (
 );
 
 --FD:
---{id}->{dataInicio, dataFim, pedidoApoio, orientador}
---{pedidoApoio}->{dataInicio, dataFim, orientador} !!!!!!
+--{id}->{dataInicio, dataFim, pedido, orientador}
+--{pedido}->{dataInicio, dataFim, orientador} !!!!!!
 CREATE TABLE Apoio (
     id INTEGER,
     dataInicio DATE NOT NULL,
     dataFim DATE,
-    pedidoApoio INTEGER REFERENCES PedidoApoio (id),
+    pedido INTEGER REFERENCES PedidoApoio (id),
     orientador INTEGER REFERENCES Orientador (id),
     PRIMARY KEY (id) --CONSTRAINT dataCoerente CHECK (dataInicio < dataFim) ---questionar sobre a insercao e a comparacao no caso de data fim
 );
@@ -209,12 +209,12 @@ CREATE TABLE ProdutoVestuario (
     PRIMARY KEY (id),
     ---ver se tamanho corresponde a uma das opcoes
     CONSTRAINT tamanhoExistente CHECK (
-        tamanho == 'XS'
-        or tamanho == 'S'
-        or tamanho == 'M'
-        or tamanho == 'XL'
-        or tamanho == 'XXL'
-        or tamanho == 'L'
+        tamanho LIKE 'XS'
+        or tamanho LIKE 'S'
+        or tamanho LIKE 'M'
+        or tamanho LIKE 'XL'
+        or tamanho LIKE 'XXL'
+        or tamanho LIKE 'L'
     )
 );
 
@@ -239,18 +239,18 @@ CREATE TABLE TipoAlimentar (
 --{codigoZona}->{nome, codigoPais}
 CREATE TABLE Localidade (
     codigoZona INTEGER NOT NULL,
-    codigoPais INTEGER REFERENCES Pais (codigoPais),
+    codigoPais INTEGER REFERENCES Pais (codigo),
     nome VARCHAR(64) NOT NULL,
     PRIMARY KEY (codigoZona)
 );
 
 --FD:
---{codigoPais}->{nome}
---{nome}->{codigoPais} !!!!!!
+--{codigo}->{nome}
+--{nome}->{codigo} !!!!!!
 CREATE TABLE Pais (
-    codigoPais INTEGER,
+    codigo INTEGER,
     nome VARCHAR(64) NOT NULL,
-    PRIMARY KEY (codigoPais)
+    PRIMARY KEY (codigo)
 );
 
 --FD:
