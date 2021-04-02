@@ -47,12 +47,6 @@ DROP TABLE IF EXISTS VoluntarioParticipaApoio;
 
 DROP TABLE IF EXISTS PessoaContribuiDoacaoMaterial;
 
---define tables
---FD:
---{id}->{primeiroNome, ultimoNome, NIF, dataNascimento, numeroTelefone, morada, codigoZona}
---{NIF}->{id, primeiroNome, ultimoNome, dataNascimento, numeroTelefone, morada, codigoZona} !!!!!!
---Possiveis:
---{morada, numeroTelefone}->{codigoZona}, ou algo semelhante !!!!!! JUST: numeros iguais em paises diferentes
 CREATE TABLE Pessoa (
     id INTEGER,
     primeiroNome VARCHAR(64) NOT NULL,
@@ -66,26 +60,20 @@ CREATE TABLE Pessoa (
     CONSTRAINT unique_nif UNIQUE (NIF)
 );
 
---FD:
---{id}->{rendimento}
 CREATE TABLE Necessitado (
     id INTEGER REFERENCES Pessoa (id),
     rendimento REAL NOT NULL,
     CONSTRAINT rendimento_positivo CHECK (rendimento >= 0),
     CONSTRAINT rendimento_nao_aceitavel CHECK (rendimento <= 800),
-    PRIMARY KEY (id) --- perguntar se a limitacao e feita agora ou com triggers
+    PRIMARY KEY (id)
 );
 
---FD:
---{id}->{abrigo}
 CREATE TABLE Voluntario (
     id INTEGER REFERENCES Pessoa (id),
     abrigo INTEGER REFERENCES Abrigo (id),
     PRIMARY KEY (id)
 );
 
---FD:
---{id}->{horaInicio, horaFim}
 CREATE TABLE Orientador (
     id INTEGER REFERENCES Pessoa (id),
     horaInicio INTEGER NOT NULL,
@@ -103,8 +91,6 @@ CREATE TABLE Orientador (
     )
 );
 
---FD:
---{id}->{horaInicio, horaFim, numeroEscritorio}
 CREATE TABLE Administrador (
     id INTEGER REFERENCES Pessoa (id),
     horaInicio INTEGER NOT NULL,
@@ -120,11 +106,9 @@ CREATE TABLE Administrador (
     CONSTRAINT horasValidasFim CHECK (
         0 <= horaFim
         and horaFim < 24
-    ) --- horas derivadas 
+    )
 );
 
---FD:
---{id}->{idPessoa, data}
 CREATE TABLE DoacaoMaterial (
     id INTEGER,
     pessoa INTEGER REFERENCES Pessoa (id),
@@ -132,8 +116,6 @@ CREATE TABLE DoacaoMaterial (
     PRIMARY KEY (id)
 );
 
---FD:
---{id}->{pessoa, data, valor, frequencia}
 CREATE TABLE DoacaoMonetaria (
     id INTEGER,
     pessoa INTEGER REFERENCES Pessoa (id),
@@ -148,29 +130,23 @@ CREATE TABLE DoacaoMonetaria (
     CONSTRAINT frequenciaValida CHECK (frequencia >= 0)
 );
 
---FD:
---{id}->{dataInicio, dataFim, pedido, orientador}
---{pedido}->{dataInicio, dataFim, orientador} !!!!!!
 CREATE TABLE Apoio (
     id INTEGER,
     dataInicio DATE NOT NULL,
     dataFim DATE,
     pedido INTEGER REFERENCES PedidoApoio (id) NOT NULL,
     orientador INTEGER REFERENCES Orientador (id) NOT NULL,
-    PRIMARY KEY (id) --CONSTRAINT dataCoerente CHECK (dataInicio < dataFim) ---questionar sobre a insercao e a comparacao no caso de data fim
+    PRIMARY KEY (id),
+    CONSTRAINT dataCoerente CHECK (dataInicio < dataFim)
 );
 
---FD:
---{id}->{valor}
 CREATE TABLE ApoioMonetario (
     id INTEGER REFERENCES Apoio (id),
     valor INTEGER NOT NULL,
     PRIMARY KEY (id),
-    CONSTRAINT valorPositivo CHECK (valor > 0) ---valor deve ser suportado por fundos doacoes - apoios-->triggers
+    CONSTRAINT valorPositivo CHECK (valor > 0) ---valor deve ser suportado por fundos doacoes - apoios, futura implementação com triggers
 );
 
---FD:
---{id}->{abrigo}
 CREATE TABLE ApoioAlojamento (
     id INTEGER REFERENCES Apoio (id),
     abrigo INTEGER REFERENCES Abrigo (id) NOT NULL,
@@ -182,27 +158,19 @@ CREATE TABLE ApoioMaterial (
     PRIMARY KEY (id)
 );
 
---FD:
---{id}->{nome, codigo, dimensao}
---{codigo}->{nome, dimensao} !!!!!! JUST: nao viola codigo e candidate key
 CREATE TABLE Produto (
     id INTEGER,
     nome VARCHAR(64) NOT NULL,
     codigo INTEGER NOT NULL,
-    ---dimensao INTEGER NOT NULL,
     PRIMARY KEY (id)
 );
 
---FD:
---{id}->{genero}
 CREATE TABLE ProdutoHigiene (
     id REFERENCES Produto (id),
     genero VARCHAR(10) DEFAULT ('unisexo') NOT NULL,
     PRIMARY KEY (id)
 );
 
---FD:
---{id}->{tamanho}
 CREATE TABLE ProdutoVestuario (
     id REFERENCES Produto (id),
     tamanho VARCHAR(2) NOT NULL,
@@ -218,8 +186,6 @@ CREATE TABLE ProdutoVestuario (
     )
 );
 
---FD:
---{id}->{dataValidade, tipo}
 CREATE TABLE ProdutoAlimentar (
     id REFERENCES Produto (id),
     dataValidade DATE NOT NULL,
@@ -227,17 +193,12 @@ CREATE TABLE ProdutoAlimentar (
     PRIMARY KEY (id)
 );
 
---FD:
---{id}->{tipo}
---{tipo}->{id}
 CREATE TABLE TipoAlimentar (
     id INTEGER,
     tipo VARCHAR(64) NOT NULL,
     PRIMARY KEY (id)
 );
 
---FD:
---{codigoZona}->{nome, codigoPais}
 CREATE TABLE Localidade (
     codigoZona INTEGER,
     codigoPais INTEGER REFERENCES Pais (codigo) NOT NULL,
@@ -245,23 +206,15 @@ CREATE TABLE Localidade (
     PRIMARY KEY (codigoZona)
 );
 
---FD:
---{codigo}->{nome}
---{nome}->{codigo} !!!!!!
 CREATE TABLE Pais (
     codigo INTEGER,
     nome VARCHAR(64) NOT NULL,
     PRIMARY KEY (codigo)
 );
 
---FD:
---{id}->{justificacao, tipo, prioridade, avaliador}
---Possiveis:
---{justificacao}->{prioridade} !!!!!!
 CREATE TABLE PedidoApoio (
     id INTEGER,
     justificacao TEXT NOT NULL,
-    ---colocar como ENUM/conj pre definido
     tipo VARCHAR(16) NOT NULL,
     prioridade INTEGER NOT NULL,
     avaliador INTEGER REFERENCES Administrador (id) NOT NULL,
@@ -277,23 +230,20 @@ CREATE TABLE PedidoApoio (
     )
 );
 
----morada e zona
----FD:
----{id}->{morada, numeroCamas, codigoZona}
----{morada, codigoZona}->{id, numeroCamas} !!!!!! Possivel Just: varios abrigos na mesma zona ou morada e codigo ser chave
 CREATE TABLE Abrigo (
     id INTEGER,
     morada VARCHAR(255) NOT NULL,
     numeroCamas INTEGER NOT NULL,
     codigoZona INTEGER REFERENCES Localidade (codigoZona) NOT NULL,
     PRIMARY KEY (id),
-    CONSTRAINT numeroCamasPositivo CHECK (numeroCamas > 0)
+    CONSTRAINT numeroCamasPositivo CHECK (numeroCamas > 0) ---para a terceira entrega será implementado com triggers o atributo derivado numeroCamasRestantes
 );
 
 CREATE TABLE DoacaoMaterialContemProduto (
     doacao INTEGER REFERENCES DoacaoMaterial (id),
     produto INTEGER REFERENCES Produto (id),
-    PRIMARY KEY (doacao, produto)
+    PRIMARY KEY (doacao, produto) ---para a terceira entrega adicionar constraint que restringe a data de validade
+    ---produto.dataValidade >= doacao.dataDoacao + 1 mes
 );
 
 CREATE TABLE ApoioMaterialIncluiProduto (
@@ -307,20 +257,3 @@ CREATE TABLE VoluntarioParticipaApoio (
     apoio INTEGER REFERENCES Apoio (id),
     PRIMARY KEY (voluntario, apoio)
 );
-
-/* CREATE TABLE PessoaContribuiDoacaoMaterial
- (
- doacaoMaterial INTEGER REFERENCES DoacaoMaterial (id),
- pessoa         INTEGER REFERENCES Pessoa (id),
- PRIMARY KEY (doacaoMaterial)
- ); */
---considerations
---atributos derivados: numeroDeCamasRestantes, horas de trabalho 
---triggers:
--- triggers CONSTRAINT validadeMinima CHECK(produto.dataValidade >= doacao.dataDoacao + 1 mes ) at DoacaoMaterialContemProduto
----triggers CONSTRAINT numeroCamasRestantesCoerente CHECK(numeroCamas >= numeroCamasRestantes) at Abrigo 
---Duvidas:
---derivadas
---NOT NULL Foreign Key
---FD
---codigo de produto vs id produto vs todos juntos
