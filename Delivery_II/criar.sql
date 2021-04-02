@@ -61,7 +61,7 @@ CREATE TABLE Pessoa (
     dataNascimento DATE NOT NULL,
     numeroTelefone VARCHAR(9),
     morada VARCHAR(255),
-    codigoZona INTEGER REFERENCES Localidade (codigoZona),
+    codigoZona INTEGER REFERENCES Localidade (codigoZona) NOT NULL,
     PRIMARY KEY (id),
     CONSTRAINT unique_nif UNIQUE (NIF)
 );
@@ -109,7 +109,7 @@ CREATE TABLE Administrador (
     id INTEGER REFERENCES Pessoa (id),
     horaInicio INTEGER NOT NULL,
     horaFim INTEGER NOT NULL,
-    numeroEscritorio INTEGER,
+    numeroEscritorio INTEGER NOT NULL,
     tempoDeTrabalho INTEGER AS (horaFim - horaInicio),
     PRIMARY KEY (id),
     CONSTRAINT horasDiariasObrigatorias CHECK (horaInicio < horaFim),
@@ -127,7 +127,7 @@ CREATE TABLE Administrador (
 --{id}->{idPessoa, data}
 CREATE TABLE DoacaoMaterial (
     id INTEGER,
-    pessoa INTEGER REFERENCES Pessoa (id),
+    pessoa INTEGER REFERENCES Pessoa (id) NOT NULL,
     data DATE NOT NULL,
     PRIMARY KEY (id)
 );
@@ -136,7 +136,7 @@ CREATE TABLE DoacaoMaterial (
 --{id}->{pessoa, data, valor, frequencia}
 CREATE TABLE DoacaoMonetaria (
     id INTEGER,
-    pessoa INTEGER REFERENCES Pessoa (id),
+    pessoa INTEGER REFERENCES Pessoa (id) NOT NULL,
     data DATE NOT NULL,
     valor REAL NOT NULL,
     frequencia INTEGER NOT NULL,
@@ -155,8 +155,8 @@ CREATE TABLE Apoio (
     id INTEGER,
     dataInicio DATE NOT NULL,
     dataFim DATE,
-    pedido INTEGER REFERENCES PedidoApoio (id),
-    orientador INTEGER REFERENCES Orientador (id),
+    pedido INTEGER REFERENCES PedidoApoio (id) NOT NULL,
+    orientador INTEGER REFERENCES Orientador (id) NOT NULL,
     PRIMARY KEY (id) --CONSTRAINT dataCoerente CHECK (dataInicio < dataFim) ---questionar sobre a insercao e a comparacao no caso de data fim
 );
 
@@ -172,8 +172,8 @@ CREATE TABLE ApoioMonetario (
 --FD:
 --{id}->{abrigo}
 CREATE TABLE ApoioAlojamento (
-    id INTEGER REFERENCES Apoio (id),
-    abrigo INTEGER REFERENCES Abrigo (id),
+    id INTEGER REFERENCES Apoio (id) NOT NULL,
+    abrigo INTEGER REFERENCES Abrigo (id) NOT NULL,
     PRIMARY KEY (id)
 );
 
@@ -197,7 +197,7 @@ CREATE TABLE Produto (
 --{id}->{genero}
 CREATE TABLE ProdutoHigiene (
     id REFERENCES Produto (id),
-    genero VARCHAR(10),
+    genero VARCHAR(10) NOT NULL,
     PRIMARY KEY (id)
 );
 
@@ -223,7 +223,7 @@ CREATE TABLE ProdutoVestuario (
 CREATE TABLE ProdutoAlimentar (
     id REFERENCES Produto (id),
     dataValidade DATE NOT NULL,
-    tipo INTEGER REFERENCES TipoAlimentar (id),
+    tipo INTEGER REFERENCES TipoAlimentar (id) NOT NULL,
     PRIMARY KEY (id)
 );
 
@@ -239,7 +239,7 @@ CREATE TABLE TipoAlimentar (
 --{codigoZona}->{nome, codigoPais}
 CREATE TABLE Localidade (
     codigoZona INTEGER NOT NULL,
-    codigoPais INTEGER REFERENCES Pais (codigo),
+    codigoPais INTEGER REFERENCES Pais (codigo) NOT NULL,
     nome VARCHAR(64) NOT NULL,
     PRIMARY KEY (codigoZona)
 );
@@ -263,8 +263,8 @@ CREATE TABLE PedidoApoio (
     ---colocar como ENUM/conj pre definido
     tipo VARCHAR(16) NOT NULL,
     prioridade INTEGER NOT NULL,
-    avaliador INTEGER REFERENCES Administrador (id),
-    pedinte INTEGER REFERENCES Necessitado (id),
+    avaliador INTEGER REFERENCES Administrador (id) NOT NULL,
+    pedinte INTEGER REFERENCES Necessitado (id) NOT NULL,
     PRIMARY KEY (id),
     CONSTRAINT limitesPrioridade CHECK (
         prioridade >= 0
@@ -280,7 +280,7 @@ CREATE TABLE Abrigo (
     id INTEGER,
     morada VARCHAR(255) NOT NULL,
     numeroCamas INTEGER NOT NULL,
-    codigoZona INTEGER REFERENCES Localidade (codigoZona),
+    codigoZona INTEGER REFERENCES Localidade (codigoZona) NOT NULL,
     PRIMARY KEY (id),
     CONSTRAINT numeroCamasPositivo CHECK (numeroCamas > 0)
 );
