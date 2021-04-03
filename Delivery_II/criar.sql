@@ -76,9 +76,9 @@ CREATE TABLE Voluntario (
 
 CREATE TABLE Orientador (
     id INTEGER REFERENCES Pessoa (id),
-    horaInicio INTEGER NOT NULL,
-    horaFim INTEGER NOT NULL,
-    tempoDeTrabalho INTEGER AS (horaFim - horaInicio),
+    horaInicio REAL NOT NULL,
+    horaFim REAL NOT NULL,
+    tempoDeTrabalho REAL AS (horaFim - horaInicio),
     PRIMARY KEY (id),
     CONSTRAINT horasDiariasCoerentes CHECK (horaInicio < horaFim),
     CONSTRAINT horasValidasInicio CHECK (
@@ -93,10 +93,10 @@ CREATE TABLE Orientador (
 
 CREATE TABLE Administrador (
     id INTEGER REFERENCES Pessoa (id),
-    horaInicio INTEGER NOT NULL,
-    horaFim INTEGER NOT NULL,
+    horaInicio REAL NOT NULL,
+    horaFim REAL NOT NULL,
     numeroEscritorio INTEGER NOT NULL,
-    tempoDeTrabalho INTEGER AS (horaFim - horaInicio),
+    tempoDeTrabalho REAL AS (horaFim - horaInicio),
     PRIMARY KEY (id),
     CONSTRAINT horasDiariasObrigatorias CHECK (horaInicio < horaFim),
     CONSTRAINT horasValidasInicio CHECK (
