@@ -159,38 +159,37 @@ CREATE TABLE ApoioMaterial (
 );
 
 CREATE TABLE Produto (
-    id INTEGER,
+    codigo INTEGER,
     nome VARCHAR(64) NOT NULL,
-    codigo INTEGER NOT NULL,
-    PRIMARY KEY (id)
+    PRIMARY KEY (codigo)
 );
 
 CREATE TABLE ProdutoHigiene (
-    id REFERENCES Produto (id),
-    genero VARCHAR(10) DEFAULT ('unisexo') NOT NULL,
-    PRIMARY KEY (id)
+    codigo REFERENCES Produto (codigo),
+    genero VARCHAR(10) DEFAULT ('Unisexo') NOT NULL,
+    PRIMARY KEY (codigo)
 );
 
 CREATE TABLE ProdutoVestuario (
-    id REFERENCES Produto (id),
+    codigo REFERENCES Produto (codigo),
     tamanho VARCHAR(2) NOT NULL,
-    PRIMARY KEY (id),
+    PRIMARY KEY (codigo),
     ---ver se tamanho corresponde a uma das opcoes
     CONSTRAINT tamanhoExistente CHECK (
         tamanho LIKE 'XS'
         or tamanho LIKE 'S'
         or tamanho LIKE 'M'
+        or tamanho LIKE 'L'
         or tamanho LIKE 'XL'
         or tamanho LIKE 'XXL'
-        or tamanho LIKE 'L'
     )
 );
 
 CREATE TABLE ProdutoAlimentar (
-    id REFERENCES Produto (id),
+    codigo REFERENCES Produto (codigo),
     dataValidade DATE NOT NULL,
     tipo INTEGER REFERENCES TipoAlimentar (id) NOT NULL,
-    PRIMARY KEY (id)
+    PRIMARY KEY (codigo)
 );
 
 CREATE TABLE TipoAlimentar (
@@ -241,14 +240,14 @@ CREATE TABLE Abrigo (
 
 CREATE TABLE DoacaoMaterialContemProduto (
     doacao INTEGER REFERENCES DoacaoMaterial (id),
-    produto INTEGER REFERENCES Produto (id),
+    produto INTEGER REFERENCES Produto (codigo),
     PRIMARY KEY (doacao, produto) ---para a terceira entrega adicionar constraint que restringe a data de validade
     ---produto.dataValidade >= doacao.dataDoacao + 1 mes
 );
 
 CREATE TABLE ApoioMaterialIncluiProduto (
     apoio INTEGER REFERENCES Apoio (id),
-    produto INTEGER REFERENCES Produto (id),
+    produto INTEGER REFERENCES Produto (codigo),
     PRIMARY KEY (apoio, produto)
 );
 

@@ -508,20 +508,20 @@ VALUES
     (4, 31, '2021-11-15', 318, 6),
     (5, 33, '2021-05-27', 494, 7),
     (6, 35, '2020-08-03', 284, 16),
-    (7, 32, '2021-12-19', 493, 4),
+    (7, 32, '2021-12-19', 493, 0),
     (8, 31, '2021-10-03', 390, 14),
     (9, 34, '2021-12-05', 113, 24),
-    (10, 39, '2020-10-19', 354, 23),
+    (10, NULL, '2020-10-19', 354, 0),
     (11, 37, '2021-06-11', 339, 6),
     (12, 35, '2021-04-23', 139, 13),
     (13, 36, '2021-10-06', 56, 15),
     (14, 39, '2021-06-24', 401, 5),
-    (15, 36, '2020-09-23', 464, 13),
+    (15, 36, '2020-09-23', 464, 0),
     (16, 40, '2020-12-07', 410, 16),
     (17, 37, '2022-02-12', 123, 22),
     (18, 35, '2021-02-02', 74, 13),
     (19, 32, '2022-01-07', 20, 13),
-    (20, 33, '2021-01-27', 390, 21);
+    (20, 33, '2021-01-27', 390, 0);
 
 INSERT INTO
     'DoacaoMaterial' ('id', 'pessoa', 'data')
@@ -533,7 +533,7 @@ VALUES
     (5, 35, '2021-05-31'),
     (6, 39, '2021-03-16'),
     (7, 40, '2020-04-22'),
-    (NULL, 33, '2021-05-31'),
+    (8, NULL, '2021-05-31'),
     (9, 37, '2020-09-03'),
     (10, 34, '2021-02-21'),
     (11, 37, '2021-12-21'),
@@ -562,7 +562,7 @@ VALUES
     ),
     (
         2,
-        'Terramoto',
+        'Desastre Natural',
         'Alojamento',
         10,
         6,
@@ -602,7 +602,7 @@ VALUES
     ),
     (
         7,
-        'Pedofilia',
+        'Desemprego',
         'Material',
         5,
         6,
@@ -626,7 +626,7 @@ VALUES
     ),
     (
         10,
-        'Falta vestuario para cobrir-me durante o Inverno. Ai que frio!',
+        'Incêndio',
         'Material',
         6,
         12,
@@ -634,38 +634,38 @@ VALUES
     );
 
 INSERT INTO
-    'Produto' ('id', 'nome', 'codigo')
+    'Produto' ('codigo', 'nome')
 VALUES
-    (1, 'massa', 6123),
-    (2, 'feijao enlatado', 1681),
-    (3, 'atum enlatado', 1879),
-    (4, 'cereais', 2269),
-    (5, 'arroz', 9987),
-    (6, 'shampoo', 5618),
-    (7, 'escova de dentes', 2086),
-    (8, 'pensos higienicos', 7777),
-    (9, 'pasta de dentes', 1187),
-    (10, 'pensos higienicos', 7777),
-    (11, 't-shirts', 2096),
-    (12, 'jeans', 4086),
-    (13, 'sweats', 1043),
-    (14, 'meias', 4781),
-    (15, 'casacos', 8086),
-    (16, 'azeite', 1845);
+    (1, 'Massa'),
+    (2, 'Feijão enlatado'),
+    (3, 'Atum enlatado'),
+    (4, 'Cereais'),
+    (5, 'Arroz'),
+    (6, 'Shampoo'),
+    (7, 'Escova de dentes'),
+    (8, 'Pensos higiénicos'),
+    (9, 'Pasta de dentes'),
+    (10, 'Pensos higiénicos'),
+    (11, 'T-shirts'),
+    (12, 'Jeans'),
+    (13, 'Sweats'),
+    (14, 'Meias'),
+    (15, 'Casacos'),
+    (16, 'Azeite');
 
 INSERT INTO
     'TipoAlimentar' ('id', 'tipo')
 VALUES
-    (1, 'hidratos'),
-    (2, 'enlatados carne e peixe'),
-    (3, 'cereais'),
-    (4, 'enlatados leguminosas'),
-    (5, 'oleos'),
-    (6, 'especiarias'),
-    (7, 'doces');
+    (1, 'Hidratos'),
+    (2, 'Enlatados carne e peixe'),
+    (3, 'Cereais'),
+    (4, 'Enlatados leguminosas'),
+    (5, 'Óleos'),
+    (6, 'Especiarias'),
+    (7, 'Doces');
 
 INSERT INTO
-    'ProdutoAlimentar' ('id', 'dataValidade', 'tipo')
+    'ProdutoAlimentar' ('codigo', 'dataValidade', 'tipo')
 VALUES
     (1, '2021-11-29', 1),
     (2, '2022-10-20', 4),
@@ -675,16 +675,16 @@ VALUES
     (16, '2021-05-13', 5);
 
 INSERT INTO
-    'ProdutoHigiene' ('id', 'genero')
+    'ProdutoHigiene' ('codigo', 'genero')
 VALUES
-    (6, 'unisexo'),
-    (7, 'unisexo'),
-    (8, 'feminino'),
-    (9, 'unisexo'),
-    (10, 'feminino');
+    (6, 'Unisexo'),
+    (7, 'Unisexo'),
+    (8, 'Feminino'),
+    (9, 'Unisexo'),
+    (10, 'Feminino');
 
 INSERT INTO
-    'ProdutoVestuario' ('id', 'tamanho')
+    'ProdutoVestuario' ('codigo', 'tamanho')
 VALUES
     (11, 'M'),
     (12, 'L'),
