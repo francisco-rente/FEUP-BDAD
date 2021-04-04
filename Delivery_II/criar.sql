@@ -54,7 +54,7 @@ CREATE TABLE Orientador (
     id INTEGER REFERENCES Pessoa (id),
     horaInicio REAL NOT NULL,
     horaFim REAL NOT NULL,
-    tempoDeTrabalho REAL AS (horaFim - horaInicio),
+    tempoDeTrabalho REAL GENERATED ALWAYS AS  (horaFim - horaInicio),
     PRIMARY KEY (id),
     CONSTRAINT horasDiariasCoerentes CHECK (horaInicio < horaFim),
     CONSTRAINT horasValidasInicio CHECK (
@@ -72,7 +72,7 @@ CREATE TABLE Administrador (
     horaInicio REAL NOT NULL,
     horaFim REAL NOT NULL,
     numeroEscritorio INTEGER NOT NULL,
-    tempoDeTrabalho REAL AS (horaFim - horaInicio),
+    tempoDeTrabalho REAL GENERATED ALWAYS AS  (horaFim - horaInicio),
     PRIMARY KEY (id),
     CONSTRAINT horasDiariasObrigatorias CHECK (horaInicio < horaFim),
     CONSTRAINT horasValidasInicio CHECK (
@@ -198,7 +198,7 @@ CREATE TABLE PedidoApoio (
     CONSTRAINT limitesPrioridade CHECK (
         prioridade >= 0
         and prioridade <= 10
-    ) CONSTRAINT tipoValido CHECK (
+    ), CONSTRAINT tipoValido CHECK (
         tipo LIKE 'Alojamento'
         or tipo LIKE 'Material'
         or tipo LIKE 'Monetário'
