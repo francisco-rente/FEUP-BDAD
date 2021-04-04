@@ -63,11 +63,11 @@ CREATE TABLE Orientador
     CONSTRAINT horasDiariasCoerentes CHECK (horaInicio < horaFim),
     CONSTRAINT horasValidasInicio CHECK (
             0 <= horaInicio
-            and horaInicio < 24
+            AND horaInicio < 24
         ),
     CONSTRAINT horasValidasFim CHECK (
             0 <= horaFim
-            and horaFim < 24
+            AND horaFim < 24
         )
 );
 
@@ -82,11 +82,11 @@ CREATE TABLE Administrador
     CONSTRAINT horasDiariasObrigatorias CHECK (horaInicio < horaFim),
     CONSTRAINT horasValidasInicio CHECK (
             0 <= horaInicio
-            and horaInicio < 24
+            AND horaInicio < 24
         ),
     CONSTRAINT horasValidasFim CHECK (
             0 <= horaFim
-            and horaFim < 24
+            AND horaFim < 24
         )
 );
 
@@ -108,7 +108,7 @@ CREATE TABLE DoacaoMonetaria
     PRIMARY KEY (id),
     CONSTRAINT limiteMonetario CHECK (
             0 < valor
-            and valor <= 500
+            AND valor <= 500
         ),
     CONSTRAINT frequenciaValida CHECK (frequencia >= 0)
 );
@@ -167,11 +167,11 @@ CREATE TABLE ProdutoVestuario
     ---ver se tamanho corresponde a uma das opcoes
     CONSTRAINT tamanhoExistente CHECK (
             tamanho LIKE 'XS'
-            or tamanho LIKE 'S'
-            or tamanho LIKE 'M'
-            or tamanho LIKE 'L'
-            or tamanho LIKE 'XL'
-            or tamanho LIKE 'XXL'
+            OR tamanho LIKE 'S'
+            OR tamanho LIKE 'M'
+            OR tamanho LIKE 'L'
+            OR tamanho LIKE 'XL'
+            OR tamanho LIKE 'XXL'
         )
 );
 
@@ -216,12 +216,12 @@ CREATE TABLE PedidoApoio
     PRIMARY KEY (id),
     CONSTRAINT limitesPrioridade CHECK (
             prioridade >= 0
-            and prioridade <= 10
+            AND prioridade <= 10
         ),
     CONSTRAINT tipoValido CHECK (
             tipo LIKE 'Alojamento'
-            or tipo LIKE 'Material'
-            or tipo LIKE 'Monetário'
+            OR tipo LIKE 'Material'
+            OR tipo LIKE 'Monetário'
         )
 );
 
