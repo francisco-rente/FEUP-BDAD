@@ -22,7 +22,6 @@ DROP TABLE IF EXISTS Abrigo;
 DROP TABLE IF EXISTS DoacaoMaterialContemProduto;
 DROP TABLE IF EXISTS ApoioMaterialIncluiProduto;
 DROP TABLE IF EXISTS VoluntarioParticipaApoio;
-DROP TABLE IF EXISTS PessoaContribuiDoacaoMaterial;
 
 CREATE TABLE Pessoa (
     id INTEGER,
