@@ -1,4 +1,4 @@
----drop every table that could previously exist
+-- Drop every existing table to avoid conflicts
 DROP TABLE IF EXISTS Pessoa;
 DROP TABLE IF EXISTS Necessitado;
 DROP TABLE IF EXISTS Voluntario;
@@ -23,6 +23,7 @@ DROP TABLE IF EXISTS DoacaoMaterialContemProduto;
 DROP TABLE IF EXISTS ApoioMaterialIncluiProduto;
 DROP TABLE IF EXISTS VoluntarioParticipaApoio;
 
+-- Create the tables
 CREATE TABLE Pessoa
 (
     id             INTEGER,
@@ -33,8 +34,8 @@ CREATE TABLE Pessoa
     numeroTelefone VARCHAR(9),
     morada         VARCHAR(255),
     codigoZona     INTEGER     NOT NULL REFERENCES Localidade (codigoZona),
-    PRIMARY KEY (id),
-    CONSTRAINT unique_nif UNIQUE (NIF)
+    CONSTRAINT unique_nif UNIQUE (NIF),
+    PRIMARY KEY (id)
 );
 
 CREATE TABLE Necessitado
@@ -59,7 +60,6 @@ CREATE TABLE Orientador
     horaInicio      REAL NOT NULL,
     horaFim         REAL NOT NULL,
     tempoDeTrabalho REAL GENERATED ALWAYS AS (horaFim - horaInicio),
-    PRIMARY KEY (id),
     CONSTRAINT horasDiariasCoerentes CHECK (horaInicio < horaFim),
     CONSTRAINT horasValidasInicio CHECK (
             0 <= horaInicio
@@ -68,7 +68,8 @@ CREATE TABLE Orientador
     CONSTRAINT horasValidasFim CHECK (
             0 <= horaFim
             AND horaFim < 24
-        )
+        ),
+    PRIMARY KEY (id)
 );
 
 CREATE TABLE Administrador
@@ -78,7 +79,6 @@ CREATE TABLE Administrador
     horaFim          REAL    NOT NULL,
     numeroEscritorio INTEGER NOT NULL,
     tempoDeTrabalho  REAL GENERATED ALWAYS AS (horaFim - horaInicio),
-    PRIMARY KEY (id),
     CONSTRAINT horasDiariasObrigatorias CHECK (horaInicio < horaFim),
     CONSTRAINT horasValidasInicio CHECK (
             0 <= horaInicio
@@ -87,7 +87,8 @@ CREATE TABLE Administrador
     CONSTRAINT horasValidasFim CHECK (
             0 <= horaFim
             AND horaFim < 24
-        )
+        ),
+    PRIMARY KEY (id)
 );
 
 CREATE TABLE DoacaoMaterial
@@ -105,12 +106,12 @@ CREATE TABLE DoacaoMonetaria
     data       DATE    NOT NULL,
     valor      REAL    NOT NULL,
     frequencia INTEGER NOT NULL DEFAULT (0),
-    PRIMARY KEY (id),
     CONSTRAINT limiteMonetario CHECK (
             0 < valor
             AND valor <= 500
         ),
-    CONSTRAINT frequenciaValida CHECK (frequencia >= 0)
+    CONSTRAINT frequenciaValida CHECK (frequencia >= 0),
+    PRIMARY KEY (id)
 );
 
 CREATE TABLE Apoio
@@ -120,16 +121,17 @@ CREATE TABLE Apoio
     dataFim    DATE,
     pedido     INTEGER NOT NULL REFERENCES PedidoApoio (id),
     orientador INTEGER NOT NULL REFERENCES Orientador (id),
-    PRIMARY KEY (id),
-    CONSTRAINT dataCoerente CHECK (dataInicio < dataFim)
+    CONSTRAINT dataCoerente CHECK (dataInicio < dataFim),
+    PRIMARY KEY (id)
 );
 
 CREATE TABLE ApoioMonetario
 (
     id    INTEGER REFERENCES Apoio (id),
     valor INTEGER NOT NULL,
-    PRIMARY KEY (id),
-    CONSTRAINT valorPositivo CHECK (valor > 0) ---valor deve ser suportado por fundos doacoes - apoios, futura implementação com triggers
+    CONSTRAINT valorPositivo CHECK (valor > 0),
+    -- Note: a trigger should be added on the next delivery to make sure there are enough funds (donations - supports) for this support
+    PRIMARY KEY (id)
 );
 
 CREATE TABLE ApoioAlojamento
@@ -163,8 +165,6 @@ CREATE TABLE ProdutoVestuario
 (
     codigo REFERENCES Produto (codigo),
     tamanho VARCHAR(2) NOT NULL,
-    PRIMARY KEY (codigo),
-    ---ver se tamanho corresponde a uma das opcoes
     CONSTRAINT tamanhoExistente CHECK (
             tamanho LIKE 'XS'
             OR tamanho LIKE 'S'
@@ -172,7 +172,8 @@ CREATE TABLE ProdutoVestuario
             OR tamanho LIKE 'L'
             OR tamanho LIKE 'XL'
             OR tamanho LIKE 'XXL'
-        )
+        ),
+    PRIMARY KEY (codigo)
 );
 
 CREATE TABLE ProdutoAlimentar
@@ -213,7 +214,6 @@ CREATE TABLE PedidoApoio
     prioridade   INTEGER     NOT NULL,
     avaliador    INTEGER     NOT NULL REFERENCES Administrador (id),
     pedinte      INTEGER     NOT NULL REFERENCES Necessitado (id),
-    PRIMARY KEY (id),
     CONSTRAINT limitesPrioridade CHECK (
             prioridade >= 0
             AND prioridade <= 10
@@ -222,7 +222,8 @@ CREATE TABLE PedidoApoio
             tipo LIKE 'Alojamento'
             OR tipo LIKE 'Material'
             OR tipo LIKE 'Monetário'
-        )
+        ),
+    PRIMARY KEY (id)
 );
 
 CREATE TABLE Abrigo
@@ -231,16 +232,17 @@ CREATE TABLE Abrigo
     morada      VARCHAR(255) NOT NULL,
     numeroCamas INTEGER      NOT NULL,
     codigoZona  INTEGER      NOT NULL REFERENCES Localidade (codigoZona),
-    PRIMARY KEY (id),
-    CONSTRAINT numeroCamasPositivo CHECK (numeroCamas > 0) ---para a terceira entrega será implementado com triggers o atributo derivado numeroCamasRestantes
+    CONSTRAINT numeroCamasPositivo CHECK (numeroCamas > 0),
+    -- Note: a trigger should be added on the next delivery to update the derived attribute number of remaining beds.
+    PRIMARY KEY (id)
 );
 
 CREATE TABLE DoacaoMaterialContemProduto
 (
     doacao  INTEGER REFERENCES DoacaoMaterial (id),
     produto INTEGER REFERENCES Produto (codigo),
-    PRIMARY KEY (doacao, produto) ---para a terceira entrega adicionar constraint que restringe a data de validade
-    ---produto.dataValidade >= doacao.dataDoacao + 1 mes
+    -- Note: a trigger should be added on the next delivery to block any donations if the expiration date is less than one month from now.
+    PRIMARY KEY (doacao, produto)
 );
 
 CREATE TABLE ApoioMaterialIncluiProduto
