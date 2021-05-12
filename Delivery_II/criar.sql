@@ -33,7 +33,7 @@ CREATE TABLE Pessoa
     dataNascimento DATE        NOT NULL,
     numeroTelefone VARCHAR(9),
     morada         VARCHAR(255),
-    codigoZona     INTEGER     NOT NULL REFERENCES Localidade (codigoZona),
+    codigoZona     INTEGER     NOT NULL REFERENCES Localidade (codigo),
     CONSTRAINT unique_nif UNIQUE (NIF),
     PRIMARY KEY (id)
 );
@@ -59,7 +59,7 @@ CREATE TABLE Orientador
     id              INTEGER REFERENCES Pessoa (id),
     horaInicio      REAL NOT NULL,
     horaFim         REAL NOT NULL,
-    tempoDeTrabalho REAL GENERATED ALWAYS AS (horaFim - horaInicio),
+    horasDiarias REAL GENERATED ALWAYS AS (horaFim - horaInicio),
     CONSTRAINT horasDiariasCoerentes CHECK (horaInicio < horaFim),
     CONSTRAINT horasValidasInicio CHECK (
             0 <= horaInicio
@@ -78,7 +78,7 @@ CREATE TABLE Administrador
     horaInicio       REAL    NOT NULL,
     horaFim          REAL    NOT NULL,
     numeroEscritorio INTEGER NOT NULL,
-    tempoDeTrabalho  REAL GENERATED ALWAYS AS (horaFim - horaInicio),
+    horasDiarias  REAL GENERATED ALWAYS AS (horaFim - horaInicio),
     CONSTRAINT horasDiariasObrigatorias CHECK (horaInicio < horaFim),
     CONSTRAINT horasValidasInicio CHECK (
             0 <= horaInicio
@@ -180,11 +180,11 @@ CREATE TABLE ProdutoAlimentar
 (
     codigo REFERENCES Produto (codigo),
     dataValidade DATE                                  NOT NULL,
-    tipo         INTEGER REFERENCES TipoAlimentar (id) NOT NULL,
+    tipo         INTEGER REFERENCES TipoProdutoAlimentar (id) NOT NULL,
     PRIMARY KEY (codigo)
 );
 
-CREATE TABLE TipoAlimentar
+CREATE TABLE TipoProdutoAlimentar
 (
     id   INTEGER,
     tipo VARCHAR(64) NOT NULL,
@@ -193,10 +193,10 @@ CREATE TABLE TipoAlimentar
 
 CREATE TABLE Localidade
 (
-    codigoZona INTEGER,
+    codigo INTEGER,
     codigoPais INTEGER     NOT NULL REFERENCES Pais (codigo),
     nome       VARCHAR(64) NOT NULL,
-    PRIMARY KEY (codigoZona)
+    PRIMARY KEY (codigo)
 );
 
 CREATE TABLE Pais
@@ -231,7 +231,7 @@ CREATE TABLE Abrigo
     id          INTEGER,
     morada      VARCHAR(255) NOT NULL,
     numeroCamas INTEGER      NOT NULL,
-    codigoZona  INTEGER      NOT NULL REFERENCES Localidade (codigoZona),
+    codigoZona  INTEGER      NOT NULL REFERENCES Localidade (codigo),
     CONSTRAINT numeroCamasPositivo CHECK (numeroCamas > 0),
     -- Note: a trigger should be added on the next delivery to update the derived attribute number of remaining beds.
     PRIMARY KEY (id)

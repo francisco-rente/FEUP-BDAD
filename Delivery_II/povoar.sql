@@ -4,7 +4,7 @@ INSERT INTO 'Pais' ('codigo', 'nome')
 VALUES (12, 'Portugal'),
        (14, 'Espanha');
 
-INSERT INTO 'Localidade' ('codigoZona', 'codigoPais', 'nome')
+INSERT INTO 'Localidade' ('codigo', 'codigoPais', 'nome')
 VALUES (80712126, 12, 'Porto'),
        (98803632, 12, 'Braga'),
        (18009249, 12, 'Viseu'),
@@ -164,7 +164,7 @@ VALUES (1, 'Massa'),
        (15, 'Casacos'),
        (16, 'Azeite');
 
-INSERT INTO 'TipoAlimentar' ('id', 'tipo')
+INSERT INTO 'TipoProdutoAlimentar' ('id', 'tipo')
 VALUES (1, 'Hidratos'),
        (2, 'Enlatados carne e peixe'),
        (3, 'Cereais'),
