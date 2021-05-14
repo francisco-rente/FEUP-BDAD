@@ -19,6 +19,20 @@
 10. Pessoas em mais dificuldades, pediram mais [tipos] de apoio com uma elevada prioridade
 
 
+
+Sugestões professora: 
+- Pessoas que fizeram doação durante todos os meses de um ano; 
+- Pedidos de apoio por sasonalidade; <!>
+- Pares de pessoas juntas em pelo menos 1 abrigo Group by age p.e.; <!>
+- Pessoas que já deram e receberam apoios;
+- Pessoa que deu mais dinheiro sem uso de LIMIT ou MAX; <!>
+- Maior doação por mês;
+- Alguém que já tenha dado todos os tipos de produtos; 
+- Previsão monetária para o próximo mês, ver a última com group by;
+
+- Apoio Monetário e Produtos questões de stock 
+
+
 Triggers: 
 - qualquer tipo de clean up, doações mais antigas, ter cuidado com situações de Produtos no stock, se se mantém ou não, os Apoios que os utilizam etc
 - apoios por atribuir 
