@@ -14,7 +14,7 @@ DROP TABLE IF EXISTS Produto;
 DROP TABLE IF EXISTS ProdutoHigiene;
 DROP TABLE IF EXISTS ProdutoVestuario;
 DROP TABLE IF EXISTS ProdutoAlimentar;
-DROP TABLE IF EXISTS TipoAlimentar;
+DROP TABLE IF EXISTS TipoProdutoAlimentar;
 DROP TABLE IF EXISTS Localidade;
 DROP TABLE IF EXISTS Pais;
 DROP TABLE IF EXISTS PedidoApoio;
@@ -179,8 +179,8 @@ CREATE TABLE ProdutoVestuario
 CREATE TABLE ProdutoAlimentar
 (
     codigo REFERENCES Produto (codigo) ON UPDATE CASCADE ON DELETE CASCADE,
-    dataValidade DATE                                  NOT NULL,
-    tipo         INTEGER REFERENCES TipoProdutoAlimentar (id) NOT NULL ON UPDATE CASCADE ON DELETE SET NULL,
+    dataValidade DATE NOT NULL,
+    tipo         INTEGER NOT NULL REFERENCES TipoProdutoAlimentar (id) ON UPDATE CASCADE ON DELETE SET NULL,
     PRIMARY KEY (codigo)
 );
 
