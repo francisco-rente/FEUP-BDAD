@@ -33,14 +33,14 @@ CREATE TABLE Pessoa
     dataNascimento DATE        NOT NULL,
     numeroTelefone VARCHAR(9),
     morada         VARCHAR(255),
-    codigoZona     INTEGER     NOT NULL REFERENCES Localidade (codigo),
+    codigoZona     INTEGER     NOT NULL REFERENCES Localidade (codigo) ON UPDATE CASCADE ON DELETE SET NULL,
     CONSTRAINT unique_nif UNIQUE (NIF),
     PRIMARY KEY (id)
 );
 
 CREATE TABLE Necessitado
 (
-    id         INTEGER REFERENCES Pessoa (id),
+    id         INTEGER REFERENCES Pessoa (id) ON UPDATE CASCADE ON DELETE CASCADE,
     rendimento REAL NOT NULL,
     CONSTRAINT rendimento_positivo CHECK (rendimento >= 0),
     CONSTRAINT rendimento_nao_aceitavel CHECK (rendimento <= 800),
@@ -49,14 +49,14 @@ CREATE TABLE Necessitado
 
 CREATE TABLE Voluntario
 (
-    id     INTEGER REFERENCES Pessoa (id),
-    abrigo INTEGER REFERENCES Abrigo (id),
+    id     INTEGER REFERENCES Pessoa (id) ON UPDATE CASCADE ON DELETE CASCADE,
+    abrigo INTEGER REFERENCES Abrigo (id) ON UPDATE CASCADE ON DELETE SET NULL,
     PRIMARY KEY (id)
 );
 
 CREATE TABLE Orientador
 (
-    id              INTEGER REFERENCES Pessoa (id),
+    id              INTEGER REFERENCES Pessoa (id) ON UPDATE CASCADE ON DELETE CASCADE,
     horaInicio      REAL NOT NULL,
     horaFim         REAL NOT NULL,
     horasDiarias REAL GENERATED ALWAYS AS (horaFim - horaInicio),
@@ -74,7 +74,7 @@ CREATE TABLE Orientador
 
 CREATE TABLE Administrador
 (
-    id               INTEGER REFERENCES Pessoa (id),
+    id               INTEGER REFERENCES Pessoa (id) ON UPDATE CASCADE ON DELETE CASCADE,
     horaInicio       REAL    NOT NULL,
     horaFim          REAL    NOT NULL,
     numeroEscritorio INTEGER NOT NULL,
@@ -94,7 +94,7 @@ CREATE TABLE Administrador
 CREATE TABLE DoacaoMaterial
 (
     id     INTEGER,
-    pessoa INTEGER REFERENCES Pessoa (id),
+    pessoa INTEGER REFERENCES Pessoa (id) ON UPDATE CASCADE ON DELETE SET NULL,
     data   DATE NOT NULL,
     PRIMARY KEY (id)
 );
@@ -102,7 +102,7 @@ CREATE TABLE DoacaoMaterial
 CREATE TABLE DoacaoMonetaria
 (
     id         INTEGER,
-    pessoa     INTEGER REFERENCES Pessoa (id),
+    pessoa     INTEGER REFERENCES Pessoa (id) ON UPDATE CASCADE ON DELETE SET NULL,
     data       DATE    NOT NULL,
     valor      REAL    NOT NULL,
     frequencia INTEGER NOT NULL DEFAULT (0),
@@ -119,15 +119,15 @@ CREATE TABLE Apoio
     id         INTEGER,
     dataInicio DATE    NOT NULL,
     dataFim    DATE,
-    pedido     INTEGER NOT NULL REFERENCES PedidoApoio (id),
-    orientador INTEGER NOT NULL REFERENCES Orientador (id),
+    pedido     INTEGER NOT NULL REFERENCES PedidoApoio (id) ON UPDATE CASCADE ON DELETE SET NULL,--RESTRICT, duvida relacao com pedido 
+    orientador INTEGER NOT NULL REFERENCES Orientador (id) ON UPDATE CASCADE ON DELETE RESTRICT,
     CONSTRAINT dataCoerente CHECK (dataInicio < dataFim),
     PRIMARY KEY (id)
 );
 
 CREATE TABLE ApoioMonetario
 (
-    id    INTEGER REFERENCES Apoio (id),
+    id    INTEGER REFERENCES Apoio (id) ON UPDATE CASCADE ON DELETE CASCADE,
     valor INTEGER NOT NULL,
     CONSTRAINT valorPositivo CHECK (valor > 0),
     -- Note: a trigger should be added on the next delivery to make sure there are enough funds (donations - supports) for this support
@@ -136,14 +136,14 @@ CREATE TABLE ApoioMonetario
 
 CREATE TABLE ApoioAlojamento
 (
-    id     INTEGER REFERENCES Apoio (id),
-    abrigo INTEGER NOT NULL REFERENCES Abrigo (id),
+    id     INTEGER REFERENCES Apoio (id) ON UPDATE CASCADE ON DELETE CASCADE,
+    abrigo INTEGER NOT NULL REFERENCES Abrigo (id) ON UPDATE CASCADE ON DELETE RESTRICT,--CASCADE
     PRIMARY KEY (id)
 );
 
 CREATE TABLE ApoioMaterial
 (
-    id INTEGER REFERENCES Apoio (id),
+    id INTEGER REFERENCES Apoio (id) ON UPDATE CASCADE ON DELETE CASCADE,
     PRIMARY KEY (id)
 );
 
@@ -156,14 +156,14 @@ CREATE TABLE Produto
 
 CREATE TABLE ProdutoHigiene
 (
-    codigo REFERENCES Produto (codigo),
+    codigo REFERENCES Produto (codigo) ON UPDATE CASCADE ON DELETE CASCADE,
     genero VARCHAR(10) NOT NULL DEFAULT ('Unisexo'),
     PRIMARY KEY (codigo)
 );
 
 CREATE TABLE ProdutoVestuario
 (
-    codigo REFERENCES Produto (codigo),
+    codigo REFERENCES Produto (codigo) ON UPDATE CASCADE ON DELETE CASCADE,
     tamanho VARCHAR(2) NOT NULL,
     CONSTRAINT tamanhoExistente CHECK (
             tamanho LIKE 'XS'
@@ -178,9 +178,9 @@ CREATE TABLE ProdutoVestuario
 
 CREATE TABLE ProdutoAlimentar
 (
-    codigo REFERENCES Produto (codigo),
+    codigo REFERENCES Produto (codigo) ON UPDATE CASCADE ON DELETE CASCADE,
     dataValidade DATE                                  NOT NULL,
-    tipo         INTEGER REFERENCES TipoProdutoAlimentar (id) NOT NULL,
+    tipo         INTEGER REFERENCES TipoProdutoAlimentar (id) NOT NULL ON UPDATE CASCADE ON DELETE SET NULL,
     PRIMARY KEY (codigo)
 );
 
@@ -194,7 +194,7 @@ CREATE TABLE TipoProdutoAlimentar
 CREATE TABLE Localidade
 (
     codigo INTEGER,
-    codigoPais INTEGER     NOT NULL REFERENCES Pais (codigo),
+    codigoPais INTEGER     NOT NULL REFERENCES Pais (codigo) ON UPDATE CASCADE ON DELETE SET NULL,
     nome       VARCHAR(64) NOT NULL,
     PRIMARY KEY (codigo)
 );
@@ -212,8 +212,8 @@ CREATE TABLE PedidoApoio
     justificacao TEXT        NOT NULL,
     tipo         VARCHAR(16) NOT NULL,
     prioridade   INTEGER     NOT NULL,
-    avaliador    INTEGER     NOT NULL REFERENCES Administrador (id),
-    pedinte      INTEGER     NOT NULL REFERENCES Necessitado (id),
+    avaliador    INTEGER     NOT NULL REFERENCES Administrador (id) ON UPDATE CASCADE ON DELETE RESTRICT,
+    pedinte      INTEGER     NOT NULL REFERENCES Necessitado (id) ON UPDATE CASCADE ON DELETE CASCADE, --RESTRICT
     CONSTRAINT limitesPrioridade CHECK (
             prioridade >= 0
             AND prioridade <= 10
@@ -231,7 +231,7 @@ CREATE TABLE Abrigo
     id          INTEGER,
     morada      VARCHAR(255) NOT NULL,
     numeroCamas INTEGER      NOT NULL,
-    codigoZona  INTEGER      NOT NULL REFERENCES Localidade (codigo),
+    codigoZona  INTEGER      NOT NULL REFERENCES Localidade (codigo) ON UPDATE CASCADE ON DELETE SET NULL,--RESTRICT,
     CONSTRAINT numeroCamasPositivo CHECK (numeroCamas > 0),
     -- Note: a trigger should be added on the next delivery to update the derived attribute number of remaining beds.
     PRIMARY KEY (id)
@@ -239,22 +239,23 @@ CREATE TABLE Abrigo
 
 CREATE TABLE DoacaoMaterialContemProduto
 (
-    doacao  INTEGER REFERENCES DoacaoMaterial (id),
-    produto INTEGER REFERENCES Produto (codigo),
+    doacao  INTEGER REFERENCES DoacaoMaterial (id) ON UPDATE CASCADE ON DELETE CASCADE,--CASCADE
+    produto INTEGER REFERENCES Produto (codigo) ON UPDATE CASCADE ON DELETE CASCADE,--CASCADE
     -- Note: a trigger should be added on the next delivery to block any donations if the expiration date is less than one month from now.
     PRIMARY KEY (doacao, produto)
 );
 
 CREATE TABLE ApoioMaterialIncluiProduto
 (
-    apoio   INTEGER REFERENCES Apoio (id),
-    produto INTEGER REFERENCES Produto (codigo),
+    apoio   INTEGER REFERENCES Apoio (id) ON UPDATE CASCADE ON DELETE CASCADE,--CASCADE
+    produto INTEGER REFERENCES Produto (codigo) ON UPDATE CASCADE ON DELETE CASCADE,--CASCADE
     PRIMARY KEY (apoio, produto)
 );
 
 CREATE TABLE VoluntarioParticipaApoio
 (
-    voluntario INTEGER REFERENCES Voluntario (id),
-    apoio      INTEGER REFERENCES Apoio (id),
+    voluntario INTEGER REFERENCES Voluntario (id) ON UPDATE CASCADE ON DELETE CASCADE,--CASCADE
+    apoio      INTEGER REFERENCES Apoio (id) ON UPDATE CASCADE ON DELETE CASCADE,--CASCADE 
     PRIMARY KEY (voluntario, apoio)
 );
+
