@@ -1,39 +1,57 @@
-1. Listar pedidos de Apoio de prioridade máxima
+# BDAD - Delivery III
 
-2. Trabalhadores disponíveis para determinada hora (modificação: para trabalhar num dado Apoio, apenas se incluí Orientadores ou para trabalhar num dado abrigo, voluntário e orientadores)
+## Possíveis Interrogações
+### Listar pedidos de apoio
+- Prioridade máxima;
+- Agrupar por prioridade;
+- Agrupar por justificação;
+- Agrupar por tipo;
+- Agrupar por necessitado:
+    - Idade (crianças, idosos);
+    - Morada (conjunto de pessoas com mesma morada na mesma zona -> Família);
+    
+### Listar trabalhadores
+- Disponíveis para um dado horário;
+- Residentes numa certa zona (para participar em apoios dessa zona);
+- Conhecidos de um necessitado (por já terem coordenado algum dos seus apoios);
 
-3. Doação e frequência, esquema de burla do tomas
+### Estatísticas relativas a doações
+- Obter fluxo esperado num dado intervalo de tempo (baseado nas datas e periodicidade das doações regulares);
+- Avaliar relação entre a altura do ano (mês/estação/semestre) e o valor recolhido;
+- Identificar dadores mais importantes:
+  - Maior frequência de doações;
+  - Maior valor doado;
+    > PROFESSORA: Sem usar LIMIT ou MAX
+  - Doação em todos os meses de um ano;
+  - Doação de todos os tipos de produto;
+    
+### Exequibilidade atual
+   - Quantos/Que pedidos de apoio podem ser satisfeitos atualmente para:
+      - Alojamento: comparação com a totalidade de camas disponíveis);
+      - Monetário: comparação entre o saldo `doações - apoios` existentes e o que o necessitado pede (assumir `800 - rendimento`);
+    
+### Condições mais adequadas para alojamento
+   - Abrigo mais adequado para um determinado pedido de apoio baseado em:
+     - Proximidade à sua residência (comparar códigos de zona);
+     - Média de idades dos residentes ser próxima;
+     - Possíveis residentes serem conhecidos por:
+       - Já terem estado com essa pessoa num abrigo;
+       - Terem a mesma nacionalidade;
+    
+### Estatísticas sobre necessitados
+   - Mais dificuldades (maior número de pedidos de apoio);
+   - Reversão de papéis (já doaram)
+   - Médias:
+        - Idade
+        - Rendimento
+   -  Amizades: pares de necessitados que já tenham estado juntos em pelo menos um abrigo
 
-4.Quantos pedidos de apoio de alojamento podem ser atribuídos no momento (soma das camas e pedidos alojamentos), ver se é possível para material e monetário 
-
-5. Média do valor monetário das doações atuais no intervalo X
-
-6. Abrigo mais próximo de um necessitado que pediu alojamento e as suas vagas, agrupar por nacionalidade por exemplo 
-
-7, Listar as 3 principais (prioridade máxima) justificações dos pedidos de apoios de Alojamento
-
-8. média de idade e rendimento de pedidos de apoio de Apoios monetários, alojamento e material group by (criminalidade, desastre natural etc)
-
-9. Média de idades das pessoas alojadas cada abrigo
-
-10. Pessoas em mais dificuldades, pediram mais [tipos] de apoio com uma elevada prioridade
 
 
-
-Sugestões professora: 
-- Pessoas que fizeram doação durante todos os meses de um ano; 
-- Pedidos de apoio por sasonalidade; <!>
-- Pares de pessoas juntas em pelo menos 1 abrigo Group by age p.e.; <!>
-- Pessoas que já deram e receberam apoios;
-- Pessoa que deu mais dinheiro sem uso de LIMIT ou MAX; <!>
-- Maior doação por mês;
-- Alguém que já tenha dado todos os tipos de produtos; 
-- Previsão monetária para o próximo mês, ver a última com group by;
-
-- Apoio Monetário e Produtos questões de stock 
-
-
-Triggers: 
-- qualquer tipo de clean up, doações mais antigas, ter cuidado com situações de Produtos no stock, se se mantém ou não, os Apoios que os utilizam etc
-- apoios por atribuir 
+## Possíveis gatilhos
+-trabalhadores: limites
+- qualquer tipo de clean up, doações mais antigas, ter cuidado com situações de Produtos no stock, se se mantém ou não,
+  os Apoios que os utilizam etc
+- apoios por atribuir
 - doações que não estejam de acordo com a sua frequência (basea-se no modelo implementado, not good)
+- Apoio Monetário e Produtos questões de stock
