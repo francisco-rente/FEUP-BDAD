@@ -59,3 +59,22 @@
 - Garantir bem-estar dos colaboradores:
     - Impedir que sejam atribuídos demasiados pedidos ao mesmo orientador para não o sobrecarregar
     - Impedir que sejam atribuídos horários demasiado longos a trabalhadores mais velhos
+    
+--- 
+
+## Interrogações
+1. ```SELECT...```
+2. ```SELECT...```
+3. ```SELECT...```
+4. ```SELECT...```
+5. ```SELECT...```
+6. ```SELECT...```
+7. ```SELECT...```
+8. ```SELECT...```
+9. ```SELECT...```
+10. ```SELECT...```
+
+## Gatilhos
+1. ```CREATE TRIGGER...```
+2. ```CREATE TRIGGER...```
+3. ```CREATE TRIGGER...```
