@@ -46,12 +46,16 @@
         - Rendimento
    -  Amizades: pares de necessitados que já tenham estado juntos em pelo menos um abrigo
 
-
-
 ## Possíveis gatilhos
--trabalhadores: limites
-- qualquer tipo de clean up, doações mais antigas, ter cuidado com situações de Produtos no stock, se se mantém ou não,
-  os Apoios que os utilizam etc
-- apoios por atribuir
-- doações que não estejam de acordo com a sua frequência (basea-se no modelo implementado, not good)
-- Apoio Monetário e Produtos questões de stock
+- Garantir estatuto de carenciado:
+    - Impedir pedidos de apoio de necessitados com rendimento superior a 800€
+    - Impedir que o mesmo necessitado tenha mais do que 5 pedidos de apoio pendentes (sem um apoio atribuído)
+
+- Garantir sustentabilidade de recursos:
+    - Dinheiro suficiente para apoios monetários
+    - Produtos suficientes para apoios materiais
+    - Vagas suficientes para apoios de alojamento
+
+- Garantir bem-estar dos colaboradores:
+    - Impedir que sejam atribuídos demasiados pedidos ao mesmo orientador para não o sobrecarregar
+    - Impedir que sejam atribuídos horários demasiado longos a trabalhadores mais velhos
