@@ -80,13 +80,14 @@
 
 
 2. Para cada pedido de apoio, listar os trabalhadores disponíveis mais adequados, considerando um trabalhador adequado
-   sempre que habite numa zona próxima ou já tenha participado num apoio atribuído a esse necessitado.
+   sempre que habite numa zona próxima ou já tenha participado num apoio atribuído a esse necessitado. ZONA PRÓXIMA É NO MESMO PAÍS?
+   SE POSSÌVEL INCORPORAR O HORÁRIO À MISTURA PARA SER TRIFECTA. O ORIENTADOR ESTÁ INCLUÍDO?? 
 
    ```SELECT...```
 
 
 3. Tendo em conta a frequência e o valor da doação recorrente mais recente de cada cliente, estimar o fluxo de entrada
-   esperado nos próximos X dias.
+   esperado nos próximos X dias. FLUXO DE ENTRADA FAZ-ME LEMBRAR CAL, MAS MESMO ASSIM ACHO QUE ISTO É MAIS DIFÍCIL :(.
 
    ```SELECT...```
 
@@ -94,13 +95,14 @@
 4. Para cada pedido de apoio de alojamento, identificar o abrigo mais apropriado, considerando um abrigo apropriado
    sempre que não esteja demasiado longe da área de residência do necessitado. Os resultados devem ser ordenados com
    base na proximidade entre o pedinte e os restantes habitantes, assumindo que um habitante é próximo de outro sempre
-   que já tenham coabitado.
+   que já tenham coabitado. NÃO PERCEBI MUITO BEM A SEGUNDA PARTE, SERIA CARTESIANO  E VER PARA A MESMA DATA QUANTOS ESIVERAM JUNTOS?
+   OU QUAIS?
 
    ```SELECT...```
 
 
 5. Para cada abrigo, calcular um conjunto de estatísticas relevantes sobre os seus habitantes: média de idades, média de
-   rendimentos, nacionalidade mais comum e justificação mais comum para requerer asilo.
+   rendimentos, nacionalidade mais comum e justificação mais comum para requerer asilo. MODIFICAR DADOS PARA TER JUSITIFICAÇÕES IGUAIS.
 
    ```SELECT...```
 
@@ -108,14 +110,14 @@
 6. É relevante estudar a distribuição de doações e apoios pelos meses e estações do ano. Concretamente, é importante
    saber os meses do ano com maior e menor volume de doações e pedidos, bem como o necessitado que inseriu mais pedidos,
    a pessoa que doou mais vezes, a pessoa que doou mais dinheiro à instituição e as pessoa que já tenham doado todos os
-   tipos de produtos.
+   tipos de produtos. O QUE A PROFESSORA DISSE DO SEM LIMIT OU MAX APLICA-SE À QUERY TODA OU SÓ À PARTE DO DINHEIRO?
 
    ```SELECT...```
 
 
 7. Em relação aos pedidos de apoio pendentes, é importante saber quais deles podem ser satisfeitos com os recursos
    existentes. Assim, as camas restantes devem ser comparadas com os pedidos de alojamento e o saldo monetário deve ser
-   comparado com os pedidos de apoio monetários.
+   comparado com os pedidos de apoio monetários. VER SE COMPENSA MANTER ESTE SABENDO QUE EXISTE O TRIGGER CORRESPONDENTE.
 
    ```SELECT...```
 
@@ -138,6 +140,12 @@
 
 ## Gatilhos
 
-1. ```CREATE TRIGGER...```
-2. ```CREATE TRIGGER...```
-3. ```CREATE TRIGGER...```
+1. De forma a garantir que o valor de cada apoio monetário é comportado pelo valor angariado pela totalidade das doações monetárias, é necessário verificar em cada validação deste tipo de pedido de apoio se a quantia que está a ser fornecida está de acordo com os limites atuais disponibilizados pela instituição. TENTAR INCLUIR O > 800 SE NÃO TIVER SIDO JÁ VERIFICADO. VERIFICAR O QUE SE SUCEDE, SE DÁ ERRO, DEIXA DOAR O VALOR MÁXIMO DISPONÍVEL NO COFRE...
+  ```CREATE TRIGGER...```
+2. A qualidade dos produtos armazenados tem de estar de acordo com os padrões sanitários básicos, nomeadamente no que diz respeito à data de validade de cada unidade. Por esse motivo, cada inserção de um produto deve também eliminar das tabelas correspondentes todos aqueles cujo prazo de validade já tenha sido extendido. VER SITUAÇÃO ATUAL DO ON DELETE.
+  ```CREATE TRIGGER...```
+
+3. UM DESTES TALVEZ:
+  - Impedir que o mesmo necessitado tenha mais do que 5 pedidos de apoio pendentes (sem um apoio atribuído), O QUE ACONTECERIA AQUI, NOTIFICARIA OU DARIA ERRO???
+  - Impedir que sejam atribuídos demasiados pedidos ao mesmo orientador para não o sobrecarregar
+  ```CREATE TRIGGER...```
