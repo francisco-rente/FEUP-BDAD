@@ -1,7 +1,9 @@
 # BDAD - Delivery III
 
 ## Possíveis Interrogações
+
 ### Listar pedidos de apoio
+
 - Prioridade máxima;
 - Agrupar por prioridade;
 - Agrupar por justificação;
@@ -9,44 +11,51 @@
 - Agrupar por necessitado:
     - Idade (crianças, idosos);
     - Morada (conjunto de pessoas com mesma morada na mesma zona -> Família);
-    
+
 ### Listar trabalhadores
+
 - Disponíveis para um dado horário;
 - Residentes numa certa zona (para participar em apoios dessa zona);
 - Conhecidos de um necessitado (por já terem coordenado algum dos seus apoios);
 
 ### Estatísticas relativas a doações
+
 - Obter fluxo esperado num dado intervalo de tempo (baseado nas datas e periodicidade das doações regulares);
 - Avaliar relação entre a altura do ano (mês/estação/semestre) e o valor recolhido;
 - Identificar dadores mais importantes:
-  - Maior frequência de doações;
-  - Maior valor doado;
-    > PROFESSORA: Sem usar LIMIT ou MAX
-  - Doação em todos os meses de um ano;
-  - Doação de todos os tipos de produto;
-    
+    - Maior frequência de doações;
+    - Maior valor doado;
+      > PROFESSORA: Sem usar LIMIT ou MAX
+    - Doação em todos os meses de um ano;
+    - Doação de todos os tipos de produto;
+
 ### Exequibilidade atual
-   - Quantos/Que pedidos de apoio podem ser satisfeitos atualmente para:
-      - Alojamento: comparação com a totalidade de camas disponíveis);
-      - Monetário: comparação entre o saldo `doações - apoios` existentes e o que o necessitado pede (assumir `800 - rendimento`);
-    
+
+- Quantos/Que pedidos de apoio podem ser satisfeitos atualmente para:
+    - Alojamento: comparação com a totalidade de camas disponíveis);
+    - Monetário: comparação entre o saldo `doações - apoios` existentes e o que o necessitado pede (
+      assumir `800 - rendimento`);
+
 ### Condições mais adequadas para alojamento
-   - Abrigo mais adequado para um determinado pedido de apoio baseado em:
-     - Proximidade à sua residência (comparar códigos de zona);
-     - Média de idades dos residentes ser próxima;
-     - Possíveis residentes serem conhecidos por:
-       - Já terem estado com essa pessoa num abrigo;
-       - Terem a mesma nacionalidade;
-    
+
+- Abrigo mais adequado para um determinado pedido de apoio baseado em:
+    - Proximidade à sua residência (comparar códigos de zona);
+    - Média de idades dos residentes ser próxima;
+    - Possíveis residentes serem conhecidos por:
+        - Já terem estado com essa pessoa num abrigo;
+        - Terem a mesma nacionalidade;
+
 ### Estatísticas sobre necessitados
-   - Mais dificuldades (maior número de pedidos de apoio);
-   - Reversão de papéis (já doaram)
-   - Médias:
-        - Idade
-        - Rendimento
-   -  Amizades: pares de necessitados que já tenham estado juntos em pelo menos um abrigo
+
+- Mais dificuldades (maior número de pedidos de apoio);
+- Reversão de papéis (já doaram)
+- Médias:
+    - Idade
+    - Rendimento
+- Amizades: pares de necessitados que já tenham estado juntos em pelo menos um abrigo
 
 ## Possíveis gatilhos
+
 - Garantir estatuto de carenciado:
     - Impedir pedidos de apoio de necessitados com rendimento superior a 800€
     - Impedir que o mesmo necessitado tenha mais do que 5 pedidos de apoio pendentes (sem um apoio atribuído)
@@ -60,22 +69,75 @@
 - Garantir bem-estar dos colaboradores:
     - Impedir que sejam atribuídos demasiados pedidos ao mesmo orientador para não o sobrecarregar
     - Impedir que sejam atribuídos horários demasiado longos a trabalhadores mais velhos
-    
+
 --- 
 
 ## Interrogações
-1. ```SELECT...```
-2. ```SELECT...```
-3. ```SELECT...```
-4. ```SELECT...```
-5. ```SELECT...```
-6. ```SELECT...```
-7. ```SELECT...```
-8. ```SELECT...```
-9. ```SELECT...```
-10. ```SELECT...```
+
+1. Listar pedidos de apoio pendentes, ordenados por prioridade crescente e agrupados por tipo.
+
+   ```SELECT...```
+
+
+2. Para cada pedido de apoio, listar os trabalhadores disponíveis mais adequados, considerando um trabalhador adequado
+   sempre que habite numa zona próxima ou já tenha participado num apoio atribuído a esse necessitado.
+
+   ```SELECT...```
+
+
+3. Tendo em conta a frequência e o valor da doação recorrente mais recente de cada cliente, estimar o fluxo de entrada
+   esperado nos próximos X dias.
+
+   ```SELECT...```
+
+
+4. Para cada pedido de apoio de alojamento, identificar o abrigo mais apropriado, considerando um abrigo apropriado
+   sempre que não esteja demasiado longe da área de residência do necessitado. Os resultados devem ser ordenados com
+   base na proximidade entre o pedinte e os restantes habitantes, assumindo que um habitante é próximo de outro sempre
+   que já tenham coabitado.
+
+   ```SELECT...```
+
+
+5. Para cada abrigo, calcular um conjunto de estatísticas relevantes sobre os seus habitantes: média de idades, média de
+   rendimentos, nacionalidade mais comum e justificação mais comum para requerer asilo.
+
+   ```SELECT...```
+
+
+6. É relevante estudar a distribuição de doações e apoios pelos meses e estações do ano. Concretamente, é importante
+   saber os meses do ano com maior e menor volume de doações e pedidos, bem como o necessitado que inseriu mais pedidos,
+   a pessoa que doou mais vezes, a pessoa que doou mais dinheiro à instituição e as pessoa que já tenham doado todos os
+   tipos de produtos.
+
+   ```SELECT...```
+
+
+7. Em relação aos pedidos de apoio pendentes, é importante saber quais deles podem ser satisfeitos com os recursos
+   existentes. Assim, as camas restantes devem ser comparadas com os pedidos de alojamento e o saldo monetário deve ser
+   comparado com os pedidos de apoio monetários.
+
+   ```SELECT...```
+
+
+8. Será útil listar os números de telefone de todos os dadores que tenham "falhado" a sua doação planeada para poderem
+   ser contactados/relembrados.
+
+   ```SELECT...```
+
+
+9. Para evitar separar famílias, deve ser possível listar as famílias que pediram alojamento para que sejam colocadas no
+   mesmo abrigo. Assim, os pedidos de alojamento devem ser agrupados por morada + localidade.
+   
+   ```SELECT...```
+
+
+10. 
+
+```SELECT...```
 
 ## Gatilhos
+
 1. ```CREATE TRIGGER...```
 2. ```CREATE TRIGGER...```
 3. ```CREATE TRIGGER...```
