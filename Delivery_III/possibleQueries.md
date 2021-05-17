@@ -55,6 +55,7 @@
     - Dinheiro suficiente para apoios monetários
     - Produtos suficientes para apoios materiais
     - Vagas suficientes para apoios de alojamento
+    - Remover produtos cuja data de validade tenha expirado
 
 - Garantir bem-estar dos colaboradores:
     - Impedir que sejam atribuídos demasiados pedidos ao mesmo orientador para não o sobrecarregar
