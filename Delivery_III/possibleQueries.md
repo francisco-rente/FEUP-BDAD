@@ -87,8 +87,8 @@
    ```SELECT...```
 
 
-3. Tendo em conta a frequência e o valor da doação recorrente mais recente de cada cliente, estimar o fluxo de entrada
-   esperado nos próximos X dias. (Algoritmo de dados do Tomás) CHECKED
+3. Será útil listar os números de telefone de todos os dadores que tenham "falhado" a sua doação planeada para poderem
+   ser contactados/relembrados. CHECKED, semelhança com futuros apoios
 
    ```SELECT...```
 
@@ -123,8 +123,8 @@
    ```SELECT...```
 
 
-8. Será útil listar os números de telefone de todos os dadores que tenham "falhado" a sua doação planeada para poderem
-   ser contactados/relembrados. CHECKED, semelhança com futuros apoios
+8. Tendo em conta a frequência e o valor da doação recorrente mais recente de cada cliente, estimar o fluxo de entrada
+   esperado nos próximos X dias. (Algoritmo de dados do Tomás) CHECKED
 
    ```SELECT...```
 
