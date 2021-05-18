@@ -52,7 +52,8 @@ VALUES (1, 'Lucy', 'Powers', '561897593', '1957-03-09', '962698077', '2039028 No
        (37, 'Beverly', 'Maxwell', '667289451', '1969-01-14', '921625606', '7458 Nec, St.', 59450903),
        (38, 'Elizabeth', 'Raymond', '913134672', '1985-02-09', '921692689', '7156 Libero Street', 59450903),
        (39, 'Duncan', 'Porter', '167333451', '2017-06-25', '911149362', 'P.O. Box 183, 5684 Ut Ave', 59450903),
-       (40, 'Sybil', 'Kelley', '779255666', '1993-05-02', '1949-07-25', 'Ap #722-7219 Elit. Street', 59450903);
+       (40, 'Sybil', 'Kelley', '779255666', '1993-05-02', '1949-07-25', 'Ap #722-7219 Elit. Street', 59450903),
+       (41, 'Savate', 'Carey', '507776422', '2004-12-20', '956487393', 'Ap #2372644 Lorem. St.', 18009249);
 
 INSERT INTO 'Necessitado' ('id', 'rendimento')
 VALUES (2, 403),
@@ -72,7 +73,8 @@ VALUES (2, 403),
        (26, 73),
        (27, 103),
        (28, 707),
-       (29, 257);
+       (29, 257), 
+       (41, 200);
 
 INSERT INTO 'Abrigo' ('id', 'morada', 'numeroCamas', 'codigoZona')
 VALUES (1, 'P.O. Box 656, 6892 Aliquet St.', 20, 80712126),
@@ -145,10 +147,10 @@ VALUES (1, 'Violência doméstica', 'Alojamento', 9, 6, 7),
        (8, 'Fome', 'Material', 7, 6, 29),
        (9, 'Fome', 'Material', 3, 12, 17),
        (10, 'Incêndio', 'Material', 6, 12, 7),
-
        (11, 'Incêndio', 'Monetário', 1, 6, 7),
        (12, 'Doença', 'Material', 7, 6, 26),
-       (13, 'Incêndio', 'Material', 10, 12, 5);
+       (13, 'Incêndio', 'Material', 10, 12, 5),
+       (14, 'Casa Precária', 'Alojamento', 5, 12, 41);
 
 INSERT INTO 'Produto' ('codigo', 'nome')
 VALUES (1, 'Massa'),

@@ -82,9 +82,8 @@
    ```SELECT...```
 
 
-2. Para cada pedido de apoio, listar os trabalhadores disponíveis mais adequados (contabilizar hora atual), considerando um trabalhador adequado
-   sempre que habite numa zona próxima ou já tenha participado num apoio atribuído a esse necessitado. (Analisar código postal) CHECKED.
-
+2. Para evitar separar famílias, deve ser possível listar as famílias que pediram alojamento para que sejam colocadas no
+   mesmo abrigo. Assim, os pedidos de alojamento devem ser agrupados por morada + localidade. CHECKED
    ```SELECT...```
 
 
@@ -130,8 +129,8 @@
    ```SELECT...```
 
 
-9. Para evitar separar famílias, deve ser possível listar as famílias que pediram alojamento para que sejam colocadas no
-   mesmo abrigo. Assim, os pedidos de alojamento devem ser agrupados por morada + localidade. CHECKED
+9. Para cada pedido de apoio, listar os trabalhadores disponíveis mais adequados (contabilizar hora atual), considerando um trabalhador adequado
+   sempre que habite numa zona próxima ou já tenha participado num apoio atribuído a esse necessitado. (Analisar código postal) CHECKED.
    
    ```SELECT...```
 
