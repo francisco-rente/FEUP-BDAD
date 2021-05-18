@@ -73,7 +73,7 @@
 --- 
 
 
-QUuem fez doações monetárias e não fez de produtos. (left join)
+
 
 ## Interrogações
 
@@ -110,11 +110,9 @@ QUuem fez doações monetárias e não fez de produtos. (left join)
    ```SELECT...```
 
 
-6. - É relevante estudar a distribuição de doações e apoios pelos meses e estações do ano. Concretamente, é importante
-   saber os meses do ano com maior e menor volume de doações, a pessoa que doou mais vezes, a pessoa que doou mais dinheiro à instituição e as pessoa que já tenham doado todos os tipos de produtos. CHECKED
-
-   - É relevante estudar a distribuição de pedidos pelos meses e estações do ano. É relevante saber os meses de maior atividade, bem como o necessitado que inseriu mais pedidos, qual o tipo mais requisitado, quantos foram atribuídos e quantos estão atribuídos a cada prioridade CHECKED
-   
+6. - É relevante estudar a distribuição de doações pelos meses e estações do ano. Concretamente, é importante
+   saber os meses do ano com maior e menor volume de doações, a pessoa que doou mais vezes, a pessoa que doou mais dinheiro à instituição (sem recorrer limit or max) e as pessoa que já tenham doado todos os tipos de produtos.  CHECKED
+   - Quem fez doações monetárias e não fez de produtos. (uso de left join)
 
    ```SELECT...```
 
@@ -138,9 +136,9 @@ QUuem fez doações monetárias e não fez de produtos. (left join)
    ```SELECT...```
 
 
-10. 
+10. É relevante estudar a distribuição de pedidos pelos meses e estações do ano. Convém saber os meses de maior atividade, bem como o necessitado que inseriu mais pedidos, qual o tipo mais requisitado, quantos foram atribuídos e uma contagem relativa à prioridade. CHECKED
 
-```SELECT...```
+   ```SELECT...```
 
 ## Gatilhos
 
