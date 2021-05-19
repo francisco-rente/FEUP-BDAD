@@ -53,7 +53,7 @@ VALUES (1, 'Lucy', 'Powers', '561897593', '1957-03-09', '962698077', '2039028 No
        (38, 'Elizabeth', 'Raymond', '913134672', '1985-02-09', '921692689', '7156 Libero Street', 59450903),
        (39, 'Duncan', 'Porter', '167333451', '2017-06-25', '911149362', 'P.O. Box 183, 5684 Ut Ave', 59450903),
        (40, 'Sybil', 'Kelley', '779255666', '1993-05-02', '1949-07-25', 'Ap #722-7219 Elit. Street', 59450903),
-       (41, 'Savate', 'Carey', '507776422', '2004-12-20', '956487393', 'Ap #2372644 Lorem. St.', 18009249);
+       (41, 'Savate', 'Carey', '507776422', '2004-12-20', '956487393', 'Ap #2372644 Lorem. St.', 84405270);
 
 INSERT INTO 'Necessitado' ('id', 'rendimento')
 VALUES (2, 403),
@@ -150,7 +150,8 @@ VALUES (1, 'Violência doméstica', 'Alojamento', 9, 6, 7),
        (11, 'Incêndio', 'Monetário', 1, 6, 7),
        (12, 'Doença', 'Material', 7, 6, 26),
        (13, 'Incêndio', 'Material', 10, 12, 5),
-       (14, 'Casa Precária', 'Alojamento', 5, 12, 41);
+       (14, 'Casa Precária', 'Alojamento', 5, 12, 41),
+       (15, 'Casa Precária', 'Alojamento', 5, 6, 13);
 
 INSERT INTO 'Produto' ('codigo', 'nome')
 VALUES (1, 'Massa'),
