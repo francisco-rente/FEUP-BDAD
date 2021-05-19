@@ -1,5 +1,5 @@
 /*
-FIXME: Important note:
+FIXME: Important note: Two proposed solutions. Further comparison is required.
 
 When this query was designed, the idea was to consider which (if any) support
 requests could be given with the available resources (money and beds). However,
@@ -75,4 +75,70 @@ WHERE (
                       PA.tipo LIKE 'Monetário'
                       AND (800 - N.rendimento) < saldoDisponivel
                   )
-          )
+          );
+
+-- Selecionar pedidos de alojamento possíveis de satisfazer
+SELECT PA.*
+FROM PedidoApoio PA
+         CROSS JOIN
+     (
+         -- Procurar número de camas disponíveis
+         SELECT (totalCamas - totalCamasOcupadas) AS totalCamasDisponiveis
+         FROM (
+               (
+                   -- O total de camas ocupadas é igual ao total de apoios
+                   -- atribuídos que ainda não terminaram
+                   SELECT COUNT(*) AS totalCamasOcupadas
+                   FROM ApoioAlojamento APA
+                            JOIN Apoio AP ON AP.id = APA.id
+                        -- Considerar apenas os apoios que ainda não terminaram
+                   WHERE AP.dataFim > DATE()
+               )
+                  CROSS JOIN
+              (
+                  -- O total de camas é a soma das camas de todos os abrigos.
+                  SELECT SUM(A.numeroCamas) AS totalCamas
+                  FROM Abrigo A
+              )
+                  )
+              -- Selecionar pedidos apenas quando houver camas disponíveis.
+              -- Ao colocar aqui esta condição, evita-se fazer
+              -- todos os produtos cartesianos
+         WHERE (totalCamasDisponiveis > 0)
+     )
+-- Apenas são relevantes os pedidos de alojamento
+WHERE tipo LIKE 'Alojamento'
+
+UNION
+
+-- Selecionar os pedidos de apoio monetário possíveis de satisfazer
+SELECT PA.*
+FROM PedidoApoio PA
+         -- Será necessário consultar a tabela de necessitados para obter o rendimento
+         JOIN Necessitado N ON PA.pedinte = N.id
+         CROSS JOIN
+     (
+         -- Procurar saldo disponível para a organização
+         SELECT *
+         FROM (
+                  SELECT (valorTotalRecebido - valorTotalGasto) AS saldoDisponivel
+                  FROM (
+                        (
+                            -- O valor total recebido é a soma das doações
+                            SELECT SUM(DM.valor) AS valorTotalRecebido
+                            FROM DoacaoMonetaria DM
+                        )
+                           CROSS JOIN
+                       (
+                           -- O valor total gasto é a soma dos apoios monetários atribuídos
+                           SELECT SUM(AM.valor) AS valorTotalGasto
+                           FROM ApoioMonetario AM
+                       )
+                           )
+              )
+              -- Selecionar pedidos apenas quando houver saldo disponível.
+              -- Ao colocar aqui esta condição, evita-se fazer
+              -- todos os produtos cartesianos
+         WHERE (saldoDisponivel > 0)
+     )
+WHERE (PA.tipo LIKE 'Monetário' AND (800 - N.rendimento) < saldoDisponivel);
