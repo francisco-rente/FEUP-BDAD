@@ -28,7 +28,7 @@ devem ser comparadas com os pedidos de alojamento e o saldo monetário deve ser
 comparado com os pedidos de apoio monetários.
  */
 
-SELECT *
+SELECT PA.*
 FROM PedidoApoio PA
          JOIN Necessitado N ON PA.pedinte = N.id
          CROSS JOIN
