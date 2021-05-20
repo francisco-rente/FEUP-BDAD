@@ -56,9 +56,9 @@ CREATE TABLE Voluntario
 
 CREATE TABLE Orientador
 (
-    id              INTEGER REFERENCES Pessoa (id) ON UPDATE CASCADE ON DELETE CASCADE,
-    horaInicio      REAL NOT NULL,
-    horaFim         REAL NOT NULL,
+    id           INTEGER REFERENCES Pessoa (id) ON UPDATE CASCADE ON DELETE CASCADE,
+    horaInicio   REAL NOT NULL,
+    horaFim      REAL NOT NULL,
     horasDiarias REAL GENERATED ALWAYS AS (horaFim - horaInicio),
     CONSTRAINT horasDiariasCoerentes CHECK (horaInicio < horaFim),
     CONSTRAINT horasValidasInicio CHECK (
@@ -78,7 +78,7 @@ CREATE TABLE Administrador
     horaInicio       REAL    NOT NULL,
     horaFim          REAL    NOT NULL,
     numeroEscritorio INTEGER NOT NULL,
-    horasDiarias  REAL GENERATED ALWAYS AS (horaFim - horaInicio),
+    horasDiarias     REAL GENERATED ALWAYS AS (horaFim - horaInicio),
     CONSTRAINT horasDiariasObrigatorias CHECK (horaInicio < horaFim),
     CONSTRAINT horasValidasInicio CHECK (
             0 <= horaInicio
@@ -95,7 +95,7 @@ CREATE TABLE DoacaoMaterial
 (
     id     INTEGER,
     pessoa INTEGER REFERENCES Pessoa (id) ON UPDATE CASCADE ON DELETE SET NULL,
-    data   DATE NOT NULL,
+    data   DATE    NOT NULL,
     PRIMARY KEY (id)
 );
 
@@ -179,7 +179,7 @@ CREATE TABLE ProdutoVestuario
 CREATE TABLE ProdutoAlimentar
 (
     codigo REFERENCES Produto (codigo) ON UPDATE CASCADE ON DELETE CASCADE,
-    dataValidade DATE NOT NULL,
+    dataValidade DATE    NOT NULL,
     tipo         INTEGER NOT NULL REFERENCES TipoProdutoAlimentar (id) ON UPDATE CASCADE ON DELETE SET NULL,
     PRIMARY KEY (codigo)
 );
@@ -193,7 +193,7 @@ CREATE TABLE TipoProdutoAlimentar
 
 CREATE TABLE Localidade
 (
-    codigo INTEGER,
+    codigo     INTEGER,
     codigoPais INTEGER     NOT NULL REFERENCES Pais (codigo) ON UPDATE CASCADE ON DELETE SET NULL,
     nome       VARCHAR(64) NOT NULL,
     PRIMARY KEY (codigo)
