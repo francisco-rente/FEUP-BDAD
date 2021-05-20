@@ -4,7 +4,13 @@
 
 -- Listar pedidos de alojamento, sendo estes agrupados por morada + localidade
 
-SELECT primeiroNome, ultimoNome, morada, codigoZona, nome
-FROM Pessoa JOIN Localidade ON Pessoa.codigoZona == Localidade.codigo
-WHERE Pessoa.id IN (SELECT pedinte FROM PedidoApoio WHERE tipo LIKE 'Alojamento')
-ORDER BY codigoZona, morada;
+SELECT P.primeiroNome,
+       P.ultimoNome,
+       P.morada,
+       P.codigoZona,
+       L.nome AS localidade
+FROM Pessoa P
+         JOIN Localidade L ON P.codigoZona == L.codigo
+WHERE P.id IN
+      (SELECT pedinte FROM PedidoApoio WHERE tipo LIKE 'Alojamento')
+ORDER BY P.codigoZona, P.morada;
