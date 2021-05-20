@@ -3,6 +3,8 @@
 .headers ON
 .nullvalue NULL
 */
+-- COMBACK: Include all or just closest?
+
 
 SELECT PNov.pedido,
        PNov.nomeNecessitado                                   AS Necessitado,
