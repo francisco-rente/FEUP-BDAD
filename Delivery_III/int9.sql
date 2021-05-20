@@ -5,16 +5,17 @@
 */
 
 SELECT PNov.pedido,
-       PNov.necessitado,
-       PAnt.trabalhador,
-       PNov.cZonaNecessitado,
-       PAnt.cZonaTrabalhador,
-       MIN(ABS(PAnt.cZonaTrabalhador - PNov.cZonaNecessitado)) AS distancia
+       PNov.nomeNecessitado                                   AS Necessitado,
+       PAnt.orientador                                        AS Orientador,
+       PNov.cZonaNecessitado                                  AS 'Zona Necessitado',
+       PAnt.cZonaOrientador                                   AS 'Zona Orientador',
+       MIN(ABS(PAnt.cZonaOrientador - PNov.cZonaNecessitado)) AS Distancia
 FROM (
       (
-          SELECT PA.id        AS pedido,
-                 N.id         AS necessitado,
-                 P.codigoZona AS cZonaNecessitado
+          SELECT PA.id                                 AS pedido,
+                 N.id                                  AS necessitado,
+                 P.primeiroNome || ' ' || P.ultimoNome AS nomeNecessitado,
+                 P.codigoZona                          AS cZonaNecessitado
           FROM PedidoApoio PA
                    JOIN Necessitado N ON N.id = PA.pedinte
                    JOIN Pessoa P ON P.id = N.id
@@ -23,8 +24,8 @@ FROM (
          CROSS JOIN
      (
          SELECT DISTINCT PA.pedinte,
-                         AP.orientador AS trabalhador,
-                         PE.codigoZona AS cZonaTrabalhador
+                         PE.primeiroNome || ' ' || PE.ultimoNome AS orientador,
+                         PE.codigoZona                           AS cZonaOrientador
          FROM Apoio AP
                   JOIN PedidoApoio PA ON AP.pedido = PA.id
                   JOIN Orientador O ON AP.orientador = O.id
