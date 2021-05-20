@@ -7,16 +7,21 @@
 
 SELECT SUM(valorEsperado) AS totalEsperado
 FROM (
-         SELECT frequencia,
-                ceil((JULIANDAY(MAX(data)) + frequencia) - JULIANDAY()) AS diasRestantes,
-                (1 + floor(MAX(0, (500 - ((JULIANDAY(MAX(data)) + frequencia) - JULIANDAY())) /
-                                  DoacaoMonetaria.frequencia))) * valor AS valorEsperado
-         FROM DoacaoMonetaria
+         SELECT DM.frequencia,
+                ceil((JULIANDAY(MAX(data)) + frequencia) -
+                     JULIANDAY()) AS diasRestantes,
+                (1 + floor(MAX(0, (13 -
+                                   ((JULIANDAY(MAX(DM.data)) + DM.frequencia) -
+                                    JULIANDAY())) /
+                                  DM.frequencia))) *
+                DM.valor          AS valorEsperado
+         FROM DoacaoMonetaria DM
          WHERE pessoa NOT NULL
-           AND frequencia NOT NULL
+           AND frequencia > 0
          GROUP BY pessoa
      )
-WHERE diasRestantes >= 0;
+WHERE diasRestantes >= 0
+  AND diasRestantes < 13;
 
 SELECT SUM(valorEsperado)
 FROM (
