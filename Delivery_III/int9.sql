@@ -34,3 +34,4 @@ FROM (
          )
 WHERE PAnt.pedinte = PNov.necessitado
 GROUP BY pedido
+ORDER BY pedido
