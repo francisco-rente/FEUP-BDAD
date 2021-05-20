@@ -4,14 +4,16 @@
 .nullvalue NULL
 */
 
-SELECT PNov.necessitado,
-       PNov.cZonaNecessitado,
+SELECT PNov.pedido,
+       PNov.necessitado,
        PAnt.trabalhador,
+       PNov.cZonaNecessitado,
        PAnt.cZonaTrabalhador,
        MIN(ABS(PAnt.cZonaTrabalhador - PNov.cZonaNecessitado)) AS distancia
 FROM (
       (
-          SELECT N.id         AS necessitado,
+          SELECT PA.id        AS pedido,
+                 N.id         AS necessitado,
                  P.codigoZona AS cZonaNecessitado
           FROM PedidoApoio PA
                    JOIN Necessitado N ON N.id = PA.pedinte
@@ -31,7 +33,4 @@ FROM (
      ) PAnt
          )
 WHERE PAnt.pedinte = PNov.necessitado
-GROUP BY PNov.necessitado
-ORDER BY distancia
-LIMIT 1;
-
+GROUP BY pedido
