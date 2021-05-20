@@ -41,7 +41,9 @@ WHERE tipo LIKE 'Alojamento'
         WHERE (camasDisponiveis > 0)
     )
 
-UNION
+-- Ao utilizar UNION ALL em vez de UNION, evitamos o processo de ordenação para
+-- procurar duplicados que já sabemos não existir.
+UNION ALL
 
 -- Selecionar os pedidos de apoio monetário possíveis de satisfazer
 SELECT PA.*
@@ -73,4 +75,9 @@ FROM PedidoApoio PA
               -- todos os produtos cartesianos
          WHERE (valorDisponivel > 0)
      )
-WHERE (PA.tipo LIKE 'Monetário' AND (800 - N.rendimento) < valorDisponivel);
+WHERE (
+          -- Apenas são relevantes os pedidos de apoio monetário
+              PA.tipo LIKE 'Monetário'
+              -- Considera-se que o apoio máximo atribuído é o necessário para
+              -- que o rendimento do necessitado perfaça 800€.
+              AND (800 - N.rendimento) < valorDisponivel);
