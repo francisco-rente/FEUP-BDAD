@@ -16,5 +16,5 @@ FROM (
          GROUP BY pessoa
      )
          INNER JOIN Pessoa P ON P.id = pessoa
-WHERE JULIANDAY(ultima) + frequencia < JULIANDAY('now')
+WHERE JULIANDAY(ultima) + frequencia < JULIANDAY()
 
