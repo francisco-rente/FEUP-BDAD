@@ -1,0 +1,105 @@
+---.mode columns
+---.headers ON
+---.nullvalue NULL
+
+---Para cada abrigo, calcular um conjunto de estatísticas relevantes sobre os seus habitantes: média de idades, média de
+---rendimentos, nacionalidade mais comum e justificação mais comum para requerer asilo. 
+
+
+
+-- SELECT
+--         CodigoZonaAbrigo2 AS CodigoZonaAbrigo,
+--         AverageAge,
+--         AverageWage,
+--         Nacionalidade,
+--         JustificacaoMaisComum
+-- FROM
+--         (
+--                 (
+--                         SELECT
+--                                 A2.codigoZona AS CodigoZonaAbrigo2,
+--                                 AVG(
+--                                         CEIL((julianday() - julianday(dataNascimento)) / 365)
+--                                 ) AS AverageAge,
+--                                 AVG(Necessitado.rendimento) AS AverageWage,
+--                                 Pais.nome AS Nacionalidade
+--                         FROM
+--                                 PedidoApoio
+--                                 INNER JOIN Apoio ON Apoio.pedido = PedidoApoio.id
+--                                 INNER JOIN ApoioAlojamento ON ApoioAlojamento.id = Apoio.id
+--                                 INNER JOIN Pessoa ON Pessoa.id = PedidoApoio.pedinte
+--                                 INNER JOIN Necessitado ON Pessoa.id = Necessitado.id
+--                                 INNER JOIN Abrigo A2 ON A2.id = ApoioAlojamento.abrigo
+--                                 INNER JOIN Localidade ON Localidade.codigo = Pessoa.codigoZona
+--                                 INNER JOIN Pais ON Pais.codigo = Localidade.codigoPais
+--                         WHERE
+--                                 JULIANDAY(Apoio.dataFim) > JULIANDAY(DATE())
+--                         GROUP BY
+--                                 A2.id
+--                         ORDER BY
+--                                 COUNT(Pais.nome)
+--                 )
+--                 JOIN (
+--                         SELECT
+--                                 A1.codigoZona AS CodigoZonaAbrigo1,
+--                                 PedidoApoio.justificacao AS JustificacaoMaisComum
+--                         FROM
+--                                 PedidoApoio
+--                                 INNER JOIN Apoio ON Apoio.pedido = PedidoApoio.id
+--                                 INNER JOIN ApoioAlojamento ON ApoioAlojamento.id = Apoio.id
+--                                 INNER JOIN Abrigo A1 ON A1.id = ApoioAlojamento.abrigo
+--                         WHERE
+--                                 JULIANDAY(Apoio.dataFim) > JULIANDAY(DATE())
+--                                 AND PedidoApoio.justificacao NOT NULL
+--                         GROUP BY
+--                                 A1.id
+--                         ORDER BY
+--                                 COUNT(PedidoApoio.justificacao)
+--                 ) ON CodigoZonaAbrigo1 = CodigoZonaAbrigo2
+--         );
+
+
+
+
+-- SELECT
+--         A2.codigoZona AS CodigoZonaAbrigo,
+--         AVG(
+--                 CEIL((julianday() - julianday(dataNascimento)) / 365)
+--         ) AS AverageAge,
+--         AVG(Necessitado.rendimento) AS AverageWage,
+--         Pais.nome AS Nacionalidade, 
+--         JustificacaoMaisComum 
+-- FROM
+--         ---INNER JOIN Apoio ON Apoio.pedido = PedidoApoio.id
+--         ---INNER JOIN ApoioAlojamento ON ApoioAlojamento.id = Apoio.id
+--         Pessoa 
+--         INNER JOIN Necessitado ON Pessoa.id = Necessitado.id --tem rendimento e permite ir buscar idade e nacionalidade 
+--         INNER JOIN Localidade ON Localidade.codigo = Pessoa.codigoZona
+--         INNER JOIN Pais ON Pais.codigo = Localidade.codigoPais
+--         INNER JOIN Abrigo A2 ON A2.id = AbrigoDoApoio
+--         INNER JOIN 
+--         (
+--                 ---Escolher informação dos pedidos e justificação mais comum para um determinado abrigo 
+--                 SELECT
+--                         A1.codigoZona AS CodigoZona,
+--                         ApoioAlojamento.abrigo AS AbrigoDoApoio,
+--                         PedidoApoio.justificacao AS JustificacaoMaisComum,
+--                         PedidoApoio.pedinte AS pedinte
+
+--                 FROM
+--                         PedidoApoio
+--                         INNER JOIN Apoio ON Apoio.pedido = PedidoApoio.id
+--                         INNER JOIN ApoioAlojamento ON ApoioAlojamento.id = Apoio.id
+--                         INNER JOIN Abrigo A1 ON A1.id = ApoioAlojamento.abrigo
+--                 WHERE
+--                         JULIANDAY(Apoio.dataFim) > JULIANDAY(DATE())
+--                         AND PedidoApoio.justificacao NOT NULL 
+--                 GROUP BY
+--                         A1.id
+--                 ORDER BY
+--                         COUNT(PedidoApoio.justificacao)
+--         ) ON pedinte = Necessitado.id
+-- GROUP BY
+--         A2.id
+-- ORDER BY
+--         COUNT(Pais.nome)
