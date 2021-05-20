@@ -84,16 +84,16 @@ VALUES (1),
        (12);
 
 SELECT Meses.mes,
-       IFNULL(apoios, 'N/A')                AS apoios,
+       IFNULL(apoios, 0)                    AS apoios,
        IFNULL(prioridadeMedia, 'N/A')       AS prioridadeMedia,
-       IFNULL(doacoesMonetarias, 'N/A')     AS doacoesMonetarias,
+       IFNULL(doacoesMonetarias, 0)         AS doacoesMonetarias,
        IFNULL(montanteRecebido, 'N/A')      AS montanteRecebido,
        IFNULL(montanteMedioRecebido, 'N/A') AS montanteMedioRecebido,
-       IFNULL(apoiosMonetarios, 'N/A')      AS apoiosMonetarios,
+       IFNULL(apoiosMonetarios, 0)          AS apoiosMonetarios,
        IFNULL(montanteGasto, 'N/A')         AS montanteGasto,
        IFNULL(montanteMedioGasto, 'N/A')    AS montanteMedioGasto,
-       IFNULL(doacoesMateriais, 'N/A')      AS doacoesMateriais,
-       IFNULL(apoiosMateriais, 'N/A')       AS apoiosMateriais
+       IFNULL(doacoesMateriais, 0)          AS doacoesMateriais,
+       IFNULL(apoiosMateriais, 0)           AS apoiosMateriais
 FROM (
       Meses
          LEFT JOIN
