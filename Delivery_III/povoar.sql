@@ -266,7 +266,7 @@ VALUES (1, '2020-08-03', '2023-01-23', 1, 19),
 
 INSERT INTO 'ApoioMonetario' ('id', 'valor')
 VALUES (4, 600),
-       (6, 700)
+       (6, 700),
        (9, 500);
 
 
