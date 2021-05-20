@@ -1,6 +1,8 @@
----.mode columns
----.headers ON
----.nullvalue NULL
+/*
+.mode columns
+.headers ON
+.nullvalue NULL
+*/
 
 -- Listar pedidos de alojamento, sendo estes agrupados por morada + localidade
 

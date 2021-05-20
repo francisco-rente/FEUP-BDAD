@@ -1,4 +1,10 @@
 /*
+.mode columns
+.headers ON
+.nullvalue NULL
+*/
+
+/*
 É relevante estudar a distribuição de pedidos pelos meses e estações do ano.
 Convém saber os meses de maior atividade, bem como o necessitado que inseriu
 mais pedidos, qual o tipo mais requisitado, quantos foram atribuídos e uma

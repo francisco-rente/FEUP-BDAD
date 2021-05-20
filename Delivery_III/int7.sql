@@ -1,4 +1,10 @@
 /*
+.mode columns
+.headers ON
+.nullvalue NULL
+*/
+
+/*
 Em relação aos pedidos de apoio pendentes, é importante saber quais deles
 podem ser satisfeitos com os recursos existentes. Assim, as camas restantes
 devem ser comparadas com os pedidos de alojamento e o saldo monetário deve ser
