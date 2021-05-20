@@ -194,7 +194,15 @@ VALUES (1, 'Violência doméstica', 'Alojamento', 9, 6, 7),
        (12, 'Doença', 'Material', 7, 6, 26),
        (13, 'Incêndio', 'Material', 10, 12, 5),
        (14, 'Casa Precária', 'Alojamento', 5, 12, 41),
-       (15, 'Casa Precária', 'Alojamento', 5, 6, 13);
+       (15, 'Casa Precária', 'Alojamento', 5, 6, 13),
+       (16, 'Prédio Caiu', 'Alojamento', 1, 6, 3),
+       (17, 'Prédio Caiu', 'Alojamento', 1, 6, 26), 
+       (18, 'Prédio Caiu', 'Alojamento', 1, 6, 29),
+       (19, 'Prédio Caiu', 'Alojamento', 1, 6, 2),
+       (20, 'Prédio Caiu', 'Alojamento', 1, 6, 5),
+       (21, 'Prédio Caiu', 'Alojamento', 1, 6, 7),
+       (22, 'Prédio Caiu', 'Alojamento', 1, 6, 4),
+       (23, 'Fome', 'Material', 5, 12, 3);
 
 INSERT INTO 'Produto' ('codigo', 'nome')
 VALUES (1, 'Massa'),
@@ -253,11 +261,13 @@ VALUES (1, '2020-08-03', '2023-01-23', 1, 19),
        (5, '2021-07-12', '2022-05-08', 6, 11),
        (6, '2021-10-13', '2022-08-16', 7, 10),
        (7, '2020-11-25', '2022-04-11', 8, 10),
-       (8, '2021-07-11', '2022-11-05', 10, 19);
+       (8, '2021-07-11', '2022-11-05', 10, 19),
+       (9, '2020-10-10', '2020-10-11', 16, 11);
 
 INSERT INTO 'ApoioMonetario' ('id', 'valor')
 VALUES (4, 600),
-       (6, 700);
+       (6, 700)
+       (9, 500);
 
 
 INSERT INTO 'ApoioAlojamento' ('id', 'abrigo')
