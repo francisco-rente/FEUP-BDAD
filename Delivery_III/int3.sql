@@ -12,7 +12,7 @@ FROM (
          SELECT pessoa, frequencia, MAX(data) AS ultima
          FROM DoacaoMonetaria
          WHERE pessoa NOT NULL
-           AND frequencia NOT NULL
+           AND frequencia > 0
          GROUP BY pessoa
      )
          INNER JOIN Pessoa P ON P.id = pessoa
