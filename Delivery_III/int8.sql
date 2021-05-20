@@ -16,4 +16,35 @@ FROM (
            AND frequencia NOT NULL
          GROUP BY pessoa
      )
-WHERE diasRestantes >= 0
+WHERE diasRestantes >= 0;
+
+SELECT SUM(valorEsperado)
+FROM (
+         SELECT valor * doacoesEsperadas AS valorEsperado
+         FROM (
+                  SELECT valor,
+                         1 + floor((13 - diasAteSeguinte) / frequencia) AS doacoesEsperadas
+                  FROM (
+                           SELECT frequencia,
+                                  valor,
+                                  FLOOR(
+                                          JULIANDAY(proximaDoacao) - JULIANDAY()) AS diasAteSeguinte
+                           FROM (
+                                    SELECT frequencia,
+                                           valor,
+                                           DATE(JULIANDAY(ultimaDoacao) + frequencia) AS proximaDoacao
+                                    FROM (
+                                             SELECT frequencia,
+                                                    valor,
+                                                    MAX(data) AS ultimaDoacao
+                                             FROM DoacaoMonetaria DM
+                                             WHERE pessoa NOT NULL
+                                               AND frequencia > 0
+                                             GROUP BY pessoa
+                                         )
+                                    WHERE proximaDoacao >= DATE()
+                                )
+                       )
+                  WHERE diasAteSeguinte <= 13
+              )
+     );
