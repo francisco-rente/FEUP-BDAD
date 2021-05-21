@@ -23,7 +23,7 @@ FROM (
                    JOIN Pessoa P ON P.id = N.id
           WHERE NOT EXISTS(SELECT * FROM Apoio A WHERE A.pedido = PA.id)
       ) PNov
-         CROSS JOIN
+         JOIN
      (
          SELECT DISTINCT PA.pedinte,
                          PE.primeiroNome || ' ' || PE.ultimoNome AS orientador,
@@ -34,7 +34,7 @@ FROM (
                   JOIN Pessoa PE ON AP.orientador = PE.id
          WHERE STRFTIME('%H', 'now') BETWEEN O.horaInicio AND O.horaFim
      ) PAnt
+     ON PAnt.pedinte = PNov.necessitado
          )
-WHERE PAnt.pedinte = PNov.necessitado
 GROUP BY pedido
 ORDER BY pedido
