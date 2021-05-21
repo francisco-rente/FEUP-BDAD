@@ -8,6 +8,6 @@
 
 SELECT *
 FROM PedidoApoio
-WHERE PedidoApoio.id NOT IN (SELECT pedido FROM Apoio WHERE pedido IS NOT NULL)
+WHERE PedidoApoio.id NOT IN (SELECT pedido FROM Apoio)
 ORDER BY tipo, prioridade DESC;
 
