@@ -1,3 +1,4 @@
+-- COMBACK: Pedidos ativos?
 /*
 .mode columns
 .headers ON
