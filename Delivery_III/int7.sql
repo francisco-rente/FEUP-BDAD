@@ -28,7 +28,7 @@ FROM (
                            -- atribuídos que ainda não terminaram
                            SELECT COUNT(*) AS camasOcupadas
                            FROM ApoioAlojamento APA
-                                    JOIN Apoio AP ON AP.id = APA.id
+                                    INNER JOIN Apoio AP ON AP.id = APA.id
                                 -- Considerar apenas os apoios que ainda não terminaram
                            WHERE AP.dataFim > DATE()
                        )

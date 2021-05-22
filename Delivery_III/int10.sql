@@ -32,8 +32,8 @@ FROM (
      (
          SELECT primeiroNome AS necessitadoComMaisPedidos
          FROM PedidoApoio PA
-                  JOIN Necessitado N ON PA.pedinte = N.id
-                  JOIN Pessoa P ON N.id = P.id
+                  INNER JOIN Necessitado N ON PA.pedinte = N.id
+                  INNER JOIN Pessoa P ON N.id = P.id
          GROUP BY PA.pedinte
          ORDER BY COUNT(*)
          LIMIT 1
@@ -107,14 +107,14 @@ FROM (
                 COUNT(AMT.id)           AS apoiosMateriais,
                 COUNT(AAL.id)           AS apoiosAlojamento
          FROM Apoio A
-                  LEFT JOIN ApoioMonetario AMN ON A.id = AMN.id
-                  LEFT JOIN ApoioMaterial AMT ON A.id = AMT.id
-                  LEFT JOIN ApoioAlojamento AAL ON A.id = AAL.id
-                  JOIN PedidoApoio PA ON A.pedido = PA.id
+                  LEFT OUTER JOIN ApoioMonetario AMN ON A.id = AMN.id
+                  LEFT OUTER JOIN ApoioMaterial AMT ON A.id = AMT.id
+                  LEFT OUTER JOIN ApoioAlojamento AAL ON A.id = AAL.id
+                  INNER JOIN PedidoApoio PA ON A.pedido = PA.id
          GROUP BY mes
      ) Apoios
      ON Meses.mes = Apoios.mes
-         LEFT JOIN
+         LEFT OUTER JOIN
      (
          SELECT STRFTIME('%m', data)      AS mes,
                 COUNT(DoacaoMonetaria.id) AS doacoesMonetarias,
@@ -124,7 +124,7 @@ FROM (
          GROUP BY mes
      ) DMonetaria
      ON Meses.mes = DMonetaria.mes
-         LEFT JOIN
+         LEFT OUTER JOIN
      (
          SELECT STRFTIME('%m', data)     AS mes,
                 COUNT(DoacaoMaterial.id) AS doacoesMateriais

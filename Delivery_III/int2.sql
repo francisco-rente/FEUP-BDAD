@@ -12,9 +12,8 @@ SELECT P.primeiroNome,
        P.codigoZona,
        L.nome AS localidade
 FROM Pessoa P
-         JOIN Localidade L ON P.codigoZona == L.codigo
-WHERE P.id IN
-      (SELECT pedinte FROM PedidoApoio WHERE tipo LIKE 'Alojamento')
+         INNER JOIN Localidade L ON P.codigoZona == L.codigo
+WHERE P.id IN (SELECT pedinte FROM PedidoApoio WHERE tipo LIKE 'Alojamento')
 ORDER BY P.codigoZona, P.morada;
 
 -- Esta interrogação também poderia ser feita da seguinte forma.
