@@ -12,17 +12,17 @@ tipos de produtos.
 
 -- COMBACK: How do we join these two queries?
 
--- SELECT PES.primeiroNome || ' ' || PES.ultimoNome, MAX(valorDoado)
--- FROM (
---       (
---           SELECT DMON.pessoa, SUM(DMON.valor) AS valorDoado
---           FROM DoacaoMonetaria DMON
---           GROUP BY pessoa
---       )
---          INNER JOIN Pessoa PES ON PES.id = pessoa
---     );
+SELECT PES.primeiroNome || ' ' || PES.ultimoNome AS Dador, MAX(valorDoado) AS "Máximo doado"
+FROM (
+      (
+          SELECT DMON.pessoa, SUM(DMON.valor) AS valorDoado
+          FROM DoacaoMonetaria DMON
+          GROUP BY pessoa
+      )
+         INNER JOIN Pessoa PES ON PES.id = pessoa
+    );
 
-SELECT PES.primeiroNome || ' ' || PES.ultimoNome
+SELECT PES.primeiroNome || ' ' || PES.ultimoNome AS Dador, COUNT(DISTINCT PROD.codigo) AS "Número de produtos diferentes"
 FROM DoacaoMaterial DMON
          INNER JOIN DoacaoMaterialContemProduto DMCPROD
                     ON DMON.id = DMCPROD.doacao
@@ -30,3 +30,4 @@ FROM DoacaoMaterial DMON
          INNER JOIN Pessoa PES ON PES.id = DMON.pessoa
 GROUP BY DMON.pessoa
 HAVING COUNT(DISTINCT PROD.codigo) = (SELECT COUNT(P.codigo) FROM Produto P)
+

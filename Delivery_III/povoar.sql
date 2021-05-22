@@ -265,7 +265,7 @@ VALUES (1, 'Violência doméstica', 'Alojamento', 9, 6, 7),
        (33, 'Fome', 'Material', 5, 6, 48),
        (34, 'Sem Abrigo', 'Alojamento', 7, 12, 49),
        (35, 'Incêndio', 'Material', 5, 6, 51),
-       (36, 'Sem Abrigo', 'Alojamento', 7, 6, 52); --1     
+       (36, 'Sem Abrigo', 'Alojamento', 7, 6, 51); --1     
 
 INSERT INTO 'Produto' ('codigo', 'nome')
 VALUES (1, 'Massa'),
@@ -395,7 +395,8 @@ VALUES (1, 2),
        (9,13),
        (9,14),
        (9,15),
-       (9,16);
+       (9,16),
+       (9, 1);
 
 
 INSERT INTO 'ApoioMaterialIncluiProduto'('apoio', 'produto')
