@@ -13,9 +13,9 @@ BEGIN
                    RAISE(ABORT,
                          'Esse necessitado já atingiu o limite de pedidos')
                END
-    FROM PedidoApoio PA2
-    WHERE PA2.pedinte = New.pedinte
-      AND PA2.id NOT IN (SELECT pedido FROM Apoio);
+    FROM PedidoApoio PA
+    WHERE PA.pedinte = NEW.pedinte
+      AND PA.id NOT IN (SELECT pedido FROM Apoio);
 END;
 
 
