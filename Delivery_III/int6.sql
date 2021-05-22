@@ -10,6 +10,8 @@ instituição (sem recorrer limit or max) e as pessoa que já tenham doado todos
 tipos de produtos.
 */
 
+-- COMBACK: How do we join these two queries?
+
 SELECT PES.primeiroNome || ' ' || PES.ultimoNome
 FROM (
       (
