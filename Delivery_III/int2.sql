@@ -29,4 +29,5 @@ FROM PedidoApoio PA
          JOIN Pessoa P ON P.id = N.id
          JOIN Localidade L ON L.codigo = P.codigoZona
 WHERE PA.tipo LIKE 'Alojamento';
+ORDER BY P.codigoZona, P.morada;
 */
