@@ -6,14 +6,18 @@
 ---rendimentos, nacionalidade mais comum e justificação mais comum para requerer asilo. 
 SELECT id,
        justificacaoMaisComum,
+       percentagemJustificacoes,
        paisMaisComum,
+       percentagemPais,
        idadeMedia,
        rendimentoMedio
 FROM (
          SELECT AB.id,
-                --MAX(infoJustificacoes.jCount)    AS numeroJustificacoes,
+                100 * MAX(infoJustificacoes.jCount) /
+                SUM(infoJustificacoes.jCount)    AS percentagemJustificacoes,
                 infoJustificacoes.justificacao   AS justificacaoMaisComum,
-                --MAX(infoNacionalidades.pCount)   AS numeroPessoasDoPais,
+                100 * MAX(infoNacionalidades.pCount) /
+                SUM(infoNacionalidades.pCount)   AS percentagemPais,
                 infoNacionalidades.nome          AS paisMaisComum,
                 infoNecessitados.idadeMedia      AS idadeMedia,
                 infoNecessitados.rendimentoMedio AS rendimentoMedio
