@@ -5,18 +5,17 @@
 */
 
 
---Lista os números de telefone de todos os dadores que tenham "falhado" a sua doação planeada 
-
-SELECT primeiroNome || ' ' || ultimoNome AS Dador,
+SELECT primeiroNome || ' ' || ultimoNome AS Dador, -- Concatenar os dois nomes
        numeroTelefone                    AS Contacto,
        morada                            AS Morada
 FROM (
-         SELECT pessoa, frequencia, MAX(data) AS ultima
-         FROM DoacaoMonetaria
-         WHERE pessoa NOT NULL
-           AND frequencia > 0
-         GROUP BY pessoa
-     )
-         INNER JOIN Pessoa P ON P.id = pessoa
-WHERE JULIANDAY(ultima) + frequencia < JULIANDAY()
+         SELECT DM.pessoa, DM.frequencia, MAX(DM.data) AS ultimaDoacao
+         FROM DoacaoMonetaria DM
+         WHERE DM.pessoa NOT NULL -- Apenas doações identificadas.
+           AND DM.frequencia > 0  -- Apenas doações recorrentes.
+         GROUP BY DM.pessoa
+     ) DM
+         -- JOIN depois de SELECT para evitar fazê-lo em todas as linhas.
+         INNER JOIN Pessoa P ON P.id = DM.pessoa
+WHERE JULIANDAY(ultimaDoacao) + frequencia < JULIANDAY()
 
