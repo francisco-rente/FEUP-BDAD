@@ -1,8 +1,8 @@
 /*
-.MODE columns
-.HEADERS ON
-.NULLVALUE NULL
-  */
+.mode columns
+.headers ON
+.nullvalue NULL
+*/
 
 --Escolher pedidos de apoio ainda por atribuir agrupados por tipo e ordenados por prioridade.
 

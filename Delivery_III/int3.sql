@@ -1,8 +1,8 @@
 /*
-.MODE columns
-.HEADERS ON
-.NULLVALUE NULL
- */
+.mode columns
+.headers ON
+.nullvalue NULL
+*/
 
 
 --Lista os números de telefone de todos os dadores que tenham "falhado" a sua doação planeada 
