@@ -15,14 +15,10 @@ SELECT PE.primeiroNome || ' ' || PE.ultimoNome AS Necessitado,
 FROM PedidoApoio PA,
      Abrigo AB
          INNER JOIN Pessoa PE ON PE.id = PA.pedinte
-         CROSS JOIN Abrigo AB
-WHERE PA.tipo LIKE 'Alojamento'
-  AND PA.id NOT IN
-      (
-          SELECT A.pedido
-          FROM ApoioAlojamento AA
-                   INNER JOIN Apoio A ON A.id = AA.id
-      )
+WHERE PA.tipo LIKE 'Alojamento' -- Apenas pedidos de alojamento
+  -- COMBACK: Was this the goal?
+  -- Apenas pedidos não atribuídos
+  AND NOT EXISTS(SELECT pedido FROM Apoio WHERE Apoio.pedido = PA.id)
 GROUP BY pedinte;
 
 
