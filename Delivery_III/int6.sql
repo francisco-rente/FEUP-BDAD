@@ -5,14 +5,26 @@
 */
 
 /*
-É relevante estudar a distribuição de doações pelos meses e estações do ano.
-Concretamente, é importante saber os meses do ano com maior e menor volume de
-doações, a pessoa que doou mais vezes, a pessoa que doou mais dinheiro à
+A a pessoa que doou mais vezes, a pessoa que doou mais dinheiro à
 instituição (sem recorrer limit or max) e as pessoa que já tenham doado todos os
 tipos de produtos.
 */
 
-SELECT *
-FROM (SELECT pessoa FROM DoacaoMonetaria) P1,
-     (SELECT pessoa FROM DoacaoMonetaria) P2
-WHERE P1.pessoa < p2.pessoa
+SELECT PES.primeiroNome || ' ' || PES.ultimoNome
+FROM (
+      (
+          SELECT DMON.pessoa, SUM(DMON.valor) AS valorDoado
+          FROM DoacaoMonetaria DMON
+          GROUP BY pessoa
+      )
+         INNER JOIN Pessoa PES ON PES.id = pessoa
+    );
+
+SELECT PES.primeiroNome || ' ' || PES.ultimoNome
+FROM DoacaoMaterial DMON
+         INNER JOIN DoacaoMaterialContemProduto DMCPROD
+                    ON DMON.id = DMCPROD.doacao
+         INNER JOIN Produto PROD ON PROD.codigo = DMCPROD.produto
+         INNER JOIN Pessoa PES ON PES.id = DMON.pessoa
+GROUP BY DMON.pessoa
+HAVING COUNT(DISTINCT PROD.codigo) = (SELECT COUNT(P.codigo) FROM Produto P)
