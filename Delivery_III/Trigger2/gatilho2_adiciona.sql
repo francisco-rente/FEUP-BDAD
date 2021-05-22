@@ -17,6 +17,7 @@ WHERE ProdutoAlimentar.dataValidade < DATE();
 CREATE TRIGGER trg2
     AFTER INSERT
     ON Produto
+    -- COMBACK: Insert on produto VS produto alimentar
     FOR EACH ROW
 BEGIN
     DELETE
