@@ -10,8 +10,7 @@ CREATE TRIGGER trg3
 BEGIN
     SELECT CASE
                WHEN COUNT(*) = 5 THEN
-                   RAISE(ABORT,
-                         'Esse necessitado já atingiu o limite de pedidos')
+                   RAISE(ABORT, 'O necessitado já atingiu o limite de pedidos.')
                END
     FROM PedidoApoio PA
     WHERE PA.pedinte = NEW.pedinte
@@ -29,7 +28,7 @@ END;
 --         SELECT
 --             PedidoApoio.id FROM PedidoApoio JOIN Apoio ON Apoio.pedido = PedidoApoio.id
 -- );
- 
+
 
 
 
