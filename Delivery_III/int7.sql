@@ -16,35 +16,31 @@ SELECT *
 FROM (
          SELECT PA.*
          FROM PedidoApoio PA
-              -- Apenas são relevantes os pedidos de alojamento
-         WHERE tipo LIKE 'Alojamento'
+         WHERE tipo LIKE 'Alojamento' -- Apenas pedidos de alojamento
            -- Selecionar pedidos apenas quando houver camas disponíveis.
            AND EXISTS(
-             -- Procurar número de camas disponíveis
+             -- Procurar número de camas disponíveis.
                  SELECT (totalCamas - camasOcupadas) AS camasDisponiveis
                  FROM (
                        (
-                           -- O total de camas ocupadas é igual ao total de apoios
-                           -- atribuídos que ainda não terminaram
+                           -- Camas ocupadas = N. pedidos alojamento ativos
                            SELECT COUNT(*) AS camasOcupadas
                            FROM ApoioAlojamento APA
                                     INNER JOIN Apoio AP ON AP.id = APA.id
-                                -- Considerar apenas os apoios que ainda não terminaram
-                           WHERE AP.dataFim > DATE()
+                           WHERE AP.dataFim > DATE() -- Apenas apoios ativos.
                        )
                           CROSS JOIN
                       (
-                          -- O total de camas é a soma das camas de todos os abrigos.
+                          -- Total de camas = Soma de todos os abrigos.
                           SELECT SUM(A.numeroCamas) AS totalCamas
                           FROM Abrigo A
                       )
                           )
-                      -- Devolver apenas quando houver camas disponíveis.
-                 WHERE (camasDisponiveis > 0)
+
+                 WHERE (camasDisponiveis > 0) -- Apenas com camas disponíveis.
              )
 
--- Ao utilizar UNION ALL em vez de UNION, evitamos o processo de ordenação para
--- procurar duplicados que já sabemos não existir.
+           -- UNION ALL em vez de UNION evita ordenação. Já sabemos que não há duplicados (tipo diferente)
          UNION ALL
 
 -- Selecionar os pedidos de apoio monetário possíveis de satisfazer
@@ -54,33 +50,31 @@ FROM (
                   JOIN Necessitado N ON PA.pedinte = N.id
                   CROSS JOIN
               (
-                  -- Procurar saldo disponível para a organização
+                  -- Procurar saldo disponível.
                   SELECT *
                   FROM (
                            SELECT (valorRecebido - valorGasto) AS valorDisponivel
                            FROM (
                                  (
-                                     -- O valor total recebido é a soma das doações
+                                     -- Total recebido = soma doações.
                                      SELECT SUM(DM.valor) AS valorRecebido
                                      FROM DoacaoMonetaria DM
                                  )
                                     CROSS JOIN
                                 (
-                                    -- O valor total gasto é a soma dos apoios monetários atribuídos
+                                    -- Total gasto = soma apoios atribuídos.
                                     SELECT SUM(AM.valor) AS valorGasto
                                     FROM ApoioMonetario AM
                                 )
                                     )
                        )
                        -- Selecionar pedidos apenas quando houver saldo disponível.
-                       -- Ao colocar aqui esta condição, evita-se fazer
-                       -- todos os produtos cartesianos
+                       -- Ao colocar aqui esta condição, evita-se fazer todos os
+                       -- produtos cartesianos
                   WHERE (valorDisponivel > 0)
               )
          WHERE (
-                   -- Apenas são relevantes os pedidos de apoio monetário
-                       PA.tipo LIKE 'Monetário'
-                       -- Considera-se que o apoio máximo atribuído é o necessário para
-                       -- que o rendimento do necessitado perfaça 800€.
+                       PA.tipo LIKE 'Monetário' -- Apenas pedidos monetários
+                   -- Apoio máximo = rendimento - 800
                        AND (800 - N.rendimento) < valorDisponivel))
 ORDER BY prioridade DESC
