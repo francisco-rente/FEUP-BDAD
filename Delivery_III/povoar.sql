@@ -231,7 +231,10 @@ VALUES (1, 'Violência doméstica', 'Alojamento', 9, 6, 7),
        (25, 'Cheias', 'Alojamento', 1, 6, 43),
        (26, 'Cheias', 'Alojamento', 1, 6, 44),
        (27, 'Prédio Caiu', 'Alojamento', 1, 12, 45),
-       (28, 'Prédio Inundado', 'Alojamento', 1, 12, 46);      
+       (28, 'Prédio Inundado', 'Alojamento', 1, 12, 46),
+       (29, 'Fome', 'Material', 1, 12, 7),
+       (30, 'Fome', 'Material', 1, 12, 7),
+       (31, 'Fome', 'Material', 1, 12, 7); --1     
 
 INSERT INTO 'Produto' ('codigo', 'nome')
 VALUES (1, 'Massa'),
