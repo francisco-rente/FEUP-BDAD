@@ -12,11 +12,11 @@ VALUES (18, 40, '2021-11-29');
 INSERT INTO 'DoacaoMaterialContemProduto'('doacao', 'produto')
 VALUES (18, 18);
 
-SELECT ProdutoAlimentar.codigo       AS ProdutoAlimentar,
-       ProdutoAlimentar.dataValidade AS dataValidade,
-       ProdutoAlimentar.tipo         AS tipo,
-       Produto.nome                  AS Nome
+SELECT PA.codigo       AS ProdutoAlimentar,
+       PA.dataValidade AS dataValidade,
+       PA.tipo         AS tipo,
+       P.nome          AS Nome
 
-FROM ProdutoAlimentar
-         JOIN Produto ON Produto.codigo = ProdutoAlimentar.codigo
+FROM ProdutoAlimentar PA
+         JOIN Produto P ON P.codigo = PA.codigo
 --WHERE JULIANDAY(ProdutoAlimentar.dataValidade)  JULIANDAY();

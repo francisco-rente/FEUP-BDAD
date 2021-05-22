@@ -3,14 +3,14 @@ PRAGMA foreign_keys = ON;
 
 ---ver se é preciso incluir a eliminação da Doação? Por não fazer parte???? Ou então vai com o CASCADE
 
-SELECT ProdutoAlimentar.codigo       AS ProdutoAlimentar,
-       ProdutoAlimentar.dataValidade AS dataValidade,
-       ProdutoAlimentar.tipo         AS tipo,
-       Produto.nome                  AS Nome
+SELECT PA.codigo       AS ProdutoAlimentar,
+       PA.dataValidade AS dataValidade,
+       PA.tipo         AS tipo,
+       P.nome          AS Nome
 
-FROM ProdutoAlimentar
-         JOIN Produto ON Produto.codigo = ProdutoAlimentar.codigo
-WHERE ProdutoAlimentar.dataValidade < DATE();
+FROM ProdutoAlimentar PA
+         JOIN Produto P ON P.codigo = PA.codigo
+WHERE PA.dataValidade < DATE();
 
 
 
