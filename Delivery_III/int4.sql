@@ -12,7 +12,8 @@ SELECT PE.primeiroNome || ' ' || PE.ultimoNome AS Necessitado,
        PE.codigoZona                           AS 'Zona Necessitado',
        AB.codigoZona                           AS 'Zona Abrigo',
        MIN(ABS(PE.codigoZona - AB.codigoZona)) AS Distancia
-FROM PedidoApoio PA
+FROM PedidoApoio PA,
+     Abrigo AB
          INNER JOIN Pessoa PE ON PE.id = PA.pedinte
          CROSS JOIN Abrigo AB
 WHERE PA.tipo LIKE 'Alojamento'
