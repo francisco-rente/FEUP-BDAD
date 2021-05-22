@@ -10,7 +10,7 @@ SELECT ProdutoAlimentar.codigo       AS ProdutoAlimentar,
 
 FROM ProdutoAlimentar
          JOIN Produto ON Produto.codigo = ProdutoAlimentar.codigo
-WHERE JULIANDAY(ProdutoAlimentar.dataValidade) < JULIANDAY();
+WHERE ProdutoAlimentar.dataValidade < DATE();
 
 
 
@@ -21,6 +21,6 @@ CREATE TRIGGER trg2
 BEGIN
     DELETE
     FROM ProdutoAlimentar
-    WHERE (JULIANDAY(ProdutoAlimentar.dataValidade) < JULIANDAY());
+    WHERE ProdutoAlimentar.dataValidade < DATE();
 END;
 
