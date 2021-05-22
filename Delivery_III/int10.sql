@@ -11,58 +11,6 @@ mais pedidos, qual o tipo mais requisitado, quantos foram atribuídos e uma
 contagem relativa à prioridade.
  */
 
-SELECT STRFTIME('%m', dataInicio) AS mesInicio, COUNT(*) AS numeroApoios
-FROM Apoio
-GROUP BY mesInicio;
-
-SELECT mesMaiorAtividade,
-       necessitadoComMaisPedidos,
-       tipoDeApoioMaisRequisitado,
-       numeroDePedidos,
-       numeroDeApoiosAtribuidos
-FROM (
-      (
-          SELECT STRFTIME('%m', dataInicio) AS mesMaiorAtividade
-          FROM Apoio
-          GROUP BY mesMaiorAtividade
-          ORDER BY COUNT(*)
-          LIMIT 1
-      )
-         CROSS JOIN
-     (
-         SELECT primeiroNome AS necessitadoComMaisPedidos
-         FROM PedidoApoio PA
-                  INNER JOIN Necessitado N ON PA.pedinte = N.id
-                  INNER JOIN Pessoa P ON N.id = P.id
-         GROUP BY PA.pedinte
-         ORDER BY COUNT(*)
-         LIMIT 1
-     )
-         CROSS JOIN
-     (
-         SELECT tipo AS tipoDeApoioMaisRequisitado
-         FROM PedidoApoio
-         GROUP BY PedidoApoio.tipo
-         ORDER BY COUNT(*)
-         LIMIT 1
-     )
-         CROSS JOIN
-     (
-         SELECT COUNT(*) AS numeroDePedidos
-         FROM PedidoApoio
-     )
-         CROSS JOIN
-     (
-         SELECT COUNT(*) AS numeroDeApoiosAtribuidos
-         FROM Apoio
-     )
-         );
-
-
-SELECT PA.prioridade, COUNT(*) AS numeroApoios
-FROM PedidoApoio PA
-GROUP BY PA.prioridade;
-
 DROP TABLE IF EXISTS Meses;
 CREATE TEMPORARY TABLE Meses
 (
