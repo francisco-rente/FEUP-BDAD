@@ -8,7 +8,7 @@
 -- considerando um abrigo apropriado sempre que não esteja demasiado longe da
 -- área de residência do necessitado.
 
-SELECT PE.primeiroNome || ' ' || PE.ultimoNome AS Necessitado,
+SELECT PE.primeiroNome || ' ' || PE.ultimoNome AS Necessitado, -- Concatenar nomes
        PE.codigoZona                           AS 'Zona Necessitado',
        AB.codigoZona                           AS 'Zona Abrigo',
        MIN(ABS(PE.codigoZona - AB.codigoZona)) AS Distancia
