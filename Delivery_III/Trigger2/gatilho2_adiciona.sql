@@ -3,24 +3,24 @@ PRAGMA foreign_keys = ON;
 
 ---ver se é preciso incluir a eliminação da Doação? Por não fazer parte???? Ou então vai com o CASCADE
 
-SELECT 
-       ProdutoAlimentar.codigo AS ProdutoAlimentar, 
-       ProdutoAlimentar.dataValidade AS dataValidade, 
-       ProdutoAlimentar.tipo AS tipo,
-       Produto.nome AS Nome
-       
-       FROM ProdutoAlimentar JOIN Produto ON  Produto.codigo = ProdutoAlimentar.codigo
-       WHERE JULIANDAY(ProdutoAlimentar.dataValidade) < JULIANDAY();
+SELECT ProdutoAlimentar.codigo       AS ProdutoAlimentar,
+       ProdutoAlimentar.dataValidade AS dataValidade,
+       ProdutoAlimentar.tipo         AS tipo,
+       Produto.nome                  AS Nome
+
+FROM ProdutoAlimentar
+         JOIN Produto ON Produto.codigo = ProdutoAlimentar.codigo
+WHERE JULIANDAY(ProdutoAlimentar.dataValidade) < JULIANDAY();
 
 
 
 CREATE TRIGGER trg2
-AFTER INSERT
+    AFTER INSERT
     ON Produto
-FOR EACH ROW BEGIN
-DELETE FROM
-    ProdutoAlimentar
-WHERE
-    (JULIANDAY(ProdutoAlimentar.dataValidade) < JULIANDAY());
+    FOR EACH ROW
+BEGIN
+    DELETE
+    FROM ProdutoAlimentar
+    WHERE (JULIANDAY(ProdutoAlimentar.dataValidade) < JULIANDAY());
 END;
 

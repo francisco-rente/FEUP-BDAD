@@ -1,6 +1,4 @@
-
-
--- 3. É importante acolher/auxiliar os necessitados o mais prontamente possível. 
+-- 3. É importante acolher/auxiliar os necessitados o mais prontamente possível.
 --   - Impedir que o mesmo necessitado tenha mais do que 5 pedidos de apoio pendentes (sem um apoio atribuído).
 
 
@@ -19,7 +17,6 @@ BEGIN
     WHERE PA2.pedinte = New.pedinte
       AND PA2.id NOT IN (SELECT pedido FROM Apoio);
 END;
-
 
 
 
