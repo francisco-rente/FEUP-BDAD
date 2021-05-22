@@ -66,24 +66,25 @@ GROUP BY PA.prioridade;
 DROP TABLE IF EXISTS Meses;
 CREATE TEMPORARY TABLE Meses
 (
-    mes INTEGER NOT NULL
+    mes  INTEGER NOT NULL,
+    nome TEXT    NOT NULL
 );
 
 INSERT INTO Meses
-VALUES (1),
-       (2),
-       (3),
-       (4),
-       (5),
-       (6),
-       (7),
-       (8),
-       (9),
-       (10),
-       (11),
-       (12);
+VALUES (1, 'Janeiro'),
+       (2, 'Fevereiro'),
+       (3, 'Março'),
+       (4, 'Abril'),
+       (5, 'Maio'),
+       (6, 'Junho'),
+       (7, 'Julho'),
+       (8, 'Agosto'),
+       (9, 'Setembro'),
+       (10, 'Outubro'),
+       (11, 'Novembro'),
+       (12, 'Dezembro');
 
-SELECT Meses.mes,
+SELECT Meses.nome                           AS mes,
        IFNULL(apoios, 0)                    AS apoios,
        IFNULL(prioridadeMedia, 'N/A')       AS prioridadeMedia,
        IFNULL(doacoesMonetarias, 0)         AS doacoesMonetarias,
