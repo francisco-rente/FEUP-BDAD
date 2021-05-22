@@ -111,65 +111,67 @@
    ```SELECT...```
 
 
-6.
-    - É relevante estudar a distribuição de doações pelos meses e estações do
-      ano. Concretamente, é importante saber os meses do ano com maior e menor
-      volume de doações, a pessoa que doou mais vezes, a pessoa que doou mais
-      dinheiro à instituição (sem recorrer limit or max) e as pessoa que já
-      tenham doado todos os tipos de produtos. CHECKED
-    - Quem fez doações monetárias e não fez de produtos. (uso de left join)
+6. Objetivo: A organização poderá querer premiar/agradecer às pessoas que mais contribuiram para a organização. Para tal, seria conveniente ter não só a pessoa que mais dinheiro doou, bem como todas aquelas que contribuiram com todo o tipo de produtos.
+  Método: 
+  - Para o primeiro objetivo, reunimos todas as doações monetárias agrupadas por pessoa, tendo assim pares (id de Pessoa, total doado pela mesma). Basta realizar um JOIN entre o id do doador e pessoa, retirando apenas o tuplo que contém o maior dos valores doados.
+  - Para a estatística de maior diversidade de produtos, seguimos um procedimento semelhante ao anterior e utilizando uma cláusula _HAVING_ para o _GROUP_ by, selecionamos as pessoas que cujas doações incluem todos os códigos de produtos disponíveis atualmente na plataforma).
+
 
 ```SELECT...```
 
 
-7. Em relação aos pedidos de apoio pendentes, é importante saber quais deles
-   podem ser satisfeitos com os recursos existentes. Assim, as camas restantes
+7. Objetivo: Listar os pedidos de apoio pendentes que podem ser satisfeitos com os recursos existentes disponíveis à organização . Assim, as camas restantes
    devem ser comparadas com os pedidos de alojamento e o saldo monetário deve
-   ser comparado com os pedidos de apoio monetários. CHECKED.
+   ser comparado com os pedidos de apoio monetários. 
+   Método: Selecionar todos os tuplos da união duas tabelas:
+   - A primeira compila todos os pedidos de alojamento que podem ser satisfeitos no momento, isto é, quando o número de camas disponíveis é suficiente para alojar mais pessoas. Este cálculo realiza-se através da diferença entre o total de camas(soma do coluna numeroCamas de cada abrigo) e número de camas ocupadas (todos os ApoioAlojamento atribuídos).
+   - A segunda agrega, de uma maenira semelhante à descrita, todos os pedidos de apoio monetário que podem ser satisfeitos no momento, de forma a fazer corresponder o valor angariado pelo necessitado (apoio + rendimento) ao mínimo de 800 euros. O valor disponível calcula-se com a soma de todas as doações monetárias e os apoios monetários já realizados.
 
    ```SELECT...```
 
 
-8. Tendo em conta a frequência e o valor da doação recorrente mais recente de
-   cada cliente, estimar o fluxo de entrada esperado nos próximos X dias. (
-   Algoritmo de dados do Tomás) CHECKED
+8. Objetivo: Tendo em conta a frequência e o valor da doação recorrente mais recente de
+   cada cliente, estimar o fluxo de entrada esperado nos próximos X dias.
+   Método: Arbitrar um valor para o intervalo pretendido (13 p.e.) e calcular o valor esperado das doações realizadas nesse intervalo de tempo. Selecionam-se todas as doações monetárias (com frequência definida), o seu valor, frequência e os dias até à próxima [(data da doação + frequencia) - data atual], mais tarde filtrando apenas aquelas que se enquadram no nosso intervalo. O total esperado é então a soma do produto entre o valor estimado (valor da última doação) e o arrendodamento da soma entre 1 doação efetiva e outras possíveis ocorrências para o intervalo de tempo considerado. 
 
    ```SELECT...```
 
 
-9. Para cada pedido de apoio, listar os trabalhadores disponíveis mais
+9. Objetivo: Para cada pedido de apoio, listar os trabalhadores disponíveis mais
    adequados (contabilizar hora atual), considerando um trabalhador adequado
    sempre que habite numa zona próxima ou já tenha participado num apoio
-   atribuído a esse necessitado. (Analisar código postal) CHECKED.
+   atribuído a esse necessitado.
+   Método: Agrupar numa só tabela todas as pessoas que ainda têm um pedido de apoio por concretizar (não está incluído na coluna pedido de qualquer Apoio) e extrair as suas informações (como o código de zona). Nesta tabela também incluímos todos os orientadores disponíveis no horário atual (utilizando _STRFTIME_ e _BETWEEN_) cujo id já tenha sido incluído num Apoio fornecido ao necessitado em questão. Ficamos assim com uma tabela que parelha o Necessitado com os Orientadores apropriados. Finalmente, para cada pedido não correspondido escolhemos o o par (Necessitado, Orientador) que tem menor diferença entre códigos de zona.
 
    ```SELECT...```
 
 
-10. É relevante estudar a distribuição de pedidos pelos meses e estações do ano.
-    Convém saber os meses de maior atividade, bem como o necessitado que inseriu
-    mais pedidos, qual o tipo mais requisitado, quantos foram atribuídos e uma
-    contagem relativa à prioridade. CHECKED
+10. Objetivo: Para que os funcionários possam obter uma visualização geral da organização, é importante obter dados anuais sobre o seu funcionamento. Uma tabela que sintetize diversas estatísticas como quantidade de apoios e dos seus tipos, prioridade média e o montante gasto por mês, adequa-se a esta finalidade. Se tal informação não estiver disponível é colocada como N/A.
+Método: Criando uma tabela temporárias com os meses do ano é possível utilizar a instrução _LEFT JOIN_ para ter uma tabela organizada por meses, desde que todas as tabelas incluídas na operação os estejam. O cálculo de estatísticas é feita por blocos: o primeiro relativo aos Apoios, nomeadamente montantes gastos e média de prioridades (utilizando _LEFT OUTER JOIN_ para manter a consistência de dados), o segundo relativo às doações monetárias (montantes recebidos, valor agregado) e por fim outro bloco relacionado com as doações materiais.
+
 
 ```SELECT...```
 
 ## Gatilhos
 
-1. De forma a garantir que o valor de cada apoio monetário é comportado pelo
+1. Objetvo :De forma a garantir que o valor de cada apoio monetário é comportado pelo
    valor angariado pela totalidade das doações monetárias, é necessário
    verificar em cada validação deste tipo de pedido de apoio se a quantia que
    está a ser fornecida está de acordo com os limites atuais disponibilizados
-   pela instituição. (ABORTAR A OPERAÇÃO) CHECK
+   pela instituição.
+   Método: Antes de qualquer inserção em ApoioMonetario procurar saber se a diferença entre o total angariado (soma dos valores das doaçãos monetárias) e os gastos (soma dos valores atribuídos em cada ApoioMonetário) é menor que o valor indicado no ApoioMonetario proposto. Caso isto aconteça, a operação é abortada e o utilizador notificado.
    ```CREATE TRIGGER...```
 
-2. A qualidade dos produtos armazenados tem de estar de acordo com os padrões
+2. Objetivo: A qualidade dos produtos armazenados tem de estar de acordo com os padrões
    sanitários básicos, nomeadamente no que diz respeito à data de validade de
    cada unidade. Por esse motivo, cada inserção de um produto deve também
    eliminar das tabelas correspondentes todos aqueles cujo prazo de validade já
-   tenha sido extendido. (ELIMINAR NA TABELA BASE) CHECK
+   tenha sido extendido. 
+   Método: após uma inserção em Produto, se algum produtoAlimentar previamente armazenado na base de dados tenha uma data de validade vencida, é eliminada. As regras _ON DELETE_ garantem que a base de dados é atualizada da forma mais acertada.
    ```CREATE TRIGGER...```
 
-3. É importante acolher/auxiliar os necessitados o mais prontamente possível.
+3. Objetivo: Para não sobrecarregar os funcionários de uma organização e distribuir os recursos e tempo da forma mais adequada possível, um Necessitado não pode requesitar um pedido se ainda tiver 5 pendentes de atribuição.
+  Método: antes de uma inserção em PedidoApoio, verificar se o pedinte em causa tem um número de pedidos por atribuir (que não são referenciados em Apoio) igual a 5. Se tivere, a operação é abortada e o utilizador notificado. 
 
-- Impedir que o mesmo necessitado tenha mais do que 5 pedidos de apoio
-  pendentes (sem um apoio atribuído).
+
   ```CREATE TRIGGER...```

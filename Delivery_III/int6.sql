@@ -12,15 +12,15 @@ tipos de produtos.
 
 -- COMBACK: How do we join these two queries?
 
-SELECT PES.primeiroNome || ' ' || PES.ultimoNome
-FROM (
-      (
-          SELECT DMON.pessoa, SUM(DMON.valor) AS valorDoado
-          FROM DoacaoMonetaria DMON
-          GROUP BY pessoa
-      )
-         INNER JOIN Pessoa PES ON PES.id = pessoa
-    );
+-- SELECT PES.primeiroNome || ' ' || PES.ultimoNome, MAX(valorDoado)
+-- FROM (
+--       (
+--           SELECT DMON.pessoa, SUM(DMON.valor) AS valorDoado
+--           FROM DoacaoMonetaria DMON
+--           GROUP BY pessoa
+--       )
+--          INNER JOIN Pessoa PES ON PES.id = pessoa
+--     );
 
 SELECT PES.primeiroNome || ' ' || PES.ultimoNome
 FROM DoacaoMaterial DMON
