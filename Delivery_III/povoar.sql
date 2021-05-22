@@ -170,9 +170,9 @@ VALUES (30, 2),
 
 INSERT INTO 'Orientador' ('id', 'horaInicio', 'horaFim')
 VALUES (19, 14, 18),
-       (20, 8, 12),
+       (20, 0, 5),
        (10, 10, 14),
-       (11, 18, 20);
+       (11, 18, 23);
 
 INSERT INTO 'Administrador' ('id', 'horaInicio', 'horaFim', 'numeroEscritorio')
 VALUES (12, 14, 18, 1),
