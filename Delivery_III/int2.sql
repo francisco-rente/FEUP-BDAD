@@ -7,8 +7,7 @@
 
 -- Listar pedidos de alojamento, sendo estes agrupados por morada + localidade
 
-SELECT P.primeiroNome,
-       P.ultimoNome,
+SELECT P.primeiroNome || ' ' || P.ultimoNome,
        P.morada,
        P.codigoZona,
        L.nome AS localidade

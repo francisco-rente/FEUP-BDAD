@@ -81,42 +81,33 @@
 
 ## Interrogações
 
-1. Listar pedidos de apoio pendentes, ordenados por prioridade crescente e
-   agrupados por tipo. CHECKED
+1. Objetivo: Listar todos os pedidos de apoio pendentes, ordenados por tipo de forma crescente e por prioridade decrescente.
+  Método: Selecionar todos os ids da tabela PedidoApoio que não estejam listados na coluna pedido da tabela Apoio.
+
+
+2. Objetivo: Para evitar separar famílias, deve ser possível listar as famílias que pediram alojamento para que sejam colocadas no mesmo abrigo. Assim, os pedidos de alojamento devem ser agrupados por morada + localidade. 
+  Método: Selecionar colunas de interesse como o nome e localização (através de um _inner join_ ) de uma pessoa cujo id seja reconhecido na coluna pedinte de um pedido de apoio cuja justificação seja _Alojamento_.
+   ```SELECT...```
+
+
+3. Objetivo: Listar os números de telefone de todos os dadores que tenham "falhado" a sua doação planeada para poderem ser contactados/relembrados, isto é, nos casos em que o prazo definido pela frequência da sua doação mais recente já tenha vencido.
+  Método: Reúnem-se colunas importantes como o nome do dador em causa, o seu telefone e localização. Estes dados obtém-se através da geração de uma tabela que argupa para cada pessoa a última doação válida e a frequência que o dador se comprometeu a cumprir. Por fim, selecionam-se todas as pesoas cuja data da última doação  + os dias de frequência ultrapassem a data atual. A comparação de datas é realizada com a função JULIANDAY.
 
    ```SELECT...```
 
 
-2. Para evitar separar famílias, deve ser possível listar as famílias que
-   pediram alojamento para que sejam colocadas no mesmo abrigo. Assim, os
-   pedidos de alojamento devem ser agrupados por morada + localidade. CHECKED
-   ```SELECT...```
-
-
-3. Será útil listar os números de telefone de todos os dadores que tenham "
-   falhado" a sua doação planeada para poderem ser contactados/relembrados.
-   CHECKED, semelhança com futuros apoios
-
-   ```SELECT...```
-
-
-4.
-    - Para cada pedido de apoio de alojamento, identificar o abrigo mais
-      apropriado, considerando um abrigo apropriado sempre que não esteja
-      demasiado longe da área de residência do necessitado. CHECKED
-
-    - Os resultados devem ser ordenados com base na proximidade entre o pedinte
-      e os restantes habitantes, assumindo que um habitante é próximo de outro
-      sempre que já tenham coabitado. SLOT EXTRA
+4. Objetivo: Para cada pedido de apoio de alojamento que ainda não tenha sido atribuído, escolher um abrigo mais apropriado para cada necessitado. Como critério de adequação é utilizado a distância da localidade da pessoa até às instalações (como métrica é utilizada a diferença entre códigos de zona).
+  Método: selecionar os atributos correspondentes a cada pessoa (_GROUP BY_), nomeadamente o nome e o código de zona, bem como o código de zona de cada abrigo e garantir que é selecionado o tuplo que contém a distância mínima entre códigos. Toda esta informação é agregada através da junção das tabelas pedido de apoio com pessoa (em função do id do Necessitado) e Abrigo, sendo apenas contabilizados os pedidos que não existem no _JOIN_ das tabelas PedidoApoio e Apoio (os pedidos ainda não atribuídos). 
 
 ```SELECT...```
 
 
-5. Para cada abrigo, calcular um conjunto de estatísticas relevantes sobre os
-   seus habitantes: média de idades, média de rendimentos, nacionalidade mais
-   comum e justificação mais comum para requerer asilo. (Verificar visualização
-   dos dadoss) CHECKED
-
+5. Objetivo: Para cada abrigo, calcular um conjunto de estatísticas relevantes sobre os seus habitantes: média de idades, média de rendimentos, nacionalidade mais comum e justificação mais comum para requerer asilo. 
+  Método: um _SELECT_ geral permite recolher a informação angariada. Uma outra seleção agrupa informação encontrada de 3 formas diferentes e realiza um _GROUP BY_ por id de Abrigo:
+  - A justificação mais comum (infoJustificacoes), escolhida a partir da junção entre as tabelas Apoio (apenas para apoios ativos), ApoioAlojamento e PedidoApoio, agrupadas por Abrigo e justifcação. Sendo assim cada par [abrigo, justificação], terá também uma contagem do número de ocorrências, permitindo que o _SELECT_ precedente realize uma filtragem pelo máximo.
+  - O mesmo se aplica à seleção do país mais comum (infoNacionalidades) . A quantidade _JOIN_ necessários é maior, dado que é preciso recuperar informação desde abrigo até à localidade da pessoa/necessitado em questão.
+  - Os cálculos estatísticos (infoNecessitados) a avaliar são incluídos num só _SELECT_: a média de rendimentos e a média de idades aplicam a função _AVG_ às colunas retiradas do conjunto de _INNER JOIN_ que mais uma vez necessitam de interligar as tabelas Abrigo até Pessoa, passando por todas as intermédias, agrupando os resultdaso por abrigo.
+  Todas estas tabelas são reunidas com Abrigo (com o id em comum dos resultados) e por fim são dispostas as colunas com os cálculos. 
    ```SELECT...```
 
 
