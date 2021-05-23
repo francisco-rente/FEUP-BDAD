@@ -7,10 +7,10 @@ INSERT INTO 'ProdutoAlimentar' ('codigo', 'dataValidade', 'tipo')
 VALUES (18, '2022-10-20', 4);
 
 INSERT INTO 'DoacaoMaterial' ('id', 'pessoa', 'data')
-VALUES (18, 40, '2021-11-29');
+VALUES (22, 40, '2021-11-29');
 
 INSERT INTO 'DoacaoMaterialContemProduto'('doacao', 'produto')
-VALUES (18, 18);
+VALUES (22, 18);
 
 SELECT PA.codigo       AS ProdutoAlimentar,
        PA.dataValidade AS dataValidade,
@@ -18,5 +18,6 @@ SELECT PA.codigo       AS ProdutoAlimentar,
        P.nome          AS Nome
 
 FROM ProdutoAlimentar PA
-         JOIN Produto P ON P.codigo = PA.codigo
---WHERE JULIANDAY(ProdutoAlimentar.dataValidade)  JULIANDAY();
+         JOIN Produto P ON P.codigo = PA.codigo;
+--WHERE JULIANDAY(PA.dataValidade) < JULIANDAY();
+--descomentar para aparecerem apenas os que têm validade inferior

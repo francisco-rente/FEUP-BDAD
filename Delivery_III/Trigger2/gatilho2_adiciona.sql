@@ -9,9 +9,9 @@ SELECT PA.codigo       AS ProdutoAlimentar,
        P.nome          AS Nome
 
 FROM ProdutoAlimentar PA
-         JOIN Produto P ON P.codigo = PA.codigo
-WHERE PA.dataValidade < DATE();
-
+         JOIN Produto P ON P.codigo = PA.codigo;
+--WHERE PA.dataValidade < DATE();
+--descomentar para aparecerem apenas os que têm validade inferior
 
 
 CREATE TRIGGER trg2
