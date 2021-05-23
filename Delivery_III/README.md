@@ -1,0 +1,2 @@
+## Aviso
+- Numa tentativa de simular um cenário realista, foram utilizadas funções não determinísticas relacionadas com data/hora para algumas interrogações (designadamente a 3,5,7,8,9 e Trigger 2). Por essa razão, o seu resultado será necessariamente variável, não se garantindo a existência de resultados em data posterior a 2023-01-23.
