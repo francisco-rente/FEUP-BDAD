@@ -1,9 +1,9 @@
+PRAGMA foreign_keys = ON;
 /*
 .mode columns
 .headers ON
 .nullvalue NULL
 */
--- COMBACK: Include all or just closest?
 
 -- Para cada pedido de apoio, listar os trabalhadores disponíveis mais
 --    adequados (contabilizar hora atual), considerando um trabalhador adequado

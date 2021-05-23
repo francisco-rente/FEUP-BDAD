@@ -1,6 +1,7 @@
----.mode columns
----.headers ON
----.nullvalue NULL
+PRAGMA foreign_keys = ON;
+/*.mode columns
+.headers ON
+.nullvalue NULL*/
 
 -- Para cada abrigo, calcular um conjunto de estatísticas relevantes sobre os
 -- seus habitantes: média de idades, média de rendimentos, nacionalidade mais
@@ -23,7 +24,7 @@ FROM (
                 infoNecessitados.rendimentoMedio AS rendimentoMedio
          FROM Abrigo AB
                   INNER JOIN
-              (
+              (--contagem de justificações por abrigo
                   SELECT AB.id, PAP.justificacao, COUNT(*) AS jCount
                   FROM Abrigo AB
                            INNER JOIN ApoioAlojamento APA ON AB.id = APA.abrigo
@@ -34,7 +35,7 @@ FROM (
               ) infoJustificacoes
               ON AB.id = infoJustificacoes.id
                   INNER JOIN
-              (
+              (-- contagem de nacionalidades por abrigo 
                   SELECT AB.id, Pais.nome, COUNT(*) AS pCount
                   FROM Abrigo AB
                            INNER JOIN ApoioAlojamento APA ON AB.id = APA.abrigo
@@ -49,7 +50,7 @@ FROM (
               ) infoNacionalidades
               ON AB.id = infoNacionalidades.id
                   INNER JOIN
-              (
+              (--estatísticas (idades e rendimentos) por abrigo
                   SELECT AB.id,
                          AVG(NES.rendimento) AS rendimentoMedio,
                          floor(

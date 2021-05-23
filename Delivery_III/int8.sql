@@ -1,3 +1,4 @@
+PRAGMA foreign_keys = ON;
 /*
 .mode columns
 .headers ON

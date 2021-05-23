@@ -1,3 +1,4 @@
+PRAGMA foreign_keys = ON;
 /*
 .mode columns
 .headers ON
@@ -16,7 +17,6 @@ FROM PedidoApoio PA,
      Abrigo AB
          INNER JOIN Pessoa PE ON PE.id = PA.pedinte
 WHERE PA.tipo LIKE 'Alojamento' -- Apenas pedidos de alojamento
-  -- COMBACK: Was this the goal?
   -- Apenas pedidos não atribuídos
   AND NOT EXISTS(SELECT pedido FROM Apoio WHERE Apoio.pedido = PA.id)
 GROUP BY pedinte;

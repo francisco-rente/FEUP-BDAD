@@ -1,3 +1,4 @@
+PRAGMA foreign_keys = ON;
 /*
 .mode columns
 .headers ON
@@ -29,7 +30,7 @@ FROM (
                                     INNER JOIN Apoio AP ON AP.id = APA.id
                            WHERE AP.dataFim > DATE() -- Apenas apoios ativos.
                        )
-                          CROSS JOIN
+                          CROSS JOIN -- permite juntar colunas não relacionadas numa só tabela
                       (
                           -- Total de camas = Soma de todos os abrigos.
                           SELECT SUM(A.numeroCamas) AS totalCamas
@@ -48,7 +49,7 @@ FROM (
          FROM PedidoApoio PA
                   -- Será necessário consultar a tabela de necessitados para obter o rendimento
                   JOIN Necessitado N ON PA.pedinte = N.id
-                  CROSS JOIN
+                  CROSS JOIN 
               (
                   -- Procurar saldo disponível.
                   SELECT *

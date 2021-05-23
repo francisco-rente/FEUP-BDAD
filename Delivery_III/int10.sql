@@ -1,3 +1,4 @@
+PRAGMA foreign_keys = ON;
 /*
 .mode columns
 .headers ON
@@ -12,6 +13,8 @@ contagem relativa à prioridade.
  */
 
 DROP TABLE IF EXISTS Meses;
+
+-- Tabela temporária com todos os meses, necessária por sqlite não suportar FULL OUTER JOIN 
 CREATE TEMPORARY TABLE Meses
 (
     mes  INTEGER NOT NULL,
@@ -32,6 +35,7 @@ VALUES (1, 'Janeiro'),
        (11, 'Novembro'),
        (12, 'Dezembro');
 
+-- Se não existem dados sobre uma dada estatística é apresentado N/A
 SELECT Meses.nome                           AS mes,
        IFNULL(apoios, 0)                    AS apoios,
        IFNULL(prioridadeMedia, 'N/A')       AS prioridadeMedia,
@@ -55,12 +59,13 @@ FROM (
                 AVG(valor)              AS montanteMedioGasto,
                 COUNT(AMT.id)           AS apoiosMateriais,
                 COUNT(AAL.id)           AS apoiosAlojamento
-         FROM Apoio A
-                  LEFT OUTER JOIN ApoioMonetario AMN ON A.id = AMN.id
+         FROM Apoio A 
+                  -- LEFT OUTER JOIN garante que nenhum mês é descartado
+                  LEFT OUTER JOIN ApoioMonetario AMN ON A.id = AMN.id 
                   LEFT OUTER JOIN ApoioMaterial AMT ON A.id = AMT.id
                   LEFT OUTER JOIN ApoioAlojamento AAL ON A.id = AAL.id
                   INNER JOIN PedidoApoio PA ON A.pedido = PA.id
-         GROUP BY mes
+         GROUP BY mes -- fazer coincidir com a tabela temporária
      ) Apoios
      ON Meses.mes = Apoios.mes
          LEFT OUTER JOIN

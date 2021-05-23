@@ -1,3 +1,4 @@
+PRAGMA foreign_keys = ON;
 -- 3. É importante acolher/auxiliar os necessitados o mais prontamente possível.
 --   - Impedir que o mesmo necessitado tenha mais do que 5 pedidos de apoio pendentes (sem um apoio atribuído).
 
@@ -19,15 +20,6 @@ END;
 
 
 
--- SELECT
---     *
--- FROM
---     PedidoApoio
--- WHERE
---     PedidoApoio.id NOT IN (
---         SELECT
---             PedidoApoio.id FROM PedidoApoio JOIN Apoio ON Apoio.pedido = PedidoApoio.id
--- );
 
 
 

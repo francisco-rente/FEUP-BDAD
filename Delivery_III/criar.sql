@@ -1,27 +1,27 @@
 -- Drop every existing table to avoid conflicts
-DROP TABLE IF EXISTS Pessoa;
-DROP TABLE IF EXISTS Necessitado;
-DROP TABLE IF EXISTS Voluntario;
-DROP TABLE IF EXISTS Orientador;
-DROP TABLE IF EXISTS Administrador;
-DROP TABLE IF EXISTS DoacaoMaterial;
-DROP TABLE IF EXISTS DoacaoMonetaria;
-DROP TABLE IF EXISTS Apoio;
-DROP TABLE IF EXISTS ApoioMonetario;
 DROP TABLE IF EXISTS ApoioAlojamento;
 DROP TABLE IF EXISTS ApoioMaterial;
-DROP TABLE IF EXISTS Produto;
+DROP TABLE IF EXISTS ApoioMaterialIncluiProduto;
+DROP TABLE IF EXISTS ApoioMonetario;
+DROP TABLE IF EXISTS DoacaoMaterialContemProduto;
+DROP TABLE IF EXISTS DoacaoMaterial;
+DROP TABLE IF EXISTS DoacaoMonetaria;
+DROP TABLE IF EXISTS ProdutoAlimentar;
 DROP TABLE IF EXISTS ProdutoHigiene;
 DROP TABLE IF EXISTS ProdutoVestuario;
-DROP TABLE IF EXISTS ProdutoAlimentar;
+DROP TABLE IF EXISTS Produto;
 DROP TABLE IF EXISTS TipoProdutoAlimentar;
+DROP TABLE IF EXISTS VoluntarioParticipaApoio;
+DROP TABLE IF EXISTS Apoio;
+DROP TABLE IF EXISTS Orientador;
+DROP TABLE IF EXISTS PedidoApoio;
+DROP TABLE IF EXISTS Administrador;
+DROP TABLE IF EXISTS Necessitado;
+DROP TABLE IF EXISTS Voluntario;
+DROP TABLE IF EXISTS Abrigo;
+DROP TABLE IF EXISTS Pessoa;
 DROP TABLE IF EXISTS Localidade;
 DROP TABLE IF EXISTS Pais;
-DROP TABLE IF EXISTS PedidoApoio;
-DROP TABLE IF EXISTS Abrigo;
-DROP TABLE IF EXISTS DoacaoMaterialContemProduto;
-DROP TABLE IF EXISTS ApoioMaterialIncluiProduto;
-DROP TABLE IF EXISTS VoluntarioParticipaApoio;
 
 -- Create the tables
 CREATE TABLE Pessoa

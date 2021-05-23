@@ -1,23 +1,7 @@
+PRAGMA foreign_keys = ON;
+
 
 --Verifica se uma nova doação é realizável tendo em conta o saldo da organização, se não for aborta a oparação.
-SELECT
-    (valorRecebido - valorGasto) AS valorDisponivel
-FROM
-    (
-        (
-            SELECT
-                SUM(DM.valor) AS valorRecebido
-            FROM
-                DoacaoMonetaria DM
-        )
-        CROSS JOIN (
-            SELECT
-                SUM(AM.valor) AS valorGasto
-            FROM
-                ApoioMonetario AM
-        )
-    );
-
 CREATE TRIGGER trg1
     BEFORE INSERT
     ON ApoioMonetario
