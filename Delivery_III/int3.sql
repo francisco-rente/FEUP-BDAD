@@ -17,5 +17,5 @@ FROM (
      ) DM
          -- JOIN depois de SELECT para evitar fazê-lo em todas as linhas.
          INNER JOIN Pessoa P ON P.id = DM.pessoa
-WHERE JULIANDAY(ultimaDoacao) + frequencia < JULIANDAY()
+WHERE JULIANDAY(ultimaDoacao) + frequencia < JULIANDAY();
 

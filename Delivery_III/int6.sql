@@ -47,4 +47,4 @@ FROM
                         Produto P
                 )
         ) DadorMaterial
-    )
+    );

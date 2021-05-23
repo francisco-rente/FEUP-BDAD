@@ -75,6 +75,6 @@ FROM (
               )
          WHERE (
                        PA.tipo LIKE 'Monetário' -- Apenas pedidos monetários
-                   -- Apoio máximo = rendimento - 800
+                   -- Apoio máximo = 800 - rendimento
                        AND (800 - N.rendimento) < valorDisponivel))
-ORDER BY prioridade DESC
+ORDER BY prioridade DESC;

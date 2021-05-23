@@ -5,6 +5,10 @@
 */
 -- COMBACK: Include all or just closest?
 
+-- Para cada pedido de apoio, listar os trabalhadores disponíveis mais
+--    adequados (contabilizar hora atual), considerando um trabalhador adequado
+--    sempre que habite numa zona próxima ou já tenha participado num apoio
+--    atribuído a esse necessitado
 
 SELECT PNov.pedido,
        PNov.nomeNecessitado                                   AS Necessitado,
@@ -37,4 +41,6 @@ FROM (
      ON PAnt.pedinte = PNov.necessitado
          )
 GROUP BY pedido
-ORDER BY pedido
+ORDER BY pedido;
+
+
