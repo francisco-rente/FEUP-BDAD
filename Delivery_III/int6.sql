@@ -1,9 +1,7 @@
 PRAGMA foreign_keys = ON;
-/*
 .mode columns
 .headers ON
 .nullvalue NULL
-*/
 
 /*
 A a pessoa que doou mais vezes, a pessoa que doou mais dinheiro à

@@ -1,9 +1,7 @@
 PRAGMA foreign_keys = ON;
-/*
 .mode columns
 .headers ON
 .nullvalue NULL
-*/
 
 -- Para cada pedido de apoio de alojamento, identificar o abrigo mais apropriado,
 -- considerando um abrigo apropriado sempre que não esteja demasiado longe da

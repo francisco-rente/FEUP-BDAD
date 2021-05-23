@@ -1,4 +1,7 @@
 PRAGMA foreign_keys = ON;
+.mode columns
+.headers ON
+.nullvalue NULL
 SELECT
     (valorRecebido - valorGasto) AS valorDisponivel
 FROM

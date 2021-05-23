@@ -1,5 +1,9 @@
 PRAGMA foreign_keys = ON;
 
+.mode columns
+.headers ON
+.nullvalue NULL
+
 SELECT PA.codigo       AS ProdutoAlimentar,
        PA.dataValidade AS dataValidade,
        PA.tipo         AS tipo,

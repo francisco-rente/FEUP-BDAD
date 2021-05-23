@@ -1,9 +1,7 @@
 PRAGMA foreign_keys = ON;
-/*
 .mode columns
 .headers ON
 .nullvalue NULL
-*/
 
 --Escolher pedidos de apoio ainda por atribuir agrupados por tipo e ordenados por prioridade.
 

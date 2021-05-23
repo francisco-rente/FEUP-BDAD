@@ -1,9 +1,7 @@
 PRAGMA foreign_keys = ON;
-/*
 .mode columns
 .headers ON
 .nullvalue NULL
-*/
 
 /*
 É relevante estudar a distribuição de pedidos pelos meses e estações do ano.

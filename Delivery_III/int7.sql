@@ -1,9 +1,7 @@
 PRAGMA foreign_keys = ON;
-/*
 .mode columns
 .headers ON
 .nullvalue NULL
-*/
 
 /*
 Em relação aos pedidos de apoio pendentes, é importante saber quais deles

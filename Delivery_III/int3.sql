@@ -1,9 +1,7 @@
 PRAGMA foreign_keys = ON;
-/*
 .mode columns
 .headers ON
 .nullvalue NULL
-*/
 
 
 SELECT primeiroNome || ' ' || ultimoNome AS Dador, -- Concatenar os dois nomes

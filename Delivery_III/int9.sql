@@ -1,9 +1,7 @@
 PRAGMA foreign_keys = ON;
-/*
 .mode columns
 .headers ON
 .nullvalue NULL
-*/
 
 -- Para cada pedido de apoio, listar os trabalhadores disponíveis mais
 --    adequados (contabilizar hora atual), considerando um trabalhador adequado

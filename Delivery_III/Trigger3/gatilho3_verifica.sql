@@ -1,4 +1,8 @@
 PRAGMA foreign_keys = ON;
+.mode columns
+.headers ON
+.nullvalue NULL
+
 
 SELECT PA.pedinte AS Necessitado, COUNT(*) AS "Número de pedidos de apoio por atribuir"
     
