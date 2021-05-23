@@ -5,11 +5,11 @@ INSERT INTO 'PedidoApoio' ('id', 'justificacao', 'tipo', 'prioridade',
                            'avaliador', 'pedinte')
 
 
-VALUES (32, 'Doença', 'Monetário', 5, 6, 28);
+VALUES (37, 'Doença', 'Monetário', 5, 6, 28);
 
 
 INSERT INTO 'Apoio' ('id', 'dataInicio', 'dataFim', 'pedido', 'Orientador')
-VALUES (15, '2021-6-1', '2023-01-23', 1, 19);
+VALUES (20, '2021-6-1', '2023-01-23', 37, 19);
 
 INSERT INTO 'ApoioMonetario' ('id', 'valor')
-VALUES (15, 4000);
+VALUES (20, 7000);
