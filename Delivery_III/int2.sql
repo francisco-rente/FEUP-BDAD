@@ -7,13 +7,13 @@ PRAGMA foreign_keys = ON;
 
 -- Listar pedidos de alojamento, sendo estes agrupados por morada + localidade
 
-SELECT P.primeiroNome || ' ' || P.ultimoNome,
+SELECT P.primeiroNome || ' ' || P.ultimoNome AS Nome,
        P.morada,
        P.codigoZona,
        L.nome AS localidade
 FROM Pessoa P
          INNER JOIN Localidade L ON P.codigoZona == L.codigo
-WHERE P.id IN (SELECT pedinte FROM PedidoApoio WHERE tipo LIKE 'Alojamento')
+WHERE P.id IN (SELECT pedinte FROM PedidoApoio WHERE tipo LIKE 'Alojamento') AND P.morada NOT NULL
 ORDER BY P.codigoZona, P.morada;
 
 -- Esta interrogação também poderia ser feita da seguinte forma.
