@@ -6,28 +6,45 @@
 
 /*
 A a pessoa que doou mais vezes, a pessoa que doou mais dinheiro à
-instituição (sem recorrer limit or max) e as pessoa que já tenham doado todos os
-tipos de produtos.
+instituição (sem recorrer limit or max) e a pessoa que já tenha doado todos os produtos.
 */
 
--- COMBACK: How do we join these two queries?
 
-SELECT PES.primeiroNome || ' ' || PES.ultimoNome AS Dador, MAX(valorDoado) AS "Máximo doado"
-FROM (
-      (
-          SELECT DMON.pessoa, SUM(DMON.valor) AS valorDoado
-          FROM DoacaoMonetaria DMON
-          GROUP BY pessoa
-      )
-         INNER JOIN Pessoa PES ON PES.id = pessoa
-    );
-
-SELECT PES.primeiroNome || ' ' || PES.ultimoNome AS Dador, COUNT(DISTINCT PROD.codigo) AS "Número de produtos diferentes"
-FROM DoacaoMaterial DMON
-         INNER JOIN DoacaoMaterialContemProduto DMCPROD
-                    ON DMON.id = DMCPROD.doacao
-         INNER JOIN Produto PROD ON PROD.codigo = DMCPROD.produto
-         INNER JOIN Pessoa PES ON PES.id = DMON.pessoa
-GROUP BY DMON.pessoa
-HAVING COUNT(DISTINCT PROD.codigo) = (SELECT COUNT(P.codigo) FROM Produto P)
-
+SELECT
+    DadorMonetario.nome AS "Dador Monetario",
+    MAX(valorDoado) AS "Valor máximo da doação",
+    DadorMaterial.nome AS "Dador Material",
+    NumeroProdutosDiferentes AS "Número de produtos diferentes doados"
+FROM
+    (
+        (
+            SELECT
+                PES.primeiroNome || ' ' || PES.ultimoNome AS nome,
+                DMON.pessoa,
+                SUM(DMON.valor) AS valorDoado
+            FROM
+                DoacaoMonetaria DMON
+                INNER JOIN Pessoa PES ON PES.id = pessoa
+            GROUP BY
+                pessoa
+        ) DadorMonetario
+        ,(
+            SELECT
+                PES.primeiroNome || ' ' || PES.ultimoNome AS nome,
+                COUNT(DISTINCT PROD.codigo) AS NumeroProdutosDiferentes
+            FROM
+                DoacaoMaterial DMON
+                INNER JOIN DoacaoMaterialContemProduto DMCPROD ON DMON.id = DMCPROD.doacao
+                INNER JOIN Produto PROD ON PROD.codigo = DMCPROD.produto
+                INNER JOIN Pessoa PES ON PES.id = DMON.pessoa
+            GROUP BY
+                DMON.pessoa
+            HAVING
+                COUNT(DISTINCT PROD.codigo) = (
+                    SELECT
+                        COUNT(P.codigo)
+                    FROM
+                        Produto P
+                )
+        ) DadorMaterial
+    )
