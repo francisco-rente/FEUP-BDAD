@@ -1,20 +1,24 @@
 # BDAD PROJECT
 
+A project for the Database course unit of the Master in Informatics and Computing Engineering at FEUP. The project consists of a database model and implementation for a charity institution.
+
+
 ## Members
-- António Ribeiro (up201906761@fe.up.pt)
-- Gabriel Martins (up201906072@fe.up.pt)
-- Tomás Vicente (up201904609@fe.up.pt)
+- António Ribeiro ([@francisco-rente](https://github.com/francisco-rente))
+- Gabriel Martins ([@Gabm-01](https://github.com/Gabm-01))
+- Tomás Vicente ([@tmv11](https://github.com/tmv11))
 
 
-## Short description (PT)
-Pretendemos modelar o funcionamento de uma instituição de caridade.
+## Short description 
 
-A organização dispõe de pessoal (voluntários e contratados), dispersos por diferentes áreas (planeamento, distribuição, etc.) para assegurar os apoios necessários aos diversos grupos (crianças, idosos...).
+We intend to model the operation of a charity organization.
 
-Para cada funcionário, importa conhecer o horário de trabalho e as suas informações de contacto.
+The organization has personnel (volunteers and hired staff) spread across different areas (planning, distribution, etc.) to ensure the necessary support to various groups (children, elderly...).
 
-Os apoios poderão ser de diferentes tipos  (bens essenciais, monetários…) e terão associada uma data de início e o funcionário responsável.
+For each staff member, it is important to know their work schedule and contact information.
 
-É importante armazenar a morada e informações de contacto de cada beneficiário e os apoios a que tem direito (durante quanto tempo).
+The support provided can be of different types (essential goods, monetary...) and will have an associated start date and the responsible staff member.
 
-O funcionamento da instituição é garantido através de doações (monetárias ou de bens…) e fundos estatais. Além disso, a instituição é responsável por todos os contactos com fornecedores.
+It is important to store the address and contact information of each beneficiary and the support they are entitled to (for how long).
+
+The operation of the institution is ensured through donations (monetary or goods...) and government funds. Additionally, the institution is responsible for all contacts with suppliers.
