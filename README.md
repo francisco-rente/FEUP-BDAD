@@ -22,3 +22,5 @@ The support provided can be of different types (essential goods, monetary...) an
 It is important to store the address and contact information of each beneficiary and the support they are entitled to (for how long).
 
 The operation of the institution is ensured through donations (monetary or goods...) and government funds. Additionally, the institution is responsible for all contacts with suppliers.
+
+You can find our project report (in portuguese) [here](./Delivery_III/DeliveryIII.pdf).
